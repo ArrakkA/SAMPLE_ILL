@@ -4,6 +4,6 @@
 <mapper namespace="sample">
 
 	<select id="selectTest" parameterType="hashmap" resultType="hashmap">
-		SELECT CO_DIV, CO_NAME FROM CO_PLACE LIMIT 1
+		SELECT '100' AS CO_DIV, 'TEST' CO_NAME
 	</select>
 </mapper>
