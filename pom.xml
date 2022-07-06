@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cc.greenit</groupId>
 	<artifactId>sample</artifactId>
-	<name>SAMPLE</name>
+	<name>SAMPLE_ILL</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
