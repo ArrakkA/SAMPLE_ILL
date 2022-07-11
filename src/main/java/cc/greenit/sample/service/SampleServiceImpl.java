@@ -22,5 +22,10 @@ public class SampleServiceImpl implements SampleService {
 	public HashMap<String, Object> selectTest(Map<String, Object> params) {
 		return sampleDAO.selectTest(params);
 	}
+
+	@Override
+	public HashMap<String, Object> selectTest2(Map<String, Object> params) {
+		return sampleDAO.selectTest2(params);
+	}
 	
 }

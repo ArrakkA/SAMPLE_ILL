@@ -15,4 +15,9 @@ public class SampleDAO extends AbstractDAO {
 		return (HashMap<String, Object>) selectOne("sample.selectTest", params);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Object> selectTest2(Map<String, Object> params) {
+		return (HashMap<String, Object>) selectOne("sample.selectTest2", params);
+	}
+	
 }

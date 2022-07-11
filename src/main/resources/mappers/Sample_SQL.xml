@@ -6,4 +6,8 @@
 	<select id="selectTest" parameterType="hashmap" resultType="hashmap">
 		SELECT '100' AS CO_DIV, 'TEST' CO_NAME
 	</select>
+
+	<select id="selectTest2" parameterType="hashmap" resultType="hashmap">
+		SELECT #{aaa} AS CO_DIV, #{bbb} CO_NAME
+	</select>
 </mapper>

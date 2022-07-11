@@ -38,7 +38,11 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)
 	public HashMap<String, Object> testDB(HttpServletRequest request, HttpServletResponse response) {
-		HashMap<String, Object> result = sampleService.selectTest(null);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("aaa", "102");
+		params.put("bbb", "TEST");
+		
+		HashMap<String, Object> result = sampleService.selectTest2(params);
 		
 		logger.info(result.get("CO_DIV").toString());
 		logger.info(result.get("CO_NAME").toString());
