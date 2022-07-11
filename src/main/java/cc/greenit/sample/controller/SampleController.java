@@ -31,9 +31,15 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale1, Model model1) {
 		return "test";
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String home(Locale locale2, Model model2) {
+		return "main";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)
