@@ -36,8 +36,8 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String home(Locale locale2, Model model2) {
-		return "main";
+	public String login(Locale locale2, Model model2) {
+		return "home";
 	}
 	
 	
