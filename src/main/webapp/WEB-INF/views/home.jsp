@@ -9,7 +9,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
  </head>
 <body>
-<%@include page="include/navbar.jsp"  %>
+<jsp:include page="./include/navbar.jsp" >
 
 
 <div class ="container">
