@@ -139,7 +139,10 @@
 				</select>
 			</li>
 		</ul>
-		
+	</div>
+	<div class="btnbox">
+		<a>취소</a>
+		<a>완료</a>
 	</div>
 </div>
 
