@@ -30,15 +30,10 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
-        <ul class= "navbar-nav navbar-right my-2 my-lg-0">
-        <li class="nav-item mr-sm-2">
-          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
-        </li>
-        <li class="nav-item my-2 my-sm-0">
-          <a class="nav-link active" aria-current="page" href="/sample/login">로그인</a>
-        </li>
-        </ul>
-    
+      <form class="d-flex" role="search">
+        <a class="nav-link" href="/sample/join">회원가입</a>
+        <a class="nav-link" href="/sample/login">로그인</a>
+      </form>
     </div> 
   </div>
 </nav>

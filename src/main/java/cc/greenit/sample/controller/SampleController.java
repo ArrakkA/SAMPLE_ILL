@@ -40,6 +40,10 @@ public class SampleController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String wellcome(Locale locale1, Model model1) {
+		return "wellcome";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)
