@@ -30,30 +30,36 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <a class="nav-link" href="#">회원가입</a>
-        <a class="nav-link" href="#">로그인</a>
-      </form>
+        <ul class= "navbar-nav navbar-right my-2 my-lg-0">
+        <li class="nav-item mr-sm-2">
+          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
+        </li>
+        <li class="nav-item my-2 my-sm-0">
+          <a class="nav-link active" aria-current="page" href="/sample/login">로그인</a>
+        </li>
+        </ul>
+    
     </div> 
   </div>
 </nav>
+<div class ="container">
+	<div class = "col-lg-4"></div>
+	<div class = "col-lg-4">
+		<div class= "jumbotron" style="padding-top: 20px">
+			<form method="post" action="loginAction.jsp">
+				<h3 style="text-align:center">로그인 화면</h3>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholer="아이디" name="MS_ID" maxlenght="20">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholer="비밀번호" name="MS_PASSWORD" maxlenght="20">
+				</div>
+				<input type="submit" class="btn btn-primary">
+			</form>
+		</div>
+	</div>
+</div>
 
-<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
 <script src="js/bootstrap.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>

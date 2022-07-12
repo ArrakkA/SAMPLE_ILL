@@ -32,7 +32,7 @@
       </ul>
       <form class="d-flex" role="search">
         <a class="nav-link" href="#">회원가입</a>
-        <a class="nav-link" href="#">로그인</a>
+        <a class="nav-link" href="/sample/login">로그인</a>
       </form>
     </div> 
   </div>
