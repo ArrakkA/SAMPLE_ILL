@@ -2,7 +2,7 @@ package memajax;
 
 public class Mem {
 	
-	private String msID;
+	private String msId;
 	private String msPassword;
 	private String msName;
 	private String msSex;
@@ -13,11 +13,11 @@ public class Mem {
 	private String msBirth;
 	
 	
-	public String getMsID() {
-		return msID;
+	public String getMsId() {
+		return msId;
 	}
-	public void setMsID(String msID) {
-		this.msID = msID;
+	public void setMsId(String msId) {
+		this.msId = msId;
 	}
 	public String getMsPassword() {
 		return msPassword;

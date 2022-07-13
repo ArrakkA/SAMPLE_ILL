@@ -42,4 +42,16 @@ public class MemDAO {
 		return -2; //데이터베이스 오류
 	}
 	
+	public int register(Mem msID) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			
+		} catch{
+			
+		}
+		
+	}
 }	
