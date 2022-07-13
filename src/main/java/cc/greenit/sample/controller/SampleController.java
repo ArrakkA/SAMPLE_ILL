@@ -44,7 +44,7 @@ public class SampleController {
 	public String wellcome(Locale locale1, Model model1) {
 		return "wellcome";
 	}
-	
+	 
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)
 	public HashMap<String, Object> testDB(HttpServletRequest request, HttpServletResponse response) {

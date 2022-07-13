@@ -16,7 +16,7 @@
 	</div>
 	<div class="subLine"></div>
 	<div class="joinTitle titleTop">간편회원가입</div>
-	<div class="joinGrayBg">
+	<div class="joinGrayBg col-xs-8">
 		<ul class="joinInfoBox">
 			<li class="infoList">
 				<span class="orangeRed">*</span>
