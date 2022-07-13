@@ -16,13 +16,13 @@
 			 alert("아이디를 입력하세요.")
 			 return;
 		 } else {
-			 sParams["memId"] = memId;
+			 sParams["id"] = memId;
 		 }
 		 if(memPw == "") {
 			 alert("비밀번호를 입력하세요");
 			 return;
 		 } else {
-			 sParams["memPw"]= memPw;
+			 sParams["pw"]= memPw;
 		 }
 		 	MemDAO dao = new MemDAO();
 		 	int result = memDAO.login(mem.getMsId(), mem.getMsPasswaord());
