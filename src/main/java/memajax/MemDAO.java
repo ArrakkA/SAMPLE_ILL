@@ -25,21 +25,21 @@ public class MemDAO {
 	
 	public int login(String msID, String msPassword) {
 		String SQL = "SELECT MS_PASSWORD FROM MS_MAININFO WHERE MS_ID = ?";
-		}try {
+		try{
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, msID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				if(rs.getString(1).equals(msPassword))
-					return 1;
+					return 1; //로그인 성공 
 				else 
-					return 0;
+					return 0; //비번 틀림
 			}
-			return -1;
+			return -1;//아이디 없음
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return -2;
+		return -2; //데이터베이스 오류
 	}
 	
 }	
