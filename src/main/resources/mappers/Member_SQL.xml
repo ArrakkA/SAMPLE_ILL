@@ -6,7 +6,7 @@
 	<select id="selectMember" parameterType="hashmap" resultType="hashmap">
 		SELECT MS_NUM,
 			   MS_id = ${id}
-			   MS_PASSWORD =${pw}
+			   MS_PASSWORD = ${pw}
 			   
 	</select>
 
