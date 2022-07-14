@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cc.greenit.sample.service.MemberService;
 
 @Controller
-@RequestMapping("/sample")
+@RequestMapping("/member")
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -32,15 +32,16 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public HashMap<String, Object> testDB(HttpServletRequest request, HttpServletResponse response) {
+	public HashMap<String, Object> doLogin(HttpServletRequest request, HttpServletResponse response) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("aaa", "102");
-		params.put("bbb", "TEST");
+		HashMap<String, Object> result = memberService.selectMember(params);
+		try { 
 		
-		HashMap<String, Object> result = memberService.selectTest2(params);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		logger.info(result.get("CO_DIV").toString());
-		logger.info(result.get("CO_NAME").toString());
+		
 
 		return result;
 	}

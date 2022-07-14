@@ -19,13 +19,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public HashMap<String, Object> selectTest(Map<String, Object> params) {
-		return memberDAO.selectTest(params);
+	public HashMap<String, Object> selectMember(Map<String, Object> params) {
+		return memberDAO.selectMember(params);
 	}
 
-	@Override
-	public HashMap<String, Object> selectTest2(Map<String, Object> params) {
-		return memberDAO.selectTest2(params);
-	}
+	
 	
 }

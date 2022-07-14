@@ -7,7 +7,10 @@
 <head>
  <jsp:include page="./include/header.jsp" ></jsp:include>
  <script>
-	 $('#login').on("click", function(e){
+	 
+ 
+ $(document).ready(function(){
+	 $('#loginBtn').on("click", function(e){
 		 const memId = $('#mem_id').val();
 		 const memPw = $('#mem_pw').val();
 		 let sParams = {};
@@ -24,20 +27,16 @@
 		 } else {
 			 sParams["pw"]= memPw;
 		 }
-		 	MemDAO dao = new MemDAO();
-		 	int result = memDAO.login(mem.getMsId(), mem.getMsPasswaord());
-		 	
 		 	
 			 $.ajax({
 				 type:'post',
-				 url:'',
+				 url:'/member/login',
 				 datatype:'JSON',
-				 data{},
+				 data: {},
 				 success: function(data, textStatus) {
 					 if(){
 						 
 					 }else {
-						 
 					 }
 				 },
 				 error:function(data, textStatus){
@@ -48,8 +47,8 @@
 			 
 		 
 	 })
+ });
 	 
- 
  </script>
 
  
@@ -63,16 +62,14 @@
 			<div class = "col-lg-4"></div>
 			<div class = "col-lg-4">
 				<div class= "jumbotron" style="padding-top: 20px">
-					<form method="post" action="loginAction.jsp">
 						<h3 style="text-align:center">로그인 화면</h3>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholer="아이디" name="mem_id" maxlenght="20">
+							<input type="text" class="form-control" placeholer="아이디" id="mem_id" maxlenght="20">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholer="비밀번호" name="mem_pw" maxlenght="20">
+							<input type="password" class="form-control" placeholer="비밀번호" id="mem_pw" maxlenght="20">
 						</div>
-						<input type="submit" id="login" class="btn btn-primary">
-					</form>
+						<button id="loginBtn" class="btn btn-primary">로그인</button>
 				</div>
 			</div>
 		</div>

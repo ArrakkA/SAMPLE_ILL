@@ -11,13 +11,9 @@ import cc.greenit.sample.common.dao.AbstractDAO;
 public class MemberDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
-	public HashMap<String, Object> selectTest(Map<String, Object> params) {
-		return (HashMap<String, Object>) selectOne("sample.selectTest", params);
+	public HashMap<String, Object> selectMember(Map<String, Object> params) {
+		return (HashMap<String, Object>) selectOne("member.selectMember", params);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public HashMap<String, Object> selectTest2(Map<String, Object> params) {
-		return (HashMap<String, Object>) selectOne("sample.selectTest2", params);
-	}
 	
 }
