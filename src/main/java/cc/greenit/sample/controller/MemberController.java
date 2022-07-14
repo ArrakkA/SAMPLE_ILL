@@ -31,14 +31,23 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public HashMap<String, Object> doLogin(HttpServletRequest request, HttpServletResponse response) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		HashMap<String, Object> result = memberService.selectMember(params);
-		try { 
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		params.put("id", request.getParameter("id"));
+		params.put("pw", request.getParameter("pw"));
 		
+		
+		try { 	
+			HashMap<String, Object> member = memberService.selectMember(params);
+			
+			result.put("code","0000");
+			
 		}catch(Exception e) {
 			e.printStackTrace();
+			
+			result.put("code","9999");
 		}
 		
 		

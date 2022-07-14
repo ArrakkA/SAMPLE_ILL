@@ -28,27 +28,27 @@
 			 sParams["pw"]= memPw;
 		 }
 		 	
-			 $.ajax({
-				 type:'post',
-				 url:'/member/login',
-				 datatype:'JSON',
-				 data: {},
-				 success: function(data, textStatus) {
-					 if(){
-						 	
-					 }else {
-					 }
-				 },
-				 error:function(data, textStatus){
-					 alert('에러가 났습니다.')
-				 }
-				 
-			 })
-			 
-		 
-	 })
- });
-	 
+		 $.ajax({
+	            type:'get',
+	            url:'/member/login',
+	            dataType:'JSON',
+	            data:{},
+	            success: function(data) {
+	                if(data === '0000') {
+	                 
+	                	alert('로그인에 성공하였습니다')
+	                	location.herf="/sample/home"
+	                } else {
+	                    alert('아이디 및 비밀번호가 일치하지 않습니다')
+	                }
+	            },
+	            error:function (data) {
+	                console.log('error');
+	            }
+	        })
+ 	})
+ 	
+ })
  </script>
 
  
@@ -64,10 +64,10 @@
 				<div class= "jumbotron" style="padding-top: 20px">
 						<h3 style="text-align:center">로그인 화면</h3>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholer="아이디" id="mem_id" maxlenght="20">
+							<input type="text" class="form-control" placeholder="아이디" id="mem_id" maxlenght="20">
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholer="비밀번호" id="mem_pw" maxlenght="20">
+							<input type="password" class="form-control" placeholder="비밀번호" id="mem_pw" maxlenght="20">
 						</div>
 						<button id="loginBtn" class="btn btn-primary">로그인</button>
 				</div>

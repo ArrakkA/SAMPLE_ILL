@@ -5,8 +5,10 @@
 
 	<select id="selectMember" parameterType="hashmap" resultType="hashmap">
 		SELECT MS_NUM,
-			   MS_id = #{id}
-			   MS_PASSWORD = #{pw}
+			   MS_ID = #[id],
+			   MS_PASSWORD = #[pw]
+		
+			   FROM MS_MAININFO
 			   
 	</select>
 
