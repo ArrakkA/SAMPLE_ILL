@@ -38,8 +38,8 @@ public class MemberController {
 		params.put("id", request.getParameter("id"));
 		params.put("pw", request.getParameter("pw"));
 		
-		
 		try { 	
+			
 			HashMap<String, Object> member = memberService.selectMember(params);
 			
 			result.put("code","0000");
@@ -54,4 +54,5 @@ public class MemberController {
 
 		return result;
 	}
+	
 }

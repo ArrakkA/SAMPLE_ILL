@@ -87,11 +87,12 @@
 				$.ajax({
 
 					  type:'post',
-					  url:'요청할 url',
+					  url:'/member/join',
 					  data:{서버로 전송할 데이터},
 					  dataType: 'json',
 					  success: {
-					      location.href="/sample/home"
+						  
+					      location.href="/sample/login"
 					  },
 					  error : function(xhr,status,error) {
 					      //오류 발생 시 처리

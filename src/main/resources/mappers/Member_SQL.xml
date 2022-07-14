@@ -4,12 +4,33 @@
 <mapper namespace="member">
 
 	<select id="selectMember" parameterType="hashmap" resultType="hashmap">
-		SELECT MS_NUM,
-			   MS_ID = #[id],
-			   MS_PASSWORD = #[pw]
-		
-			   FROM MS_MAININFO
-			   
+	select ms_num, ms_id = ${id} , MS_PASSWORD= ${pw}  FROM MS_MAININFO
 	</select>
 
+
+
+	<insert id="insertMember" parameterType="hashmap">
+		INSERT INTO MS_MAININFO(
+			   MS_NUM,
+			   MS_ID,
+			   MS_PASSWORD,
+			   MS_NAME,
+			   MS_SEX,
+			   MS_BIRTH,
+			   MS_FIRST_PHONE,
+			   MS_MID_PHONE,
+			   MS_LASTPHONE,
+			   SMS_CHK1,
+			   MS_BLANK,
+			   MS_HOMEADDR1,
+			   MS_HOMEADDR2,
+			   MS_REGDAY,
+			   INPUT_STAFF,
+			   INPUT_DATETIME,
+			   INPUT_IP,
+			   UPDATE_STAFF,
+			   UPDATE_DATETIME,
+			   UPDATE_IP )         VALUE(  )	   
+		
+	</insert>
 </mapper>
