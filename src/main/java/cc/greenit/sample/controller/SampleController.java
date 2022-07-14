@@ -30,20 +30,26 @@ public class SampleController {
 		this.sampleService = sampleService;
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale1, Model model1) {
-		return "test";
+		return "index";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale2, Model model2) {
-		return "home";
+		return "login";
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String wellcome(Locale locale1, Model model1) {
-		return "wellcome";
+		return "join";
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Locale locale1, Model model1) {
+		return "test";
+	}
+	
 	 
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)

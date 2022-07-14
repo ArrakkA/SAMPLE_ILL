@@ -91,7 +91,7 @@
 					  data:{서버로 전송할 데이터},
 					  dataType: 'json',
 					  success: {
-					      //정상 요청, 응답 시 처리 작업
+					      location.href="/sample/home"
 					  },
 					  error : function(xhr,status,error) {
 					      //오류 발생 시 처리
