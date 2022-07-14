@@ -42,7 +42,11 @@ public class MemberController {
 			
 			HashMap<String, Object> member = memberService.selectMember(params);
 			
-			result.put("code","0000");
+			if(member != null) {
+				result.put("code","0000");
+			} else {
+				result.put("code", "1111");
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
