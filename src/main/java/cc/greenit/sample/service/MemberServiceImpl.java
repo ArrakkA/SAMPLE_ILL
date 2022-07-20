@@ -22,7 +22,11 @@ public class MemberServiceImpl implements MemberService {
 	public HashMap<String, Object> selectMember(Map<String, Object> params) {
 		return memberDAO.selectMember(params);
 	}
-
+	
+	@Override
+	public HashMap<String, Object> insertMember(Map<String, Object> params) {
+		return memberDAO.insertMember(params);
+	}
 	
 	
 }

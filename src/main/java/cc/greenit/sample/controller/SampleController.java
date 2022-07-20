@@ -50,6 +50,10 @@ public class SampleController {
 		return "test";
 	}
 	
+	@RequestMapping(value = "/reserv", method = RequestMethod.GET)
+	public String reservation(Locale locale1, Model model1) {
+		return "reservation";
+	}
 	 
 	@ResponseBody
 	@RequestMapping(value = "/testDB", method = RequestMethod.GET)

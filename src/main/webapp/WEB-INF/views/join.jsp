@@ -4,19 +4,22 @@
 <html>
 <head>
 	<jsp:include page="./include/header.jsp" ></jsp:include>
+	<jsp:include page="./include/map.jsp"></jsp:include>
+	
 	<script>
 		$(document).ready(function(){
 			$('#saveBtn').on('click' function(e){
-				const memId
-				const memPw
-				const memChKPw
-				const memName
-				const memPhoneF
-				const memPhoneM
-				const memPhoneL
-				const memAdrrs
-				const memSex
-				const memBirth
+				const memId;
+				const memPw;
+				const memChKPw;
+				const memName;
+				const memPhoneF;
+				const memPhoneM;
+				const memPhoneL;
+				const memAdrrs1;
+				const memAdrrs2;
+				const memSex;
+				const memBirth;
 				let sParams = {};
 				
 				if(memId == ""){
@@ -174,11 +177,15 @@
 			</ul>
 			<ul class="joinInfoBox">
 				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 지역
 				</li>
 				<li>
-					<input type="text" id="homeaddr0" style="width:700px">
+				<input type="text" id="sample4_postcode" placeholder="우편번호">
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="memAdrrs1" placeholder="도로명주소">
+				<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+				<span id="guide" style="color:#999;display:none"></span>
+				<input type="text" id="memAddrs2" placeholder="상세주소">
+				<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">

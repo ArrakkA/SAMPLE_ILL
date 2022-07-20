@@ -14,7 +14,6 @@
 	</select>
 
 
-
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MS_MAININFO(
 			   MS_NUM,
@@ -36,7 +35,27 @@
 			   INPUT_IP,
 			   UPDATE_STAFF,
 			   UPDATE_DATETIME,
-			   UPDATE_IP )         VALUE(  )	   
-		
+			   UPDATE_IP )         VALUE( #{id},
+			   							  #{pw},
+			   							  #{mName},
+			   							  #{mSex},
+			   							  #{mBirth},
+			   							  #{mFPhone},
+			   							  #{mMPhone},
+			   							  #{mLPhone},
+			   							  #{smsChk},
+			   							  1,
+			   							  #{hTell},
+			   							  #{hZip},
+			   							  #{hAddr1},
+			   							  #{hAddr2},
+			   							  #{mRegDay},
+			   							  now(),
+			   							  now(),
+			   							  #{mIp},
+			   							  now(),
+			   							  now(),
+			   							  #{mIP}      )	   
 	</insert>
+	
 </mapper>

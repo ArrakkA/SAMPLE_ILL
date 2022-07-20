@@ -15,5 +15,10 @@ public class MemberDAO extends AbstractDAO {
 		return (HashMap<String, Object>) selectOne("member.selectMember", params);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Object> insertMember(Map<String, Object> params) {
+		return (HashMap<String, Object>) insert("member.selectMember", params);
+	}
+	
 	
 }

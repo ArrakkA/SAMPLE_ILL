@@ -59,4 +59,27 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public HashMap<String, Object> doRegister(HttpServletRequest request, HttpServletResponse response) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		params.put("id", request.getParameter("id"));
+		params.put("pw", request.getParameter("pw"));
+		
+		try { 	
+			
+			HashMap<String, Object> register = memberService.insertMember(params);
+
+			result.put("code", "0001");
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			result.put("code","0002");
+		}
+		
+		
+
+		return result;
+	}
 }
