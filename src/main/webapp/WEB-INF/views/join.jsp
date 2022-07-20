@@ -30,7 +30,7 @@
 				let sParams = {};
 				
 				
-				conlsole.log(memId)
+				console.log(memId)
 				
 				if(memId == ""){
 					alert("아이디를 입력해주세요")
