@@ -69,11 +69,9 @@ public class MemberController {
 		try { 	
 			
 			HashMap<String, Object> register = memberService.insertMember(params);
-
 			result.put("code", "0001");
 			
 		}catch(Exception e) {
-			
 			e.printStackTrace();
 			result.put("code","0002");
 		}

@@ -8,41 +8,59 @@
 	
 	<script>
 		$(document).ready(function(){
-			$('#saveBtn').on('click' function(e){
-				const memId;
-				const memPw;
-				const memChKPw;
-				const memName;
-				const memPhoneF;
-				const memPhoneM;
-				const memPhoneL;
-				const memAdrrs1;
-				const memAdrrs2;
-				const memSex;
-				const memBirth;
+			
+		async function getIP() {
+			
+			
+			$.getJSON('https://api.ipify.org?format=jsonp&callback=?').then((data)=>{
+		        let ip = [] ;
+		        ip = data.ip;
+		        
+			$('#saveBtn').on('click', function(e){
+				const memId = $('#m_id').val;
+				const memPw = $('#m_password').val;
+				const memChKPw = $('#m_password_chk').val;
+				const memName = $('#m_name').val;
+				const memPhoneF= $('#m_first_phone1').val;
+				const memPhoneM = $('#m_mid_phone1').val;
+				const memPhoneL = $('#m_last_phone1').val;
+				const memAddrs1 = $('#memAddrs1').val;
+				const memAddrs2 = $('#memAddrs2').val;
+				const memSex = $('#m_sex').val;
+				const memBirth = $('#mbirth').val;
+				const mIP = ip; 
 				let sParams = {};
+				
+				
+				conlsole.log(memId)
 				
 				if(memId == ""){
 					alert("아이디를 입력해주세요")
 					return;
 				}else{
 					sParams["id"] = memId;
+					
 				}
 				
 				if(memPw == ""){
 					alert("비밀번호를 입력해주세요")
 					return;
 				}else{
-					sParams["pw"] = memId;
+					sParams["pw"] = memPw;
 				}
 				
 				if(memChKPw == ""){
-					alert("비밀번호를 한번더 입력해주세요")
+					alert("비밀번호를 잘못입력하시거나 확인비밀번호를 입력해주세요")
 					return;
 				}else{
 					
 				}
-				
+				if(memName == ""){
+					alert("이름을 입력해주세요")
+					return;
+				}else{
+					sParams["name"] = memName
+				}
 				if(memPhoneF == ""){
 					alert("핸드폰 앞 번호를 입력해주세요")
 					return;
@@ -63,12 +81,16 @@
 				}else{
 					sParams["phoneL"] = memPhoneL;
 				}
-				
-				if(memAdrrs == ""){
-					alert("주소를 입력해주세요")
+				if(memAddrs1 == ""){
+					alert("우편번호 및 도로명주소를 입력해주세요")
 					return;
 				}else{
-					sParams["addr1"] = memAddrs;
+					sParams["hAddr1"] = memAddrs1;
+				}
+				if(memAddrs2 == ""){
+					alert("상세주소를 입력해주세요")
+				}else{
+					sParams["hAddr2"] = memAddrs2;
 				}
 				if(memSex == "선택"){
 					alert("성별을 선택해주세요")
@@ -84,29 +106,44 @@
 				}
 				
 				
-				
-				
-				
 				$.ajax({
 
 					  type:'post',
 					  url:'/member/join',
-					  data:{서버로 전송할 데이터},
-					  dataType: 'json',
-					  success: {
+					  data:{
 						  
+						  id : sParams["id"],
+						  pw : sParams["pw"],
+						  name : sParams["name"],
+						  sex : sParams["sex"],
+						  birth : sParams["birth"],
+						  phoneF : sParams["phoneF"],
+						  phoneM : sParams["phoneM"],
+						  phoneL : sParams["phoneL"],
+						  smsChk : sParams["smsChk"],
+						  hAddrs1 : sParams["hAddr1"],
+						  hAddrs2 : sParams["hAddr2"],
+						  mIP : mIP
+						  
+						  
+					  },
+					  dataType: 'json',
+					  success: function(data){
+						  alert("회원가입에 성공하셨습니다.")
 					      location.href="/sample/login"
+					      console.log(data)
 					  },
-					  error : function(xhr,status,error) {
-					      //오류 발생 시 처리
-					  },
-					  complete:function(data,textStatus) {
-					      //작업 완료 후 처리
+					  error : function(data){
+					      alert("오류가 발생하였습니다.")
+					      console.log(data)
 					  }
 					});
 				
-			})
+			});
 		});
+	};	
+	});
+
 	</script>
 </head>
 <body>
@@ -128,7 +165,7 @@
 					 아이디
 				</li>
 				<li>
-					<input type="text" class="ms_id" class="idInput">
+					<input type="text" id="m_id" class="idInput">
 					<button id="chkIdBtn" class= "btn btn-outline-warning">중복확인</button>
 				</li>
 			</ul>
@@ -138,7 +175,7 @@
 					 비밀번호
 				</li>
 				<li>
-					<input type="text" class="ms_password" class="passInput">
+					<input type="text" id="m_password" class="passInput">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -147,7 +184,7 @@
 					 비밀번호확인
 				</li>
 				<li>
-					<input type="text" class="ms_id" class="idInput">
+					<input type="text" id="m_password_chk" class="idInput">
 				</li>
 			</ul>
 			<div>
@@ -159,7 +196,7 @@
 					이 름
 				</li>
 				<li>
-					<input type="text" id="name" style="width:318px">
+					<input type="text" id="m_name" style="width:200px">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -168,20 +205,22 @@
 					 핸드폰
 				</li>
 				<li>
-					<input type="text" id="first_phone1" style="width:90px; margin-right: 5px;" >
+					<input type="text" id="m_first_phone1" style="width:90px; margin-right: 5px;" >
 					- 	
-					<input type="text" id="mid_phone1" style="width:100px; margin-right: 5px;" >
+					<input type="text" id="m_mid_phone1" style="width:100px; margin-right: 5px;" >
 					- 
-					<input type="text" id="last_phone1" style="width:100px;" >
+					<input type="text" id="m_last_phone1" style="width:100px;" >
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
 				<li class="infoList">
+					<span class="orangeRed">*</span>
+					 지역
 				</li>
 				<li>
 				<input type="text" id="sample4_postcode" placeholder="우편번호">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="memAdrrs1" placeholder="도로명주소">
+				<input type="text" id="memAddrs1" placeholder="도로명주소">
 				<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" id="memAddrs2" placeholder="상세주소">
@@ -194,7 +233,7 @@
 					 성별
 				</li>
 				<li>
-					<select name="selsex" id="ms_sex" class="select-arrow">
+					<select name="selsex" id="m_sex" class="select-arrow">
 						<option value>선택</option>
 						<option value="01">남</option>
 						<option value="02">여</option>
@@ -210,8 +249,12 @@
 					<input type="text" id="mbirth" placeholder=" YYYYmmdd " style"width:400px">
 				</li>
 			</ul>
+			<div class="custom-control custom-checkbox mb-3">
+			<input type="checkbox" class="custom-control-input" id="aggrement" required>
+            <label class="custom-control-label" for="aggrement">sns에 정보를 받으시겠습니까?</label>
+            </div>
 		</div>
-		<div class="btnbox">
+		<div class="btnbox mb-4">
 			<button id="closeBtn" class="btn btn-outline-secondary">취소</button>
 			<button id="saveBtn" class="btn btn-outline-primary">확인</button>
 		</div>
