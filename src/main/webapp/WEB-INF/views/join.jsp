@@ -9,8 +9,6 @@
 	<script>
 		$(document).ready(function(){
 			
-		async function getIP() {
-			
 			
 			$.getJSON('https://api.ipify.org?format=jsonp&callback=?').then((data)=>{
 		        let ip = [] ;
@@ -140,8 +138,7 @@
 					});
 				
 			});
-		});
-	};	
+		});	
 	});
 
 	</script>
