@@ -35,7 +35,7 @@
 			   INPUT_IP,
 			   UPDATE_STAFF,
 			   UPDATE_DATETIME,
-			   UPDATE_IP )         VALUE( #{id},
+			   UPDATE_IP )         VALUES( #{id},
 			   							  #{pw},
 			   							  #{name},
 			   							  #{sex},

@@ -13,26 +13,26 @@
 	 $('#loginBtn').on("click", function(e){
 		 const memId = $('#mem_id').val();
 		 const memPw = $('#mem_pw').val();
-		 let sParams = {};
+		 let params = {};
 		 
 		 if(memId == "") {
 			 alert("아이디를 입력하세요.")
 			 return;
 		 } else {
-			 sParams["id"] = memId;
+			 params["id"] = memId;
 		 }
 		 if(memPw == "") {
 			 alert("비밀번호를 입력하세요");
 			 return;
 		 } else {
-			 sParams["pw"]= memPw;
+			 params["pw"]= memPw;
 		 }
 		 	
 		 $.ajax({
 	            type:'get',
 	            url:'/member/login',
 	            dataType:'JSON',
-	            data:sParams,
+	            data: params,
 	            success: function(data) {
 	                if(data.code === '0000') {
 	                 

@@ -17,7 +17,7 @@ public class MemberDAO extends AbstractDAO {
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Object> insertMember(Map<String, Object> params) {
-		return (HashMap<String, Object>) insert("member.selectMember", params);
+		return (HashMap<String, Object>) insert("member.insertMember", params);
 	}
 	
 	

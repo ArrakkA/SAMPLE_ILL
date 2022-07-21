@@ -29,7 +29,7 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById('memZip').value = data.zonecode;
                 document.getElementById("memAddrs1").value = roadAddr;
                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
                 

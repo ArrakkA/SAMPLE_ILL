@@ -15,28 +15,27 @@
 		        ip = data.ip;
 		        
 			$('#saveBtn').on('click', function(e){
-				const memId = $('#m_id').val;
-				const memPw = $('#m_password').val;
-				const memChKPw = $('#m_password_chk').val;
-				const memName = $('#m_name').val;
-				const memPhoneF= $('#m_first_phone1').val;
-				const memPhoneM = $('#m_mid_phone1').val;
-				const memPhoneL = $('#m_last_phone1').val;
-				const memAddrs1 = $('#memAddrs1').val;
-				const memAddrs2 = $('#memAddrs2').val;
-				const memSex = $('#m_sex').val;
-				const memBirth = $('#mbirth').val;
+				const memId = $('#m_id').val();
+				const memPw = $('#m_password').val();
+				const memChKPw = $('#m_password_chk').val();
+				const memName = $('#m_name').val();
+				const memPhoneF= $('#m_first_phone1').val();
+				const memPhoneM = $('#m_mid_phone1').val();
+				const memPhoneL = $('#m_last_phone1').val();
+				const memAddrs1 = $('#memAddrs1').val();
+				const memAddrs2 = $('#memAddrs2').val();
+				const memSex = $('#m_sex').val();
+				const memBirth = $('#mbirth').val();
 				const mIP = ip; 
-				let sParams = {};
+				let params = {};
 				
-				
-				console.log(memId)
+			
 				
 				if(memId == ""){
 					alert("아이디를 입력해주세요")
 					return;
 				}else{
-					sParams["id"] = memId;
+					params["id"] = memId;
 					
 				}
 				
@@ -44,7 +43,7 @@
 					alert("비밀번호를 입력해주세요")
 					return;
 				}else{
-					sParams["pw"] = memPw;
+					params["pw"] = memPw;
 				}
 				
 				if(memChKPw == ""){
@@ -57,85 +56,78 @@
 					alert("이름을 입력해주세요")
 					return;
 				}else{
-					sParams["name"] = memName
+					params["name"] = memName
 				}
 				if(memPhoneF == ""){
 					alert("핸드폰 앞 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneF"] = memPhoneF;
+					params["phoneF"] = memPhoneF;
 				}
 				
 				if(memPhoneF == ""){
 					alert("핸드폰 가운데 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneM"] = memPhoneM;
+					params["phoneM"] = memPhoneM;
 				}
 				
 				if(memPhoneF == ""){
 					alert("핸드폰 뒷 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneL"] = memPhoneL;
+					params["phoneL"] = memPhoneL;
 				}
 				if(memAddrs1 == ""){
 					alert("우편번호 및 도로명주소를 입력해주세요")
 					return;
 				}else{
-					sParams["hAddr1"] = memAddrs1;
+					params["hAddr1"] = memAddrs1;
 				}
 				if(memAddrs2 == ""){
 					alert("상세주소를 입력해주세요")
 				}else{
-					sParams["hAddr2"] = memAddrs2;
+					params["hAddr2"] = memAddrs2;
 				}
 				if(memSex == "선택"){
 					alert("성별을 선택해주세요")
 					return;
 				}else{
-					sParams["sex"] = memSex;
+					params["sex"] = memSex;
 				}
 				if(memBirth==""){
 					alert("생일을 입력해주세요")
 					return;
 				}else{
-					sParams["birth"] = memBirth;
+					params["birth"] = memBirth;
 				}
 				
+				params["htell"] = null;
+				params["mIP"] = mIP;
+				params["hZip"]= $('#memZip').val();
+				params["smsChk"] =$('#agrement').val();
 				
-				$.ajax({
+				
+					$.ajax({
 
 					  type:'post',
 					  url:'/member/join',
-					  data:{
-						  
-						  id : sParams["id"],
-						  pw : sParams["pw"],
-						  name : sParams["name"],
-						  sex : sParams["sex"],
-						  birth : sParams["birth"],
-						  phoneF : sParams["phoneF"],
-						  phoneM : sParams["phoneM"],
-						  phoneL : sParams["phoneL"],
-						  smsChk : sParams["smsChk"],
-						  hAddrs1 : sParams["hAddr1"],
-						  hAddrs2 : sParams["hAddr2"],
-						  mIP : mIP
-						  
-						  
-					  },
 					  dataType: 'json',
+					  data: params ,
 					  success: function(data){
+						  
+						  
 						  alert("회원가입에 성공하셨습니다.")
 					      location.href="/sample/login"
-					      console.log(data)
+					      
 					  },
-					  error : function(data){
+					  	error : function(data) {
 					      alert("오류가 발생하였습니다.")
-					      console.log(data)
+					     
 					  }
+				
 					});
+				
 				
 			});
 		});	
@@ -215,7 +207,7 @@
 					 지역
 				</li>
 				<li>
-				<input type="text" id="sample4_postcode" placeholder="우편번호">
+				<input type="text" id="memZip" placeholder="우편번호">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" id="memAddrs1" placeholder="도로명주소">
 				<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
@@ -232,8 +224,8 @@
 				<li>
 					<select name="selsex" id="m_sex" class="select-arrow">
 						<option value>선택</option>
-						<option value="01">남</option>
-						<option value="02">여</option>
+						<option value="1">남</option>
+						<option value="2">여</option>
 					</select>
 				</li>
 			</ul>
@@ -247,7 +239,7 @@
 				</li>
 			</ul>
 			<div class="custom-control custom-checkbox mb-3">
-			<input type="checkbox" class="custom-control-input" id="aggrement" required>
+			<input type="checkbox" class="custom-control-input" id="agrement" required>
             <label class="custom-control-label" for="aggrement">sns에 정보를 받으시겠습니까?</label>
             </div>
 		</div>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.greenit.sample.service.MemberService;
@@ -59,14 +60,15 @@ public class MemberController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public HashMap<String, Object> doRegister(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public HashMap<String, Object> doRegister(HttpServletRequest request, HttpServletResponse response, @RequestParam HashMap<String, Object> paramsMap) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		params.put("id", request.getParameter("id"));
-		params.put("pw", request.getParameter("pw"));
 		
 		try { 	
+			
+			
+			
 			
 			HashMap<String, Object> register = memberService.insertMember(params);
 			result.put("code", "0001");
