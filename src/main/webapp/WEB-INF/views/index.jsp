@@ -13,6 +13,5 @@
 
 main content
 
-<jsp:include page="./include/script.jsp" ></jsp:include>
 </body>
 </html>

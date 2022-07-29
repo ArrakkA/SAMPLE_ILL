@@ -12,7 +12,7 @@
           <a class="nav-link active" aria-current="page" href="/sample/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/sample/testDB">Features</a>
+          <a class="nav-link" href="/sample/reservation">예약 화면</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>

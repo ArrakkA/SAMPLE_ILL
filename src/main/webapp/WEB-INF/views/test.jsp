@@ -5,12 +5,15 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
+
+<script>
+</script>
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 
-main content
+<button id ="find_mistake">테스트용도 입니다요</button>
 
-<jsp:include page="./include/script.jsp" ></jsp:include>
+
 </body>
 </html>

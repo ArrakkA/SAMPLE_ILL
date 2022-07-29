@@ -10,6 +10,7 @@
 	 
  
  $(document).ready(function(){
+	 
 	 $('#loginBtn').on("click", function(e){
 		 const memId = $('#mem_id').val();
 		 const memPw = $('#mem_pw').val();
@@ -78,6 +79,5 @@
 		</div>
 
 
-<jsp:include page="./include/script.jsp" ></jsp:include>
 </body>
 </html>

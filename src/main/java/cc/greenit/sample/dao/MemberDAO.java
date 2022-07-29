@@ -15,5 +15,12 @@ public class MemberDAO extends AbstractDAO {
 		return (HashMap<String, Object>) selectOne("member.selectMember", params);
 	}
 	
+	public int insertMember(Map<String, Object> params) {
+		return   insert("member.insertMember", params);
+	}
+	
+ 	public String makeMemNum() {
+		return (String) selectOne("member.makeMemNum");
+	}
 	
 }

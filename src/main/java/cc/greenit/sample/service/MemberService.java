@@ -7,5 +7,7 @@ public interface MemberService {
 	
 	public HashMap<String, Object> selectMember(Map<String, Object> params);
 	
+	public int insertMember(Map<String, Object> params);
 	
+	public String makeMemNum();
 }

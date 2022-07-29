@@ -49,6 +49,10 @@ public class SampleController {
 	public String test(Locale locale1, Model model1) {
 		return "test";
 	}
+	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
+	public String reservation(Locale locale, Model model) {
+		return "calendar";
+	}
 	
 	 
 	@ResponseBody
