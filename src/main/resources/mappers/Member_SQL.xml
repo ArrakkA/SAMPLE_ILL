@@ -13,7 +13,10 @@
 	
 	</select>
 
-
+	<select id="makeMemNum" resultType="String">
+	SELECT LPAD(IFNULL(MAX(ms_num) +1, 1),12, '0') FROM MS_MAININFO
+	
+	</select>
 
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MS_MAININFO(
@@ -23,11 +26,13 @@
 			   MS_NAME,
 			   MS_SEX,
 			   MS_BIRTH,
-			   MS_FIRST_PHONE,
-			   MS_MID_PHONE,
-			   MS_LASTPHONE,
+			   MS_FIRST_PHONE1,
+			   MS_MID_PHONE1,
+			   MS_LAST_PHONE1,
 			   SMS_CHK1,
 			   MS_BLANK,
+			   MS_HOMETEL,
+			   MS_HOMEZIP,
 			   MS_HOMEADDR1,
 			   MS_HOMEADDR2,
 			   MS_REGDAY,
@@ -36,7 +41,31 @@
 			   INPUT_IP,
 			   UPDATE_STAFF,
 			   UPDATE_DATETIME,
-			   UPDATE_IP )         VALUE(  )	   
+			   UPDATE_IP )       
+	  VALUES(
+	  			 #{num},
+				 #{id},
+				 #{pw},
+				 #{name},
+				 #{sex},
+				 #{birth},
+				 #{phoneF},
+				 hex(aes_encrypt(#{phoneM}, 'JBOG')),
+				 #{phoneL},
+				 #{smsChk},
+				 'Y',
+				 hex(aes_encrypt(#{htell}, 'JBOG')),
+				 #{hZip},
+				 #{hAddrs1},
+				 #{hAddrs2},
+				 DATE_FORMAT(now(), "%Y%m%d"),
+				 DATE_FORMAT(now(), "%m-%d" ),
+				 now(),
+				 #{mIP},
+				 DATE_FORMAT(now(), "%m-%d" ),
+				 DATE_FORMAT(now(), "%Y-%m-%d %H:%i:$s"),
+				 #{mIP}		   							 			   					
+			)	   
 		
 	</insert>
 </mapper>

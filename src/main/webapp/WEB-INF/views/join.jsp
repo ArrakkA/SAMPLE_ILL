@@ -4,106 +4,130 @@
 <html>
 <head>
 	<jsp:include page="./include/header.jsp" ></jsp:include>
+	<jsp:include page="./include/map.jsp"></jsp:include>
 	<script>
-		$(document).ready(function(){
-			$('#saveBtn').on('click' function(e){
-				const memId
-				const memPw
-				const memChKPw
-				const memName
-				const memPhoneF
-				const memPhoneM
-				const memPhoneL
-				const memAdrrs
-				const memSex
-				const memBirth
-				let sParams = {};
+	$(document).ready(function(){
+		
+		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
+			$('#saveBtn').on('click', function(){
+				
+				
+				
+				const memId = $('#ms_id').val();
+				const memPw = $('#ms_password').val();
+				const memChKPw = $('#ms_passwordChk').val();
+				const memName = $('#ms_name').val();
+				const memPhoneF =$('#first_phone1').val();
+				const memPhoneM = $('#mid_phone1').val();
+				const memPhoneL = $('#last_phone1').val();
+				const memAddrrs1 = $('#mAddres1').val();
+				const memAddrrs2 = $('#mAddres2').val();
+				const memSex = $('#ms_sex').val();
+				const memBirth = $('#mbirth').val();
+				const memZip = $('#mZip').val();
+				const memSmsChk = $('#ms_passwordChk').val();
+				const memHtell = $('#home_tel').val();
+				
+				console.log(memId)
+				console.log(memPw)
+				
+				let params = {};
+				params["smsChk"] = 'Y';
+				params["mIP"]= data.ip;
+				params["htell"]= memHtell ; 
+				params["name"] = memName;
 				
 				if(memId == ""){
 					alert("아이디를 입력해주세요")
 					return;
 				}else{
-					sParams["id"] = memId;
+					params["id"] = memId;
 				}
 				
 				if(memPw == ""){
 					alert("비밀번호를 입력해주세요")
 					return;
 				}else{
-					sParams["pw"] = memId;
 				}
 				
-				if(memChKPw == ""){
-					alert("비밀번호를 한번더 입력해주세요")
+				if(memChKPw == "" && memChkPw != memPw){
+					alert("비밀번호확인을 체크해주세요")
 					return;
 				}else{
-					
+					params["pw"] = memPw;
 				}
 				
 				if(memPhoneF == ""){
 					alert("핸드폰 앞 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneF"] = memPhoneF;
+					params["phoneF"] = memPhoneF;
 				}
 				
 				if(memPhoneF == ""){
 					alert("핸드폰 가운데 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneM"] = memPhoneM;
+					params["phoneM"] = memPhoneM;
 				}
 				
 				if(memPhoneF == ""){
 					alert("핸드폰 뒷 번호를 입력해주세요")
 					return;
 				}else{
-					sParams["phoneL"] = memPhoneL;
+					params["phoneL"] = memPhoneL;
 				}
 				
-				if(memAdrrs == ""){
+				if( memAddrrs2 == ""){
 					alert("주소를 입력해주세요")
 					return;
 				}else{
-					sParams["addr1"] = memAddrs;
+					params["hAddrs1"] = memAddrrs1;
+					params["hAddrs2"] = memAddrrs2;
+					params["hZip"] = memZip;
 				}
 				if(memSex == "선택"){
 					alert("성별을 선택해주세요")
 					return;
 				}else{
-					sParams["sex"] = memSex;
+					params["sex"] = memSex;
 				}
 				if(memBirth==""){
 					alert("생일을 입력해주세요")
 					return;
 				}else{
-					sParams["birth"] = memBirth;
+					params["birth"] = memBirth;
 				}
 				
 				
+				console.log(params)
 				
 				
 				
-				$.ajax({
-
-					  type:'post',
-					  url:'/member/join',
-					  data:{서버로 전송할 데이터},
-					  dataType: 'json',
-					  success: {
-						  
-					      location.href="/sample/login"
-					  },
-					  error : function(xhr,status,error) {
-					      //오류 발생 시 처리
-					  },
-					  complete:function(data,textStatus) {
-					      //작업 완료 후 처리
-					  }
-					});
-				
-			})
+				$.ajax({ 
+						  type:'post',
+						  url:'/member/join',
+						  data: params ,
+						  dataType: 'json',
+						  success: function(result){
+							  
+							  if(result.status == "성공"){
+								  alert('회원가입 되었습니다 환영합니다!')
+							      location.href="${pageContent}/sample/login"
+							  }else{
+								  alert('오류가 발생하였습니다.')
+							  }
+								  
+						  },
+						  error : function(result) {
+						      alert('통신오류가 발생하였습니다.')
+						  }
+						
+					
+					});		
+			 });
 		});
+	});	
 	</script>
 </head>
 <body>
@@ -125,7 +149,7 @@
 					 아이디
 				</li>
 				<li>
-					<input type="text" class="ms_id" class="idInput">
+					<input type="text" id="ms_id" class="idInput">
 					<button id="chkIdBtn" class= "btn btn-outline-warning">중복확인</button>
 				</li>
 			</ul>
@@ -135,7 +159,7 @@
 					 비밀번호
 				</li>
 				<li>
-					<input type="text" class="ms_password" class="passInput">
+					<input type="text" id="ms_password" class="passInput">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -144,7 +168,7 @@
 					 비밀번호확인
 				</li>
 				<li>
-					<input type="text" class="ms_id" class="idInput">
+					<input type="text" class="ms_passwordChk" class="idInput">
 				</li>
 			</ul>
 			<div>
@@ -156,7 +180,7 @@
 					이 름
 				</li>
 				<li>
-					<input type="text" id="name" style="width:318px">
+					<input type="text" id="ms_name" style="width:318px">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -173,12 +197,25 @@
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
+				<li class="infolist">
+					<span class="orangeRed">*</span>
+					 집전화
+				</li>
+				<li>
+					<input type="text" id="home_tel" style="width:300px; margin-right: 5px;" >
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
 				<li class="infoList">
 					<span class="orangeRed">*</span>
 					 지역
 				</li>
 				<li>
-					<input type="text" id="homeaddr0" style="width:700px">
+					<input type="text" id="mZip" placeholder="우편번호">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="mAddres1" placeholder="주소"><br>
+					<input type="text" id="mAddres2" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -189,8 +226,8 @@
 				<li>
 					<select name="selsex" id="ms_sex" class="select-arrow">
 						<option value>선택</option>
-						<option value="01">남</option>
-						<option value="02">여</option>
+						<option value="1">남</option>
+						<option value="2">여</option>
 					</select>
 				</li>
 			</ul>
@@ -210,6 +247,5 @@
 		</div>
 	</div>
 
-<jsp:include page="./include/script.jsp" ></jsp:include>
 </body>
 </html>

@@ -23,6 +23,16 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMember(params);
 	}
 
+	@Override
+	public int insertMember(Map<String, Object> params) {
+		return memberDAO.insertMember(params);
+	}
+
+	@Override
+	public String makeMemNum() {
+		return memberDAO.makeMemNum();
+	}
+
 	
 	
 }

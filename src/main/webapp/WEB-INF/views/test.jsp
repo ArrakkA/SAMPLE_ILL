@@ -5,12 +5,41 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
+
+<script>
+$(document).ready(function(){
+	$('#find_mistake').on('click', function(){
+		
+		var chk = 0;
+		
+		
+		
+		if($("input:checkbox[name=U_checkAgreement1]").is(":checked")==true){
+			var chk = 1;
+			
+			console.log('checked')
+			console.log(chk)
+		}
+		else{
+			console.log('notchecked')
+			console.log(chk)
+		}
+				
+		
+		
+	})
+})
+
+
+</script>
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 
-main content
+<button id ="find_mistake">테스트용도 입니다요</button>
+ 
+<input type="checkbox" name="U_checkAgreement1" id="U_checkAgreement1" value="" />
 
-<jsp:include page="./include/script.jsp" ></jsp:include>
+
 </body>
 </html>
