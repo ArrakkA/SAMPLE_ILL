@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="manager">
+	<select id="getRegisterList" resultType="cc.greenit.sample.vo.ManagerVO">
+		SELECT MS_NUM, MS_ID, MS_NAME, MS_SEX, MS_NAME, MS_BIRTH
+		
+		FROM MS_MAININFO
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 			<if test="searchType =='name' and keyword != null and keyword != ''">
+ 				AND MS_NAME like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='id' and keyword != null and keyword != ''">
+ 				AND MS_ID like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='sex' and keyword != null and keyword != ''">
+ 				AND MS_SEX like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='birth' and keyword != null and keyword != ''">
+ 				AND MS_BIRTH like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 		</trim>
+		
+	
+		LIMIT #{startList},#{listSize}
+	</select>
+	
+	<select id="getRegisterListCnt" resultType="int">
+		SELECT count(*) as listCnt
+				
+		FROM MS_MAININFO
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+ 			<if test="searchType =='name' and keyword != null and keyword != ''">
+ 				AND MS_NAME like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='id' and keyword != null and keyword != ''">
+ 				AND MS_ID like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='sex' and keyword != null and keyword != ''">
+ 				AND MS_SEX like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 			
+ 			<if test="searchType =='birth' and keyword != null and keyword != ''">
+ 				AND MS_BIRTH like CONCAT('%',#{keyword},'%')
+ 			</if>
+ 		</trim>
+
+	</select>
+	
+	<insert id="insertManager" parameterType="cc.greenit.sample.vo.ManagerVO">
+		INSERT INTO MS_MAININFO(
+			   MS_NUM
+			  ,MS_ID
+			  ,MS_NAME
+			  ,MS_SEX
+			  ,MS_BIRTH)
+		
+		VALUES(
+				#{ms_num}
+			   ,#{ms_id}
+			   ,#{ms_name}
+			   ,#{ms_sex}
+			   ,#{ms_birth}
+		
+			)
+		
+	
+	</insert>
+	
+	<update id="updateManager" parameterType="cc.greenit.sample.vo.ManagerVO">
+		UPDATE MS_MAININFO SET
+			 MS_ID = #{ms_id}
+			,MS_NAME = #{ms_name}
+			,MS_SEX = #{ms_sex}
+			,MS_BIRTH = #{ms_birth}
+			
+	    WHERE
+	    	MS_NUM =#{ms_num}
+	
+	
+	</update>
+	
+	<delete id="deleteManager" parameterType="String">
+	
+		DELETE FROM MS_MAININFO
+		
+		WHERE MS_NUM = #{ms_num}
+	
+	</delete>
+	
+
+
+
+
+</mapper>

@@ -10,4 +10,6 @@ public interface MemberService {
 	public int insertMember(Map<String, Object> params);
 	
 	public String makeMemNum();
+	
+	
 }

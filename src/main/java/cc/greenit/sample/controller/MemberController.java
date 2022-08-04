@@ -74,21 +74,20 @@ public class MemberController {
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
 		
-		logger.debug(sha256.encrypt(request.getParameter("pw")));
-		logger.debug(memNum);
+		logger.info(sha256.encrypt(request.getParameter("pw")));
+		logger.info("##########################", memNum);
 		
 		try { 	
 			
 				int cnt =	memberService.insertMember(params);
-				
-				logger.debug("#####µî·Ï°Ç¼ö"+ cnt);
 			
-			result.put("status", "¼º°ø");
+			
+			result.put("status", "ì„±ê³µ");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			
-			result.put("status","½ÇÆÐ");
+			result.put("status","ì‹¤íŒ¨");
 		}
 		
 		return result;

@@ -31,22 +31,22 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale1, Model model1) {
+	public String home(Locale locale, Model model) {
 		return "index";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale2, Model model2) {
+	public String login(Locale locale, Model model) {
 		return "login";
 	}
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String wellcome(Locale locale1, Model model1) {
+	public String wellcome(Locale locale, Model model) {
 		return "join";
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(Locale locale1, Model model1) {
+	public String test(Locale locale, Model model) {
 		return "test";
 	}
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
