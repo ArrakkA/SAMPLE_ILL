@@ -66,15 +66,13 @@ $(document).ready(function(){
 				console.log("수정본",tdType.val());
 				
 			}
-				
-			
-			
 			
 		});
 		
 		
 		
 	});
+	
 	
 	$('#btnAdd').on('click', function(){
 		

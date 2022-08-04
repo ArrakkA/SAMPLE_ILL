@@ -12,28 +12,47 @@
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 
+
+
+	<div class="yearMonth"></div>
+		<table class="">
+			<colgroup>
+			
+				<col width="*">
+				<col width="*">
+				<col width="*">
+				<col width="*">
+				<col width="*">
+				<col width="*">
+				<col width="*">
+				
+			</colgroup>
+			
+			<thead>
+			
+				<tr>
+					<th>SUN</th>
+					<th>MON</th>
+					<th>TUE</th>
+					<th>WEN</th>
+					<th>THR</th>
+					<th>FRI</th>
+					<th>SAT</th>
+				</tr>
+				
+			</thead>
+			
+			<tbody class= "calendarBody">
+			
+			
+			</tbody>
+			
+			
+			
+		</table>
 		
-		<div  class= "calendar">
-			<div class= "head">
-				<div class="year-month" id="year-month"></div>
-				<div class="calenderBtn" id="cbtn">
-					<button class= "c-btn toPrev">이전</button>
-					<button class= "c-btn thisMonth">1</button>
-					<button class= "c-btn toNext">다음</button>
-				</div>
-			</div>
-			<div class="main">
-				<div class="days">
-					<div class="day">일</div>					
-					<div class="day">월</div>					
-					<div class="day">화</div>					
-					<div class="day">수</div>					
-					<div class="day">목</div>										
-					<div class="day">금</div>										
-					<div class="day">토</div>
-				</div>
-				<div class= "dates"></div>
-			</div>
-		</div>
+		
+		
+		
 </body>
 </html>
