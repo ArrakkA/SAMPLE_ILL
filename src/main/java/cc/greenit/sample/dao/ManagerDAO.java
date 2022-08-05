@@ -33,16 +33,14 @@ public class ManagerDAO extends AbstractDAO{
 		return insert("manager.insertManager", managerVO);
 	}
 	
-	
-	
 	public int updateManager(ManagerVO managerVO) {
 		
 		return update("manager.updateManager", managerVO );
 	}
 	
-	public int deleteManager(String ms_num) {
+	public int deleteManager(ManagerVO managerVO) {
 		
-		return delete("manager.deleteManager", ms_num);
+		return delete("manager.deleteManager", managerVO);
 	}
 
 }

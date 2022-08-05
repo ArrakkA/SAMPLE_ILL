@@ -61,48 +61,40 @@ public class ManagerController {
 		
 	}
 	
-	@RequestMapping(value="/management", method = {RequestMethod.POST, RequestMethod.GET})
-	public HashMap<String, Object> updateManager(@RequestBody List<ManagerVO> paramList) {
+	@RequestMapping(value="/managedata", method = RequestMethod.POST)
+	public HashMap<String, Object> managementManager(@RequestBody List<ManagerVO> paramList) {
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		
+		int icnt = 0;
+		int ucnt = 0;
+		int dcnt = 0;
 		
 		for(int i = 0; i< paramList.size(); i++) {
 			
-		String type = paramList.get(i).getMs_type();
-		
-		
-		if(type == "u") {
+			ManagerVO managerVO = paramList.get(i);
+			String type = managerVO.getMs_type();
 			
-			managerService.updateManager(paramList.get(i));
+			if("u".equals(type)) {
+				
+				if(managerService.updateManager(managerVO) > 0) ucnt++;
+				
+			}else if("i".equals(type)) {
 			
-			result.put("update" , i);
-			
-		}else if(type == "i") {
-		
-			String mNum = memberService.makeMemNum();
-			paramList.get(i).setMs_num(mNum);
-			
-			managerService.insertManager(paramList.get(i));
-			
-			result.put("insert" , i);
-			
-		}else if(type== "d") {
-			
-			String mmNum = paramList.get(i).getMs_num();
-			
-			managerService.deleteManager(mmNum);
-			
-			result.put("delete", i);
-		}
-		
+				String mNum = memberService.makeMemNum();
+				managerVO.setMs_num(mNum);
+				if(managerService.insertManager(managerVO) > 0)icnt++;
+				
+			}else if("d".equals(type)) {
+				
+				if(managerService.deleteManager(managerVO) > 0) dcnt++;
+			}
 		
 		}
 		
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		
-		
-		
+		result.put("insertCnt", icnt);
+		result.put("updateCnt", ucnt);
+		result.put("deleteCnt", dcnt);
 		
 		return result;
 		

@@ -76,19 +76,20 @@
 	</insert>
 	
 	<update id="updateManager" parameterType="cc.greenit.sample.vo.ManagerVO">
+	
 		UPDATE MS_MAININFO SET
+		
 			 MS_ID = #{ms_id}
 			,MS_NAME = #{ms_name}
 			,MS_SEX = #{ms_sex}
 			,MS_BIRTH = #{ms_birth}
 			
-	    WHERE
-	    	MS_NUM =#{ms_num}
+	    WHERE MS_NUM = #{ms_num}
 	
 	
 	</update>
 	
-	<delete id="deleteManager" parameterType="String">
+	<delete id="deleteManager" parameterType="cc.greenit.sample.vo.ManagerVO">
 	
 		DELETE FROM MS_MAININFO
 		

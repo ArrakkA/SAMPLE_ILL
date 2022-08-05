@@ -16,11 +16,6 @@ public interface ManagerService {
 	
 	public int updateManager(ManagerVO managerVO);
 	
-	public int deleteManager(String ms_num);
+	public int deleteManager(ManagerVO managerVO);
 	
-	
-	public void saveManager(List<ManagerVO> paramList);
-	
-	
-
 }

@@ -82,13 +82,13 @@ $(document).ready(function(){
 		
 		insertTb += '<tr id="tableNum">';
 		insertTb += '<td align="center"><input type="checkbox" name="deleteChk" class="deleteChk" value="" /></td>';
-		insertTb += '<td id="id" align="center">hong1</td>';
-		insertTb += '<td id="name" class="discrimination" align="center"><input></input>';
+		insertTb += '<td class="mID" align="center">hong1</td>';
+		insertTb += '<td  class="discrimination" align="center"><input class= "mName"></input>';
 		insertTb += '<input type="hidden" class="registerType" value="i"/>';
 		insertTb += '<input type="hidden" class="numBox" value=""/>';
 		insertTb += '</td>';
-		insertTb += '<td id="sex" align="center">1</td>';
-		insertTb += '<td id="birth" align="center">12345678</td>';
+		insertTb += '<td class="mSex" align="center">1</td>';
+		insertTb += '<td class="mBirth" align="center">12345678</td>';
 		insertTb += '</tr>';
 		
 		
@@ -115,19 +115,21 @@ $(document).ready(function(){
 			var dcriTd = $(row).children('.discrimination');
 			var tdNum= dcriTd.children('.numBox').val();
 			var tdType = dcriTd.children('.registerType').val();
-			var tdName = dcriTd.children('.mName').text();
+			var tdName = dcriTd.children('.mName').val();
 			var tdID = $(row).children('.mID').text();
 			var tdSex = $(row).children('.mSex').text();
 			var tdBirth = $(row).children('.mBirth').text();
 		 	
 			
 			paramArray.push({
+				
 				"ms_num" : tdNum
 			   ,"ms_id"  : tdID
 			   ,"ms_name" : tdName
 			   ,"ms_sex" : tdSex
 			   ,"ms_birth" :tdBirth
 			   ,"ms_type" : tdType
+			   
 			});
 			
 		});
@@ -138,19 +140,14 @@ $(document).ready(function(){
 				
 		
 		$.ajax({ 
+			
 			  type:'post',
-			  url:'/manager/management',
+			  url:'${pageContext.request.contextPath}/manager/managedata', 
 			  contentType: 'application/json',
-			  data: JSON.stringify(paramArray) ,
+			  data: JSON.stringify(paramArray),
+			  
 			  dataType: 'json',
 			  success: function(result){
-				  
-				  if(result.status == "성공"){			  
-			
-					  
-				  }else{
-					  alert('오류가 발생하였습니다.')
-				  }
 					  
 			  },
 			  error : function(result) {
@@ -293,7 +290,7 @@ function fn_next(page, range, rangeSize, searchType, keyword){
 									
 										<td  class="mID" align="center"><c:out value ="${list.ms_id}"/></td>
 										<td  align="center" class="discrimination">
-											<textarea class="mName"><c:out value="${list.ms_name}"/></textarea>
+											<input class="mName" value="<c:out value="${list.ms_name}"/>"/>
 											<input type="hidden" class="numBox" value = "${list.ms_num}"/>
 											<input type="hidden" class="registerType" value="u"/>
 										</td>

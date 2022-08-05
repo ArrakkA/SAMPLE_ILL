@@ -30,8 +30,9 @@ $(document).ready(function(){
 	})
 })
 
-
 </script>
+
+
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>

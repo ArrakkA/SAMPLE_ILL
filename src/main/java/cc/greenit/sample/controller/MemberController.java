@@ -39,6 +39,7 @@ public class MemberController {
 	public HashMap<String, Object> doLogin(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		
 		params.put("id", request.getParameter("id"));
 		params.put("pw", sha256.encrypt(request.getParameter("pw")));
 		
@@ -73,6 +74,7 @@ public class MemberController {
 		
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
+		
 		
 		logger.info(sha256.encrypt(request.getParameter("pw")));
 		logger.info("##########################", memNum);

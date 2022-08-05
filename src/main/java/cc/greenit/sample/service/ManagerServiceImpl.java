@@ -48,29 +48,14 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
-	public int deleteManager(String ms_num) {
+	public int deleteManager(ManagerVO managerVO) {
 		
-		return managerDAO.deleteManager(ms_num);
+		return managerDAO.deleteManager(managerVO);
 		
 	}
 	
-	@Override
-	public void saveManager(List<ManagerVO> paramList) {
+	
 		
-		for(int i = 0; i< paramList.size(); i++) {
-			
-			
-		}
-		
-		for(ManagerVO vo :paramList)
-		{
-			
-			
-			
-		}
-		
-		
-	}
 	
 
 }
