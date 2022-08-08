@@ -148,10 +148,10 @@ $(document).ready(function(){
 			  
 			  dataType: 'json',
 			  success: function(result){
-					  
+					  console.log(result);
 			  },
 			  error : function(result) {
-			      alert('통신오류가 발생하였습니다.')
+			      alert('통신오류가 발생하였습니다.');
 			  }
 			
 		

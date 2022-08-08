@@ -134,7 +134,7 @@
   <jsp:include page="./include/navbar.jsp" ></jsp:include>
   
   
-	<div = id="wrap">
+	<div id="wrap">
 		<div class="contents">
 			<div class="subtitle subBottom"></div>
 			<span class="title">간편회원가입</span>

@@ -30,6 +30,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 세션 유지시간 설정  -->
+		<session-config> 
+			<session-timeout>30</session-timeout> 
+		</session-config>
+	
 	<!-- Character Set Filter -->
 
 	<filter>

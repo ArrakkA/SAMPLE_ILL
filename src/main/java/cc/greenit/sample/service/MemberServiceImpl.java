@@ -33,6 +33,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.makeMemNum();
 	}
 
+	@Override
+	public HashMap<String, Object> getMemberList(String memId) {
+		
+		return memberDAO.getMemberList(memId);
+	}
+
 	
 	
 }

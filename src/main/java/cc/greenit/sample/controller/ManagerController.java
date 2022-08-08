@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.greenit.sample.common.dao.Search;
 import cc.greenit.sample.service.ManagerService;
@@ -61,8 +62,10 @@ public class ManagerController {
 		
 	}
 	
-	@RequestMapping(value="/managedata", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value="/managedata", method = {RequestMethod.POST, RequestMethod.GET})
 	public HashMap<String, Object> managementManager(@RequestBody List<ManagerVO> paramList) {
+		
 		
 		int icnt = 0;
 		int ucnt = 0;

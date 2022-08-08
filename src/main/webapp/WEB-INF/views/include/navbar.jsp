@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ page import = "javax.servlet.http.HttpSession" %>    
+<%
+
+	HttpSession session = request.getSession(false);
+	String member = session.getAttribute("SessionId");   
+	
+%>    
+<script>
+
+
+</script>
+
+    
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/sample/home">Greenit JSP</a>
@@ -22,8 +36,12 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <a class="nav-link" href="/sample/join">회원가입</a>
+        <c:if test="${member == null}"/>
         <a class="nav-link" href="/sample/login">로그인</a>
+        <a class="nav-link" href="/sample/join">회원가입</a>
+        <c:if test="${member != null }"/>
+        <a class="nav-link" href="/sample/logout">로그아웃</a>
+        <a class="nav-link" href="/sample/mypage">마이페이지</a>
       </form>
     </div> 
   </div>

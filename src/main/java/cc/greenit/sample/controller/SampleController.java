@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ import cc.greenit.sample.service.SampleService;
 public class SampleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-	
+	private static final String SESSION_NAME = "SessionId";
 	private SampleService sampleService;
 	
 	@Autowired
@@ -31,9 +32,31 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		return "index";
+	public String home(Locale locale
+					   ,Model model 
+					   ,HttpServletRequest request
+					   ,HttpSession session) {
+		
+		//session이 존재하지 않을때
+		session = request.getSession(false);
+		if(session == null) {
+			return "index";
+			
+		}
+		
+		//session 존재시 아이디 확인
+		HttpSession member = (HttpSession) session.getAttribute(SESSION_NAME);
+		if(member == null) {
+			return "index";
+		}
+		
+		
+		model.addAttribute("id", member);
+		return "home";
+		
 	}
+	
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model) {

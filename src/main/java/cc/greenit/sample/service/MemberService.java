@@ -11,5 +11,6 @@ public interface MemberService {
 	
 	public String makeMemNum();
 	
+	public HashMap<String, Object> getMemberList(String memId);
 	
 }

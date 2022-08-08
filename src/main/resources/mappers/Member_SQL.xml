@@ -68,4 +68,25 @@
 			)	   
 		
 	</insert>
+	
+	<select id ="memberList" resultType="hashmap">
+	SELECT MS_NUM
+		   ,MS_NAME
+		   ,MS_ID
+		   ,MS_FIRST_PHONE1
+		   ,MS_MID_PHONE1
+		   ,MS_LAST_PHONE1
+		   ,MS_HOMEZIP
+		   ,MS_HOMEADDR1
+		   ,MS_HOMEADDR2
+		   ,MS_HOMETEL
+		   ,MS_BIRTH
+		   
+		   FROM MS_MAININFO
+		   
+		   WHERE MS_ID = #{id}
+	
+	
+	</select>
+	
 </mapper>
