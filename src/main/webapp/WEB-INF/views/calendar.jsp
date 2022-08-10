@@ -31,9 +31,56 @@
         </tr>
     </table>
     
+    <table class= "table table-striped table-sm mainTable">
+					<colgroup>
+						<col style="width:10%"/>
+						<col style="width:10%"/>
+						<col style="width:20%"/>
+						<col style="width:10%"/>
+						<col style="width:10%"/>
+						<col style="width:10%"/>
+						<col style="width:10%"/>
+					</colgroup>
+					
+					<thead>
+						<tr align="center">
+							<th>날짜</th>
+							<th>시간</th>
+							<th>코스</th>
+							<th>홀</th>
+							<th>인원</th>
+							<th>그린피 가격</th>
+							<th>예약</th>
+						</tr>
+					</thead>
+					<tbody class="registerList" id="registerList">
+						<c:choose>
+							<c:when test="${empty reservationList}">
+								<tr><td colspan="5" align="center">예약이 꽉차있습니다.</td></tr>
+							</c:when>
+							<c:when test="${!empty reservationList}">
+								<c:forEach var ="list" items="${reservationList}">
+									<tr id="tableNum">
+										<td class="bDay" align="center"><c:out value ="${list.BK_DAY}"/></td>
+										<td class="bTime" align="center"><c:out value ="${list.BK_TIME}"/></td>
+										<td class="bCos" align="center"><c:out value ="${list.BK_COS}"/></td>
+										<td class="bRoundf"align="center"><c:out value ="${list.BK_ROUNDF}"/></td>
+										<td class="bPerson" align="center"><c:out value="${list.BK_PERSON}"/></td>
+										<td class="bCharge" align="center"><c:out value="${list.BKCHARGE}"/></td>
+										<td><button class="reservationBtn">예약</button></td>
+									</tr>
+								</c:forEach>
+							</c:when>
+						</c:choose>
+					</tbody>
+				 </table>
+	 		</div>
+    
+    
+    
+    
 </body>
 		
 		
 		
-</body>
 </html>

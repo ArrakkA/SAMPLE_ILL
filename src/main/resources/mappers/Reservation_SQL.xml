@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="reservation">
+
+	<select id="reservationTable"  resultType="hashmap">
+			
+			SELECT CO_DIV
+				   ,BK_DAY 
+				   ,BK_COS 
+				   ,BK_TIME 
+				   ,BK_ROUDF
+				   ,BK_PERSON
+				   ,BK_CHARGE
+				   
+			
+			FROM BK_HISTORY
+			
+			
+			WHERE  BK_DAY = #{dateId}
+			AND    BK_YN = 'Y'
+				  			
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
