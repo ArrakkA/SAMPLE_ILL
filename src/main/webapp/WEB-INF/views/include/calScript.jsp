@@ -115,7 +115,7 @@ table
         		j = i;
         	}
         	
-        	const tdDay =  "<div class='registerDay' onclick ='goDbDate()' dayVal= ' "+yMId + j +"'>" + i + "</div>";
+        	const tdDay =  "<div class='registerDay' onclick ='goDbDate("+ i +")' dayVal= ' "+yMId + j +"'>" + i + "</div>";
             cell = row.insertCell();
             cell.innerHTML = tdDay;
             cnt = cnt + 1;
@@ -123,12 +123,12 @@ table
             
             
             if (cnt % 7 == 1) {//일요일 계산
-            	const sunDay = "<div style='color:red' class='registerDay' onclick ='goDbDate()' dayVal= '" +yMId + j +"'>" + i +"</div>";
+            	const sunDay = "<div style='color:red' class='registerDay' onclick ='goDbDate("+ i +")' dayVal= '" +yMId + j +"'>" + i +"</div>";
             	
                 cell.innerHTML = sunDay;//일요일에 색
             }
             if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
-            	 const satDay = "<div style='color: blue' class=' registerDay' onclick ='goDbDate()' dayVal= '"+yMId + j +"'>" + i+ "</div>"	;				
+            	 const satDay = "<div style='color: blue' class=' registerDay' onclick ='goDbDate("+ i +")' dayVal= '"+yMId + j +"'>" + i+ "</div>"	;				
                 cell.innerHTML = satDay;
                 row = calendar.insertRow();// 줄 추가
             }
@@ -140,17 +140,38 @@ table
  
     }
     
-	function goDbDate(){
+	function goDbDate(i){
 		
-		var dateId;
+		var dateArray = new Array();
+		const params = {};
 		
 		$('.registerDay').each(function(index, value){
 			
-			dateId =  $('.registerDay').attr('dayVal');
+			dateArray.push($('.registerDay').eq(index).attr('dayVal'));
 			
 		});
 		
-		console.log(dateId);
+		 const dateId =dateArray[i];
+		 params["dateId"] = dateId;
+		 
+		 $.ajax({ 
+				
+			  type:'post'
+			  ,url:'${pageContext.request.contextPath}/reservation//getReservationList'
+			  ,contentType:'application/json'
+			  ,data:JSON.stringify(params)
+			  ,dataType: 'json'
+			  ,success: function(result){
+				  
+					  console.log(result);
+			  }
+			  ,error : function(result) {
+			      alert('통신오류가 발생하였습니다.');
+			  }
+			
+		
+		});
+		 
 		
 		
 	}

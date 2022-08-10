@@ -2,7 +2,6 @@ package cc.greenit.sample.service;
 
 import java.util.List;
 
-import cc.greenit.sample.common.dao.Pagination;
 import cc.greenit.sample.common.dao.Search;
 import cc.greenit.sample.vo.ManagerVO;
 

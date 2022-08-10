@@ -20,21 +20,25 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public HashMap<String, Object> selectMember(Map<String, Object> params) {
+		
 		return memberDAO.selectMember(params);
 	}
 
 	@Override
 	public int insertMember(Map<String, Object> params) {
+		
 		return memberDAO.insertMember(params);
 	}
 
 	@Override
 	public String makeMemNum() {
+		
 		return memberDAO.makeMemNum();
 	}
 
 	@Override
 	public int updateMember(HashMap<String, Object> params) {
+		
 		return memberDAO.updateMember(params);
 	}
 
