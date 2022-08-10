@@ -10,7 +10,6 @@ public interface MemberService {
 	public int insertMember(Map<String, Object> params);
 	
 	public String makeMemNum();
-	
-	public HashMap<String, Object> getMemberList(String memId);
-	
+
+	public int updateMember(HashMap<String, Object> params);
 }

@@ -10,20 +10,11 @@
 $(document).ready(function(){
 	$('#find_mistake').on('click', function(){
 		
-		var chk = 0;
+		var testCnt = $('.testdiv').attr('val');
 		
 		
 		
-		if($("input:checkbox[name=U_checkAgreement1]").is(":checked")==true){
-			var chk = 1;
-			
-			console.log('checked')
-			console.log(chk)
-		}
-		else{
-			console.log('notchecked')
-			console.log(chk)
-		}
+		console.log(testCnt);
 				
 		
 		
@@ -40,6 +31,9 @@ $(document).ready(function(){
 <button id ="find_mistake">테스트용도 입니다요</button>
  
 <input type="checkbox" name="U_checkAgreement1" id="U_checkAgreement1" value="" />
+
+
+<div class ="testdiv" val="name"> 요네가신이됩니다. </div>
 
 
 </body>

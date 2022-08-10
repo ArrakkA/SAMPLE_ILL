@@ -23,7 +23,7 @@ import cc.greenit.sample.service.SampleService;
 public class SampleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
-	private static final String SESSION_NAME = "SessionId";
+	private static final String SESSION_NAME = "SessionUser";
 	private SampleService sampleService;
 	
 	@Autowired
@@ -31,6 +31,7 @@ public class SampleController {
 		this.sampleService = sampleService;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale
 					   ,Model model 
@@ -39,19 +40,20 @@ public class SampleController {
 		
 		//session이 존재하지 않을때
 		session = request.getSession(false);
+		
 		if(session == null) {
 			return "index";
 			
 		}
 		
 		//session 존재시 아이디 확인
-		HttpSession member = (HttpSession) session.getAttribute(SESSION_NAME);
+		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(SESSION_NAME);
+		
 		if(member == null) {
 			return "index";
 		}
 		
 		
-		model.addAttribute("id", member);
 		return "home";
 		
 	}
@@ -76,6 +78,35 @@ public class SampleController {
 	public String reservation(Locale locale, Model model) {
 		return "calendar";
 	}
+	
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String mypage(Locale locale
+			    		 ,Model model
+			    		 ,HttpServletRequest request
+						 ,HttpSession session) {
+		
+		session = request.getSession(false);
+		
+		if(session == null) {
+			return "index";
+			
+		}
+		
+		//session 존재시 아이디 확인
+		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(SESSION_NAME);
+		
+		if(member == null) {
+			
+			return "index";
+			
+		}
+		
+		
+		model.addAttribute("user", member);
+		return "mypage";
+	}
+	
+	
 	
 	 
 	@ResponseBody

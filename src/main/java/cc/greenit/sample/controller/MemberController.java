@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.greenit.sample.service.MemberService;
+import cc.greenit.sample.vo.LogMemDTO;
 
 @Controller
 @RequestMapping("/member")
@@ -27,29 +28,28 @@ public class MemberController {
 	SHA256 sha256 = new SHA256();
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static final String SESSION_NAME = "SessionId";
+	private static final String SESSION_NAME = "SessionUser";
 	private MemberService memberService;
+	
 	
 	@Autowired
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
 	
+	//로그인
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public HashMap<String, Object> doLogin(HttpServletRequest request, 
-										   HttpServletResponse response, 
-										   HttpSession session, 
-										   @RequestParam HashMap<String, Object> params) throws NoSuchAlgorithmException {
+	public HashMap<String, Object> doLogin(HttpServletRequest request 
+										   ,HttpServletResponse response 
+										   ,HttpSession session 
+										   ,@RequestParam HashMap<String, Object> params
+									       ) throws NoSuchAlgorithmException {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		
 		//파라미터에 pw 암호화 작업
 		params.put("pw", sha256.encrypt(request.getParameter("pw")));
-		
-		
-		
-		
 		
 		try { 	
 			//로그인 작업
@@ -61,7 +61,7 @@ public class MemberController {
 				
 				
 				//세션 생성
-				session.setAttribute(SESSION_NAME , request.getParameter("id"));
+				session.setAttribute(SESSION_NAME , member);
 				result.put("code","0000");
 				
 				
@@ -82,13 +82,13 @@ public class MemberController {
 		return result;
 	}
 	
-	
-	
+	//로그아웃
 	@ResponseBody
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public HashMap<String,Object> dologout(HttpServletRequest request
-										   ,HttpServletResponse response
-										   ,HttpSession session) {
+	public String dologout(HttpServletRequest request
+						   ,HttpServletResponse response
+						   ,HttpSession session
+						   ,Model model) {
 		
 		
 		//결과값
@@ -96,7 +96,7 @@ public class MemberController {
 		
 		
 		//세션 조회
-		session = request.getSession();
+		session = request.getSession(false);
 		
 		//세션이 존재시 세션 삭제
 		if(session != null) {
@@ -107,10 +107,11 @@ public class MemberController {
 		}
 		
 		
-		
-		return  result;
+		model.addAttribute("result" , result);
+		return "index";
 	}
 	
+	//회원가입
 	@ResponseBody
 	@RequestMapping(value = "/join", method = {RequestMethod.POST, RequestMethod.GET})
 	public HashMap<String, Object> doJoin(HttpServletRequest request
@@ -123,9 +124,6 @@ public class MemberController {
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
 		
-		
-		logger.info(sha256.encrypt(request.getParameter("pw")));
-		logger.info("##########################", memNum);
 		
 		try { 	
 			
@@ -143,17 +141,33 @@ public class MemberController {
 		return result;
 	}
 	
+	//회원정보 업데이트
 	@ResponseBody
-	@RequestMapping(value ="/mypage", method =  RequestMethod.POST)
-	public String mypageList(Model model
-							 ,HttpSession session){
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public HashMap<String, Object> doUpdate(HttpServletRequest request
+											,@RequestParam HashMap<String, Object> params){
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		
+		
+		try {
+			
+			memberService.updateMember(params);
+			result.put("status", "업데이트 성공");
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
 		
 		
 		
 		
+		return result; 
 		
 		
-		return "mypage";
 	}
 	
 	

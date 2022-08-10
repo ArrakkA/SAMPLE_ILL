@@ -1,14 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-<%@ page import = "javax.servlet.http.HttpSession" %>    
-<%
-
-	HttpSession session = request.getSession(false);
-	String member = session.getAttribute("SessionId");   
-	
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>       
 <script>
+	$(document).ready(function(){
+		
+		$('.logout').on('click', function(){
+			
+			
+			$.ajax({
+				type:'post'
+			    ,url:'${pageContext.request.contextPath}/member/logout'
+			    ,data:''
+			    ,dataType:'json'
+			    ,success: function(result){
+			    	
+			    	alert(result.상태);
+			    	location.href="${pageContext.request.contextPath}/sample/login"
+			    }
+			    ,error: function(result){
+			    	
+			    }
+				
+				
+				
+			})
+			
+		});		
+	});
+
 
 
 </script>
@@ -36,12 +55,14 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <c:if test="${member == null}"/>
+        <c:if test="${ SessionUser == null}">
         <a class="nav-link" href="/sample/login">로그인</a>
         <a class="nav-link" href="/sample/join">회원가입</a>
-        <c:if test="${member != null }"/>
-        <a class="nav-link" href="/sample/logout">로그아웃</a>
+        </c:if>
+        <c:if test="${ SessionUser != null }">
+        <button class="nav-link logout">로그아웃</button>>
         <a class="nav-link" href="/sample/mypage">마이페이지</a>
+        </c:if> 
       </form>
     </div> 
   </div>

@@ -34,9 +34,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public HashMap<String, Object> getMemberList(String memId) {
-		
-		return memberDAO.getMemberList(memId);
+	public int updateMember(HashMap<String, Object> params) {
+		return memberDAO.updateMember(params);
 	}
 
 	

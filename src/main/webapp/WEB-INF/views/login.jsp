@@ -38,7 +38,8 @@
 	                if(data.code === '0000') {
 	                 
 	                	alert('로그인에 성공하였습니다')
-	                	location.herf="/sample/home"
+	                	location.herf="${pageContext.request.contextPath}/sample/home.jsp"
+	                	
 	                } else if(data.code === '1111'){
 	                    alert('존재하지 않는 아이디입니다.')
 	                } else{
