@@ -13,9 +13,8 @@
 			    ,data:''
 			    ,dataType:'json'
 			    ,success: function(result){
-			    	
-			    	alert(result.상태);
-			    	location.href="${pageContext.request.contextPath}/sample/login"
+			    	alert(result.status);
+			    	location.href="/sample/login";
 			    }
 			    ,error: function(result){
 			    	
@@ -45,7 +44,7 @@
           <a class="nav-link active" aria-current="page" href="/sample/home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/sample/reservation">예약 화면</a>
+          <a class="nav-link" href="/sample/calendar">예약 화면</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>

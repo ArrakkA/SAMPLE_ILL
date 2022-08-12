@@ -1,6 +1,7 @@
 package cc.greenit.sample.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,18 +13,16 @@ public class ReservationDAO extends AbstractDAO{
 	
 	//예약안된 테이블 조회
 	@SuppressWarnings("unchecked")
-	public HashMap<String, Object> reservationList(String dateId) {
+	public List<HashMap<String, Object>> reservationList(String dateId) {
 		
-		return (HashMap<String, Object>) selectOne("reservation.reservationTable", dateId);
+		return (List<HashMap<String, Object>>) selectList("reservation.reservationTable", dateId);
 		
 	}
 	
-	
-	
-
-	
-	
-	
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, Object>> makeCalendar(String yMId){
+		return (List<HashMap<String, Object>>) selectList("reservation.makeCalendar",yMId);
+	}
 	
 
 }

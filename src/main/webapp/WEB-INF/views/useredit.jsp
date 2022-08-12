@@ -1,139 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="./include/header.jsp" ></jsp:include>
-	<jsp:include page="./include/map.jsp"></jsp:include>
-	<script>
-	$(document).ready(function(){
-		
-		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
-			$('#saveBtn').on('click', function(){
-					
-				const memId = $('#ms_id').val();
-				const memPw = $('#ms_password').val();
-				const memChKPw = $('#ms_passwordChk').val();
-				const memName = $('#ms_name').val();
-				const memPhoneF =$('#first_phone1').val();
-				const memPhoneM = $('#mid_phone1').val();
-				const memPhoneL = $('#last_phone1').val();
-				const memAddrrs1 = $('#mAddres1').val();
-				const memAddrrs2 = $('#mAddres2').val();
-				const memSex = $('#ms_sex').val();
-				const memBirth = $('#mbirth').val();
-				const memZip = $('#mZip').val();
-				const memSmsChk = $('#ms_passwordChk').val();
-				const memHtell = $('#home_tel').val();
-				
-				console.log(memId)
-				console.log(memPw)
-				
-				let params = {};
-				params["smsChk"] = 'Y';
-				params["mIP"]= data.ip;
-				params["htell"]= memHtell ; 
-				params["name"] = memName;
-				
-				if(memId == ""){
-					alert("아이디를 입력해주세요")
-					return;
-				}else{
-					params["id"] = memId;
-				}
-				
-				if(memPw == ""){
-					alert("비밀번호를 입력해주세요")
-					return;
-				}else{
-				}
-				
-				if(memChKPw == "" && memChkPw != memPw){
-					alert("비밀번호확인을 체크해주세요")
-					return;
-				}else{
-					params["pw"] = memPw;
-				}
-				
-				if(memPhoneF == ""){
-					alert("핸드폰 앞 번호를 입력해주세요")
-					return;
-				}else{
-					params["phoneF"] = memPhoneF;
-				}
-				
-				if(memPhoneF == ""){
-					alert("핸드폰 가운데 번호를 입력해주세요")
-					return;
-				}else{
-					params["phoneM"] = memPhoneM;
-				}
-				
-				if(memPhoneF == ""){
-					alert("핸드폰 뒷 번호를 입력해주세요")
-					return;
-				}else{
-					params["phoneL"] = memPhoneL;
-				}
-				
-				if( memAddrrs2 == ""){
-					alert("주소를 입력해주세요")
-					return;
-				}else{
-					params["hAddrs1"] = memAddrrs1;
-					params["hAddrs2"] = memAddrrs2;
-					params["hZip"] = memZip;
-				}
-				if(memSex == "선택"){
-					alert("성별을 선택해주세요")
-					return;
-				}else{
-					params["sex"] = memSex;
-				}
-				if(memBirth==""){
-					alert("생일을 입력해주세요")
-					return;
-				}else{
-					params["birth"] = memBirth;
-				}
-				
-				
-				console.log(params)
-
-				$.ajax({ 
-						  type:'post',
-						  url:'/member/join',
-						  data: params ,
-						  dataType: 'json',
-						  success: function(result){
-							  
-							  if(result.code == "0000"){
-								  alert('회원가입 되었습니다 환영합니다!');
-							      location.href="/sample/login";
-							  }else if(result.code == "8888"){
-								  alert('code 8888')
-						  },
-						  error : function(result) {
-						      alert('통신오류가 발생하였습니다.');
-						  }
-					});		
-			 });
-		});
-	});	
-	</script>
+<jsp:include page="./include/header.jsp" ></jsp:include>
 </head>
+
 <body>
-  <jsp:include page="./include/navbar.jsp" ></jsp:include>
-  
-  
+<jsp:include page="./include/navbar.jsp" ></jsp:include>
+
 	<div id="wrap">
 		<div class="contents">
 			<div class="subtitle subBottom"></div>
-			<span class="title">간편회원가입</span>
+			<span class="title">회원정보 수정</span>
 			<span class="titleDes"></span>
 		</div>
 		<div class="subLine"></div>
-		<div class="joinTitle titleTop">간편회원가입</div>
+		<div class="joinTitle titleTop">회원정보 수정</div>
 		<div class="joinGrayBg col-xs-8">
 			<ul class="joinInfoBox">
 				<li class="infoList">
@@ -238,6 +123,8 @@
 			<button id="saveBtn" class="btn btn-outline-primary">확인</button>
 		</div>
 	</div>
+
+
 
 </body>
 </html>

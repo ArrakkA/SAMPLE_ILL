@@ -6,23 +6,33 @@
 	<select id="reservationTable"  resultType="hashmap">
 			
 			SELECT CO_DIV
-				   ,BK_DAY 
-				   ,BK_COS 
-				   ,BK_TIME 
-				   ,BK_ROUDF
-				   ,BK_PERSON
-				   ,BK_CHARGE
-				   
-			
-			FROM BK_HISTORY
-			
-			
+				  ,BK_DAY 
+				  ,BK_COS 
+				  ,BK_TIME 
+				  ,BK_ROUNDF
+				  ,BK_PERSON
+				  ,BK_CHARGE	   
+			 FROM  BK_HISTORY
 			WHERE  BK_DAY = #{dateId}
-			AND    BK_YN = 'Y'
+			  AND  BK_YN = 'Y'
+			  AND  CO_DIV = '100'
 				  			
 	</select>
+	
+	
+	<select id="makeCalendar" resultType="hashmap">
+	
+		SELECT  CL_SOLAR
+			   ,CL_DAYDIV
+			   ,CL_BUSINESS
+		 FROM   CL_DAYINFO
+		WHERE   CO_DIV ='100'
+		  AND   CL_SOLAR LIKE CONCAT('%',#{yMId},'%')
 
-
+	</select>
+	
+	
+	
 
 
 
