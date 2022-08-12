@@ -1,6 +1,7 @@
 package cc.greenit.sample.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,16 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	@Override
-	public HashMap<String, Object> reservationList(String dateId) {
+	public List<HashMap<String, Object>> reservationList(String dateId) {
 		
 		return reservationDAO.reservationList(dateId);
 		
+	}
+
+
+	@Override
+	public List<HashMap<String, Object>> makeCalendar(String yMId) {
+		return reservationDAO.makeCalendar(yMId);
 	}
 
 }

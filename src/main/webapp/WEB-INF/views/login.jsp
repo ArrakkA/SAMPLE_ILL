@@ -30,20 +30,21 @@
 		 }
 		 	
 		 $.ajax({
-	            type:'get',
+	            type:'post',
 	            url:'/member/login',
 	            dataType:'JSON',
 	            data:sParams,
 	            success: function(data) {
 	                if(data.code === '0000') {
 	                 
-	                	alert('로그인에 성공하였습니다')
-	                	location.herf="${pageContext.request.contextPath}/sample/home.jsp"
+	                	alert('로그인에 성공하였습니다');
+	                	location.href="/sample/home";
 	                	
 	                } else if(data.code === '1111'){
-	                    alert('존재하지 않는 아이디입니다.')
+	                    alert('아이디 및 비밀번호가 일치하지 않습니다');
+	                    
 	                } else{
-	                	 alert('아이디 및 비밀번호가 일치하지 않습니다')
+	                	 alert('아이디 및 비밀번호가 일치하지 않습니다');
 	                }
 	                	
 	            },

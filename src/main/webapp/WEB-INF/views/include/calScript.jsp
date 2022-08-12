@@ -11,6 +11,19 @@ table
         width:30%;
     }
     
+.blue{
+
+	color:blue
+}
+.red{
+	
+	color:red
+}
+.gray{
+
+	color:#808080
+	
+}
 </style>
 
 
@@ -115,7 +128,7 @@ table
         		j = i;
         	}
         	
-        	const tdDay =  "<div class='registerDay' onclick ='goDbDate("+ i +")' dayVal= ' "+yMId + j +"'>" + i + "</div>";
+        	const tdDay =  "<div class='registerDay' onclick ='goDbDate("+ yMId + j +")' id='"+yMId + j +"'>" + i + "</div>";
             cell = row.insertCell();
             cell.innerHTML = tdDay;
             cnt = cnt + 1;
@@ -123,12 +136,12 @@ table
             
             
             if (cnt % 7 == 1) {//일요일 계산
-            	const sunDay = "<div style='color:red' class='registerDay' onclick ='goDbDate("+ i +")' dayVal= '" +yMId + j +"'>" + i +"</div>";
+            	const sunDay = "<div style='color:red' class='registerDay' onclick ='goDbDate("+ yMId + j +")' id='" +yMId + j +"'>" + i +"</div>";
             	
                 cell.innerHTML = sunDay;//일요일에 색
             }
             if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
-            	 const satDay = "<div style='color: blue' class=' registerDay' onclick ='goDbDate("+ i +")' dayVal= '"+yMId + j +"'>" + i+ "</div>"	;				
+            	 const satDay = "<div style='color: blue' class=' registerDay' onclick ='goDbDate("+ yMId + j +")' id='"+yMId + j +"'>" + i+ "</div>"	;				
                 cell.innerHTML = satDay;
                 row = calendar.insertRow();// 줄 추가
             }
@@ -137,33 +150,105 @@ table
                 cell.bgColor = "#BCF1B1"; //오늘날짜배경색
             }
         }
- 
+        
+       goDbDate(today);
     }
     
-	function goDbDate(i){
+	function goDbDate(day){
 		
-		var dateArray = new Array();
+		$('.registerList').empty();
+		
+		const today = new Date();
+		const yearId = today.getFullYear().toString();
+		const thisMonth = today.getMonth()+1;
+        const monthId = thisMonth.toString();
+        
+        if(thisMonth <10){
+      	   var testId = "0"+ monthId;
+      	   
+         }else{
+      	   var testId = monthId;
+         }
+        
+        
+        const yMId = yearId + testId;
+        
 		const params = {};
 		
-		$('.registerDay').each(function(index, value){
-			
-			dateArray.push($('.registerDay').eq(index).attr('dayVal'));
-			
-		});
-		
-		 const dateId =dateArray[i];
+		 const dateId = day;
 		 params["dateId"] = dateId;
+		 params["yMId"] = yMId;
+		 
 		 
 		 $.ajax({ 
 				
 			  type:'post'
-			  ,url:'${pageContext.request.contextPath}/reservation//getReservationList'
-			  ,contentType:'application/json'
-			  ,data:JSON.stringify(params)
+			  ,url:'/reservation/getCalendarInfo'
+			  ,data:params
 			  ,dataType: 'json'
 			  ,success: function(result){
 				  
-					  console.log(result);
+					  
+						  for(i=0; i<result.calendar.length; i++){
+							  const business = result.calendar[i].CL_BUSINESS;
+							  const solar = result.calendar[i].CL_SOLAR;
+							  
+							  if(business == '2'){
+								  $('[id='+ solar + ']').addClass('blue');
+							  }else if(business == '3' || business == '4'){
+								  $('[id='+ solar + ']').addClass('red');
+							  }
+							  
+							 
+							  
+							  
+						  };
+						  
+						  
+						  
+						  for(i=0; i<result.reservation.length; i++){
+							  
+							  var list = result.reservation[i];
+							 
+							  var insertTb = "";
+								
+								insertTb += '<tr id="reservationTable" class="table"></tr>';
+								insertTb += 	'<td align="center">';
+								insertTb +=	     list.BK_DAY;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="" align="center">';
+								insertTb +=	     list.BK_TIME;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="discrimination" align="center">';
+								insertTb +=	     list.BK_COS;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="" align="center">';
+								insertTb +=	     list.BK_ROUNDF;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="" align="center">';
+								insertTb +=	     list.BK_PERSON;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="" align="center">';
+								insertTb +=	     list.BK_CHARGE;
+								insertTb +=     '</td>';
+								insertTb += 	'<td class="" align="center"><button>예약</button></td>';
+								insertTb += '</tr>';
+								
+								$('.registerList').append(insertTb);
+							  
+						  }
+						  
+						  
+					  
+					  
+					  //1. 달력에 대한 예약정보를 가져와야겠다. 별도의  ajax 호출
+				       //그후 그 결과를 for 돌면서 날짜 ID로 접근하여 날짜별 상태를 변경해준다.
+				      //오픈이면 놔두고 비오픈일시 disabled한다. 
+				      
+				     
+				       
+				       //result.시트로우
+					  //2.그리드의 로우를 그려야 해요.
 			  }
 			  ,error : function(result) {
 			      alert('통신오류가 발생하였습니다.');

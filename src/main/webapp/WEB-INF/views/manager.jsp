@@ -81,14 +81,15 @@ $(document).ready(function(){
 		var insertTb = "";
 		
 		insertTb += '<tr id="tableNum">';
-		insertTb += '<td align="center"><input type="checkbox" name="deleteChk" class="deleteChk" value="" /></td>';
-		insertTb += '<td class="mID" align="center">hong1</td>';
-		insertTb += '<td  class="discrimination" align="center"><input class= "mName"></input>';
-		insertTb += '<input type="hidden" class="registerType" value="i"/>';
-		insertTb += '<input type="hidden" class="numBox" value=""/>';
-		insertTb += '</td>';
-		insertTb += '<td class="mSex" align="center">1</td>';
-		insertTb += '<td class="mBirth" align="center">12345678</td>';
+		insertTb += 	'<td align="center"><input type="checkbox" name="deleteChk" class="deleteChk" value="" /></td>';
+		insertTb += 	'<td class="mID" align="center">hong1</td>';
+		insertTb += 	'<td  class="discrimination" align="center">';
+		insertTb += 		'<input class= "mName"></input>';
+		insertTb += 		'<input type="hidden" class="registerType" value="i"/>';
+		insertTb += 		'<input type="hidden" class="numBox" value=""/>';
+		insertTb += 	'</td>';
+		insertTb += '	<td class="mSex" align="center">1</td>';
+		insertTb += '	<td class="mBirth" align="center">12345678</td>';
 		insertTb += '</tr>';
 		
 		
