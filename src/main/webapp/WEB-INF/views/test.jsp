@@ -9,34 +9,10 @@
 <script>
 $(document).ready(function(){
 	
-	$(".testdiv1").on('click', function(){
+	let today = new Date();
+	const thisMonth = today.getMonth()+1;
 	
-		$('.testdiv1').addClass('on');
-		$('.page1').show();
-		$('.page2').hide();
-		$('.page3').hide();
-	})
-	
-	$(".testdiv2").on('click', function(){
-	
-		$('.testdiv2').addClass('on');
-		$('.page2').show();
-		$('.page1').hide();
-		$('.page3').hide();
-		
-	})
-	
-	$(".testdiv3").on('click', function(){
-	
-		$('.testdiv3').addClass('on');
-		$('.page3').show();
-		$('.page2').hide();
-		$('.page1').hide();
-	})
-	
-	$('.test').addClass('blue');
-	
-	
+	$('.testdiv1').html((thisMonth +1) + "월");
 	
 })
 

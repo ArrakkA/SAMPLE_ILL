@@ -9,12 +9,10 @@
 <jsp:include page="./include/header.jsp" ></jsp:include>
 <jsp:include page="./include/calScript.jsp"></jsp:include>
 </head>
-<body onload="build();">
+<body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 
-
-
-    <table align="center" id="calendar">
+    <table align="center">
         <tr>
             <td><font size=1%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
             <td colspan="5" align="center" id="yearmonth"></td>
@@ -31,16 +29,9 @@
 	            <td align="center"><div style ="color: blue">SAT</div></td>
         	</tr>
         </thead>
-        
-      
-       
-        
-        
-        
-        
-        
+        <tbody id="calendar">
+        </tbody>
     </table>
-    
     <table class= "table table-striped table-sm mainTable">
 					<colgroup>
 						<col style="width:10%"/>
@@ -51,7 +42,6 @@
 						<col style="width:10%"/>
 						<col style="width:10%"/>
 					</colgroup>
-					
 					<thead>
 						<tr align="center">
 							<th>날짜</th>
@@ -66,9 +56,6 @@
 					<tbody class="registerList" id="registerList">
 					</tbody>
 				 </table>
-	 		</div>
-    
-    
     
     
 </body>
