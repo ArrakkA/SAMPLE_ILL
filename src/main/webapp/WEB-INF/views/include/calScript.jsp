@@ -44,7 +44,7 @@ table
     function nextm()  //다음 달을 today에 저장
     {
         today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-        build();
+        build(); //만들기
     }
     
     function build()
@@ -149,10 +149,11 @@ table
             {
                 cell.bgColor = "#BCF1B1"; //오늘날짜배경색
             }
-        }
+        } //for 달력만들기
         
        goDbDate(today);
-    }
+        
+    }//달력 build() 끝
     
 	function goDbDate(day){
 		
@@ -213,25 +214,25 @@ table
 							  var insertTb = "";
 								
 								insertTb += '<tr id="reservationTable" class="table"></tr>';
-								insertTb += 	'<td align="center">';
+								insertTb += 	'<td align="center" class="bDay">';
 								insertTb +=	     list.BK_DAY;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="" align="center">';
+								insertTb += 	'<td class="bTime" align="center">';
 								insertTb +=	     list.BK_TIME;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="discrimination" align="center">';
+								insertTb += 	'<td class="bCos" align="center">';
 								insertTb +=	     list.BK_COS;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="" align="center">';
+								insertTb += 	'<td class="bRound" align="center">';
 								insertTb +=	     list.BK_ROUNDF;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="" align="center">';
+								insertTb += 	'<td class="bPerson" align="center">';
 								insertTb +=	     list.BK_PERSON;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="" align="center">';
+								insertTb += 	'<td class="bCharge" align="center">';
 								insertTb +=	     list.BK_CHARGE;
 								insertTb +=     '</td>';
-								insertTb += 	'<td class="" align="center"><button>예약</button></td>';
+								insertTb += 	'<td class="bkBtn" align="center"><button>예약</button></td>';
 								insertTb += '</tr>';
 								
 								$('.registerList').append(insertTb);
@@ -253,13 +254,29 @@ table
 			  ,error : function(result) {
 			      alert('통신오류가 발생하였습니다.');
 			  }
-			
 		
-		});
+		}); //ajax 끝
+		 
+	} //goDbDay 끝 
+		 
+	$(document).on('click',".bkBtn",function(){
+				  
+		   const bTr = $(this).parent().parent();
+		   const bDay = bTr.children('.bDay').text();
+		   const bTime = bTr.children('.bTime').text();
+		   const bCos = bTr.children('.bCos').text();
+		   
+		   
+		   console.log(bDay);
+		   console.log(bTime);
+		   console.log(bCos);
+   
+			   
+		   
+	   }); // 동적 버튼생성
 		 
 		
 		
-	}
  
     
 </script>
