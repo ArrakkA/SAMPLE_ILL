@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 
-    <table align="center">
+    <table align="center" id="calendar">
         <tr>
             <td><font size=1%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
             <td colspan="5" align="center" id="yearmonth"></td>
@@ -29,7 +29,7 @@
 	            <td align="center"><div style ="color: blue">SAT</div></td>
         	</tr>
         </thead>
-        <tbody id="calendar">
+        <tbody>
         </tbody>
     </table>
     <table class= "table table-striped table-sm mainTable">

@@ -52,17 +52,23 @@
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <c:if test="${ SessionUser == null}">
-        <a class="nav-link" href="/sample/login">로그인</a>
-        <a class="nav-link" href="/sample/join">회원가입</a>
-        </c:if>
-        <c:if test="${ SessionUser != null }">
-        <button class="nav-link logout">로그아웃</button>>
-        <a class="nav-link" href="/sample/mypage">마이페이지</a>
-        </c:if> 
-      </form>
+	    <c:if test="${ SessionUser == null}">
+	        <li class="nav-item">
+		        <a class="nav-link" href="/sample/login">로그인</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="/sample/join">회원가입</a>
+		    </li>
+	    </c:if>
+	    <c:if test="${ SessionUser != null }">
+	        <li class="nav-item">
+	        	<button class="nav-link logout">로그아웃</button>
+	        </li>
+	        <li class="nav-item">
+	        	<a class="nav-link" href="/sample/mypage">마이페이지</a>
+	        </li>	
+	    </c:if> 
+     </ul>
     </div> 
   </div>
 </nav>

@@ -49,7 +49,12 @@ $(document).ready(function(){
 <button class="testdiv2 test">2번버튼</button>
 <button class="testdiv3 test">3번버튼</button>
 
-
+<c:if test="${SessionUser == null}">
+	<div>${SessionUser}</div>
+</c:if>
+<c:if test="${SessionUser != null}">
+	<div>${SessionUser}</div>
+</c:if>
 
 <div class ="page1"> 
 	<div>나 페이지</div>

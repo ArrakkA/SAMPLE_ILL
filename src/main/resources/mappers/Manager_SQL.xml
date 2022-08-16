@@ -3,7 +3,7 @@
  
 <mapper namespace="manager">
 	<select id="getRegisterList" resultType="cc.greenit.sample.vo.ManagerVO">
-		SELECT MS_NUM, MS_ID, MS_NAME, MS_SEX, MS_NAME, MS_BIRTH
+		SELECT MS_NUM, MS_ID, MS_NAME, MS_SEX, MS_BIRTH
 		
 		FROM MS_MAININFO
 		

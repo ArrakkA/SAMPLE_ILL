@@ -48,21 +48,24 @@ public class MemberController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		try {
+			
 			params.put("pw", sha256.encrypt(request.getParameter("pw")));
+			
 		}catch(NoSuchAlgorithmException e) {
+			
 			result.put("code","8888");
 		}
 		
-		try { 	
-			//로그인 작업
+		try {
+			
 			HashMap<String, Object> member = memberService.selectMember(params);
+			
 			//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
 			if(member != null) {
 				//세션 생성
 				session.setAttribute(Globals.SESSION_NAME , member);
 				result.put("code","0000");
 			} else {
-				//id pw 틀림
 				result.put("code", "1111");
 			}
 		}catch(Exception e) {

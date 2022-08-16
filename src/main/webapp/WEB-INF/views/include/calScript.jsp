@@ -34,10 +34,9 @@ table
 		
 	
 	$(document).ready(function() {
-	
+	today = new Date();
 	build();
 	getDbReservation(today);
-	
 	});
 	
     function beforem() //이전 달을 today에 값을 저장
@@ -158,11 +157,12 @@ table
 			  ,dataType: 'json'
 			  ,success: function(result){
 				  		
+				  if(result.code == "0000") {
 				  		const rows = result.data;
 						const table = $("#calendar")
 
 						  for(i=0; i<rows.length; i++){
-							  const business = result.rows[i].CL_BUSINESS;
+							  const business = rows[i].CL_BUSINESS;
 							  const solar = rows[i].CL_SOLAR;
 							  
 							  if(business == '2'){
@@ -170,7 +170,10 @@ table
 							  }else if(business == '3' || business == '4'){
 								  $('[id='+ solar + ']').addClass('red');
 							  }
-						  };  	 
+						  };  
+				  }else{
+					  alert(result.message);
+				  }
 			  }
 			  ,error : function(result){
 			      alert('통신오류가 발생하였습니다.');
@@ -181,37 +184,43 @@ table
 	function getDbReservation(date){
 		
 		$('.registerList').empty();
+		
 		const dateId = date;
 		const params ={
-				"dateId": dateId
+				"dateId":dateId
 		}
 		$.ajax({ 
 			
 			  type:'post'
 			  ,url:'/reservation/getReservation'
 			  ,data:params
-			  ,dataType: 'json'
-			  ,success: function(result){
+			  ,dataType:'json'
+			  ,success:function(result){
+				  
+				  
+				  		if(result.code=="0000"){
 				 			const rows = result.data;
 				 			const tbody = $("#registerList");
 							tbody.empty();
 							
 							for(i=0; i<rows.length; i++){
 							    var list = rows[i];
+								
+								const tr = $("<tr></tr>");
+								const td1 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
+								const td2 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
+								const td3 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
+								const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
+								const td5 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
+								const td6 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
+								const td7 = $("<td class='bkBtn'><button>예약</button></td>");
 									
-								for(i=0; i<rows.lenght; i++){
-									const tr = $("<tr></tr>");
-									const td1 = $("<td>" + list.BK_DAY + "</td>");
-									const td2 = $("<td>" + list.BK_TIME + "</td>");
-									const td3 = $("<td>" + list.BK_COS + "</td>");
-									const td4 = $("<td>" + list.BK_ROUNDF + "</td>");
-									const td5 = $("<td>" + list.BK_PERSON + "</td>");
-									const td6 = $("<td>" + list.BK_CHARGE + "</td>");
-									const td7 = $("<td class='bkBtn'><button></button></td>");
-									
-									tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));
-								}
+								tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));	
+								
 							}//for문 끝
+				  		}else{
+				  			alert(result.message);
+				  		}
 		  			}
 			   ,error : function(result) {
 					      alert('통신오류가 발생하였습니다.');
@@ -222,11 +231,11 @@ table
 	
 	$(document).on('click',".bkBtn",function(){
 				  
-		   const bTr = $(this).parent().parent();
+		   const bTr = $(this).parent();
 		   const bDay = bTr.children('.bDay').text();
 		   const bTime = bTr.children('.bTime').text();
 		   const bCos = bTr.children('.bCos').text();
-	
+		     
 		   console.log(bDay);
 		   console.log(bTime);
 		   console.log(bCos);

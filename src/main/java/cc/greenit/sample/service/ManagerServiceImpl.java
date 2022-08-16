@@ -28,7 +28,6 @@ public class ManagerServiceImpl implements ManagerService{
 		return managerDAO.getRegisterList(search);
 	}
 	
-
 	@Override
 	public int getRegisterListCnt(Search search) {
 		

@@ -19,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public HashMap<String, Object> selectMember(Map<String, Object> params) {
+	public HashMap<String,Object> selectMember(Map<String, Object> params) {
 		
 		return memberDAO.selectMember(params);
 	}

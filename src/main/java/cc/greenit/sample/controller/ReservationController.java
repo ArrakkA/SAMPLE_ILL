@@ -32,7 +32,7 @@ public class ReservationController {
 
 	@ResponseBody
 	@PostMapping(value = "/getCalendar")
-	public ResponseResult getCalendar(HttpServletRequest request, @RequestParam(value="ymId")String ymId){
+	public ResponseResult getCalendar(HttpServletRequest request, @RequestParam(name="ymId")String ymId){
 		
 		ResponseResult result = new ResponseResult();
 		
@@ -52,7 +52,7 @@ public class ReservationController {
 	
 	@ResponseBody
 	@PostMapping(value = "/getReservation")
-	public ResponseResult getReservation(HttpServletRequest request, @RequestParam(value="dateId")String dateId){
+	public ResponseResult getReservation(HttpServletRequest request, @RequestParam(name="dateId")String dateId){
 		
 		ResponseResult result = new ResponseResult();
 		

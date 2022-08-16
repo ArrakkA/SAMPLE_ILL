@@ -17,9 +17,7 @@ public class ManagerDAO extends AbstractDAO{
 	
 	@SuppressWarnings("unchecked")
 	public List<ManagerVO> getRegisterList(Search search){
-		
 		return selectList("manager.getRegisterList", search);
-			
 		
 	}
 	

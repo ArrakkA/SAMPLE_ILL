@@ -14,7 +14,7 @@
 				  ,BK_CHARGE	   
 			 FROM  BK_HISTORY
 			WHERE  BK_DAY = #{dateId}
-			  AND  BK_YN = 'Y'
+			  AND  BK_YN = 'N'
 			  AND  CO_DIV = '100'
 				  			
 	</select>

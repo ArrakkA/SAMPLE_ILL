@@ -97,27 +97,27 @@
 					params["birth"] = memBirth;
 				}
 				
-				
-				console.log(params)
+				console.log(params);
 
 				$.ajax({ 
-						  type:'post',
-						  url:'/member/join',
-						  data: params ,
-						  dataType: 'json',
-						  success: function(result){
+						  type:'post'
+						 ,url:'/member/join'
+						 ,data: params
+						 ,dataType: 'json'
+						 ,success: function(result){
 							  
 							  if(result.code == "0000"){
 								  alert('회원가입 되었습니다 환영합니다!');
 							      location.href="/sample/login";
 							  }else if(result.code == "8888"){
-								  alert('code 8888')
-						  },
-						  error : function(result) {
-						      alert('통신오류가 발생하였습니다.');
-						  }
-					});		
-			 });
+								  alert('code 8888');
+						  	  }
+						 }
+						 ,error : function(result) {
+						     alert('통신오류가 발생하였습니다.');
+						 }
+					});	//ajax 종료	
+			 });//jquery btnsave 
 		});
 	});	
 	</script>
