@@ -156,9 +156,7 @@ table
     }//달력 build() 끝
     
 	function goDbDate(day){
-		
-		$('.registerList').empty();
-		
+    	
 		const today = new Date();
 		const yearId = today.getFullYear().toString();
 		const thisMonth = today.getMonth()+1;
@@ -171,14 +169,11 @@ table
       	   var testId = monthId;
          }
         
-        
         const yMId = yearId + testId;
         
 		const params = {};
 		
-		 const dateId = day;
-		 params["dateId"] = dateId;
-		 params["yMId"] = yMId;
+		params["yMId"] = yMId;
 		 
 		 
 		 $.ajax({ 
@@ -258,6 +253,61 @@ table
 		}); //ajax 끝
 		 
 	} //goDbDay 끝 
+	
+	
+	function getDbReservation(){
+		
+		$('.registerList').empty();
+		
+		const params = {};
+		const dateId = day;
+		params["dateId"] = dateId;
+		
+		$.ajax({ 
+			
+			  type:'post'
+			  ,url:'/reservation/getCalendarInfo'
+			  ,data:params
+			  ,dataType: 'json'
+			  ,success: function(result){
+		
+							for(i=0; i<result.reservation.length; i++){
+								  
+								  var list = result.reservation[i];
+								 
+								  var insertTb = "";
+									
+									insertTb += '<tr id="reservationTable" class="table"></tr>';
+									insertTb += 	'<td align="center" class="bDay">';
+									insertTb +=	     list.BK_DAY;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bTime" align="center">';
+									insertTb +=	     list.BK_TIME;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bCos" align="center">';
+									insertTb +=	     list.BK_COS;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bRound" align="center">';
+									insertTb +=	     list.BK_ROUNDF;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bPerson" align="center">';
+									insertTb +=	     list.BK_PERSON;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bCharge" align="center">';
+									insertTb +=	     list.BK_CHARGE;
+									insertTb +=     '</td>';
+									insertTb += 	'<td class="bkBtn" align="center"><button>예약</button></td>';
+									insertTb += '</tr>';
+									
+									$('.registerList').append(insertTb);  
+								}
+		  			}
+			   ,error : function(result) {
+					      alert('통신오류가 발생하였습니다.');
+					}
+				});//ajax 끝
+	}//goDbReservation
+	
 		 
 	$(document).on('click',".bkBtn",function(){
 				  

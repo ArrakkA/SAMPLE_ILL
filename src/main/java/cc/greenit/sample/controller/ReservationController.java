@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.greenit.sample.service.ReservationService;
+import cc.greenit.sample.vo.ResponseResult;
 
 @Controller
 @RequestMapping("/reservation")
@@ -29,32 +29,52 @@ public class ReservationController {
 		this.reservationService = reservationService;
 		
 	}
-	//날짜에 맞는 테이블 들고오기(상태가 Y)
+
 	@ResponseBody
-	@PostMapping(value = "/getCalendarInfo")
-	public HashMap<String, Object> getReservation(HttpServletRequest request){
+	@PostMapping(value = "/getCalendar")
+	public ResponseResult getCalendar(HttpServletRequest request, @RequestParam(name="ymID")String ymId ){
 		
-		//결과 입력
-		HashMap<String, Object> result = new HashMap<String, Object>();
+		ResponseResult result = new ResponseResult();
 		
-		String dateId = request.getParameter("dateId");
-		String yMId = request.getParameter("yMId");
 		try {
-			//쿼리문에 것들 저장
-			List<HashMap<String, Object>> params1 = reservationService.reservationList(dateId);
-			List<HashMap<String, Object>> params2 = reservationService.makeCalendar(yMId);
-			//표현하기위해 가져감
-			result.put("reservation", params1);
-			result.put("calendar", params2);
-			result.put("status", "success");
-			
-		}catch(Exception e){
-			//실패시 에러 표시
+			List<HashMap<String, Object>> data = reservationService.makeCalendar(ymId);
+			result.setData(data);
+			result.setCode("0000");
+			result.setMessage("success");
+		}catch(Exception e) {
 			e.printStackTrace();
-			result.put("status", "실패");
+			result.setCode("9999");
+			result.setMessage("error");
 		}
+		
 		return result;
+		
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/getReservation")
+	public ResponseResult getReservation(HttpServletRequest request, @RequestParam(name="dateId")String dateId ){
+		
+		ResponseResult result = new ResponseResult();
+		
+		try {
+			//쿼리문 저장
+			List<HashMap<String, Object>> data = reservationService.reservationList(dateId);
+			//결과 세팅
+			result.setData(data);
+			result.setCode("0000");
+			result.setMessage("success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			//결과 세팅
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		
+		return result;
+		
+	}
+	
 
 	
 	
