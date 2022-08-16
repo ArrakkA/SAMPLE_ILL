@@ -27,7 +27,7 @@
 			   ,CL_BUSINESS
 		 FROM   CL_DAYINFO
 		WHERE   CO_DIV ='100'
-		  AND   CL_SOLAR LIKE CONCAT('%',#{yMId},'%')
+		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
 
 	</select>
 	
