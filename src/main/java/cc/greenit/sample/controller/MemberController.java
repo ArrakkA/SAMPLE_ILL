@@ -25,9 +25,6 @@ import cc.greenit.sample.service.MemberService;
 @RequestMapping("/member")
 public class MemberController {
 	
-	
-	SHA256 sha256 = new SHA256();
-	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private MemberService memberService;
 	
@@ -45,21 +42,10 @@ public class MemberController {
 										   ,HttpSession session 
 										   ,@RequestParam HashMap<String, Object> params
 									       ){
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		
 		try {
-			
-			params.put("pw", sha256.encrypt(request.getParameter("pw")));
-			
-		}catch(NoSuchAlgorithmException e) {
-			
-			result.put("code","8888");
-		}
-		
-		try {
-			
 			HashMap<String, Object> member = memberService.selectMember(params);
-			
 			//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
 			if(member != null) {
 				//세션 생성
@@ -79,27 +65,20 @@ public class MemberController {
 	//로그아웃
 	@ResponseBody
 	@PostMapping(value = "/logout")
-	public String dologout(HttpServletRequest request
+	public HashMap<String,Object> dologout(HttpServletRequest request
 						   ,HttpServletResponse response
 						   ,HttpSession session
 						   ,Model model) {
-		
 		//결과값
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		//세션 조회
 		session = request.getSession(false);
-		
-		
 		//세션이 존재시 세션 삭제
 		if(session != null) {
-	
 			session.invalidate();
 			result.put("status", "session delete");
-			
 		}
-		
-		model.addAttribute("result" , result);
-		return "index";
+		return result;
 	}
 	
 	//회원가입
@@ -109,25 +88,16 @@ public class MemberController {
 										  ,@RequestParam HashMap<String,Object> params){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		try {
-		params.put("pw",sha256.encrypt(request.getParameter("pw")));
-		}catch(NoSuchAlgorithmException e) {
-			result.put("code","8888");
-		}
-		
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
-		
 		try { 	
 			int cnt =	memberService.insertMember(params);
 			result.put("code", "0000");
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			
 			result.put("code","9999");
 		}
-		
 		return result;
 	}
 	

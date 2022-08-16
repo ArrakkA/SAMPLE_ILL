@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>       
 <script>
 	$(document).ready(function(){
-		
 		$('.logout').on('click', function(){
-			
 			
 			$.ajax({
 				type:'post'
@@ -16,22 +14,13 @@
 			    	alert(result.status);
 			    	location.href="/sample/login";
 			    }
-			    ,error: function(result){
-			    	
+			    ,error: function(request, status, error){
 			    }
-				
-				
-				
-			})
-			
-		});		
-	});
-
-
-
+			});//ajax끝
+		});//click 이벤트 		
+	});//ready
 </script>
 
-    
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/sample/home">Greenit JSP</a>
@@ -45,12 +34,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/sample/calendar">예약 화면</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
         </li>
 	    <c:if test="${ SessionUser == null}">
 	        <li class="nav-item">

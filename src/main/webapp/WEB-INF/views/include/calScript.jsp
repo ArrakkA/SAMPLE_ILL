@@ -53,9 +53,9 @@ table
     
     function build()
     {
-        var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
-        var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
-        var tbcal = document.getElementById("calendar");// 테이블 달력을 만들 테이블
+        const nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
+        const lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
+        const tbcal = document.getElementById("calendar");// 테이블 달력을 만들 테이블
         const thisMonth = today.getMonth()+1;
         const yearId = today.getFullYear().toString();
         const monthId = thisMonth.toString();
@@ -175,7 +175,7 @@ table
 					  alert(result.message);
 				  }
 			  }
-			  ,error : function(result){
+			  ,error : function(request, status, error){
 			      alert('통신오류가 발생하였습니다.');
 			  }
 		}); //ajax 끝
@@ -222,7 +222,7 @@ table
 				  			alert(result.message);
 				  		}
 		  			}
-			   ,error : function(result) {
+			   ,error : function(request, status, error) {
 					      alert('통신오류가 발생하였습니다.');
 					}
 		});//ajax 끝
@@ -230,12 +230,33 @@ table
 	}//goDbReservation
 	
 	$(document).on('click',".bkBtn",function(){
-				  
+			 
+		   const user = '<%=session.getAttribute("SessionUser")%>';
 		   const bTr = $(this).parent();
 		   const bDay = bTr.children('.bDay').text();
 		   const bTime = bTr.children('.bTime').text();
 		   const bCos = bTr.children('.bCos').text();
 		     
+		   if(user == null){
+			   alert('로그인 해주세요');
+			   location.href = "/sample/login";
+		   }
+		   
+		   if(user != null){
+			   $.ajax({
+				   		type:'post'
+					   ,url:'/reservation/getReservation'
+					   ,data:params
+					   ,dataType:'json'
+					   ,success:function(result){
+						   
+					   }
+				       ,error:function(request, status, error){
+				    	   
+				       }
+			   });//ajax끝
+		   }
+		   
 		   console.log(bDay);
 		   console.log(bTime);
 		   console.log(bCos);

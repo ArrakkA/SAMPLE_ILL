@@ -11,18 +11,18 @@
 		   ,MS_NAME
 		   ,MS_ID
 		   ,MS_FIRST_PHONE1
-		   ,MS_MID_PHONE1
+		   ,AES_DECRYPT(UNHEX(MS_MID_PHONE1), 'JBOG') 
 		   ,MS_LAST_PHONE1
 		   ,MS_HOMEZIP
 		   ,MS_HOMEADDR1
 		   ,MS_HOMEADDR2
-		   ,MS_HOMETEL
+		   ,AES_DECRYPT(UNHEX(MS_HOMETEL), 'JBOG')
 		   ,MS_BIRTH
 		   
 		   FROM MS_MAININFO
 		   
 		   WHERE MS_ID = #{id}
-		   	 AND MS_PASSWORD  = #{pw}
+		   	 AND MS_PASSWORD  = SHA2(#{pw},256)
 	
 	</select>
 
@@ -65,7 +65,7 @@
 	  VALUES(
 	  			 #{num},
 				 #{id},
-				 #{pw},
+				 SHA2(#{pw},256),
 				 #{name},
 				 #{sex},
 				 #{birth},

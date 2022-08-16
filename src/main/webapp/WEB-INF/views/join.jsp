@@ -113,7 +113,7 @@
 								  alert('code 8888');
 						  	  }
 						 }
-						 ,error : function(result) {
+						 ,error : function(request, status, error) {
 						     alert('통신오류가 발생하였습니다.');
 						 }
 					});	//ajax 종료	

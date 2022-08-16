@@ -48,7 +48,7 @@
 	                }
 	                	
 	            },
-	            error:function (data) {
+	            error:function (request, status, error) {
 	                console.log('error');
 	            }
 	        })
@@ -61,9 +61,7 @@
  </head>
 <body>
  <jsp:include page="./include/navbar.jsp" ></jsp:include>
- 
-
-
+ 	
 		<div class ="container">
 			<div class = "col-lg-4"></div>
 			<div class = "col-lg-4">
@@ -79,7 +77,5 @@
 				</div>
 			</div>
 		</div>
-
-
 </body>
 </html>
