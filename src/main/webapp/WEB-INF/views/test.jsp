@@ -13,10 +13,18 @@ $(document).ready(function(){
 	const thisMonth = today.getMonth()+1;
 	
 	$('.testdiv1').html((thisMonth +1) + "월");
+	
+	$('.testdiv1').on('click', function(){
+		$('.popup').css("display","flex");
+		
+	})
+	$('.popup-close').on('click', function(){
+		$('.popup').css("display","none");
+	})
+	
+	
+	
 })
-
-
-
 
 </script>
 
@@ -31,7 +39,31 @@ $(document).ready(function(){
 	color:red
 
 }
-
+.popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
+  display: none;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,0.5);
+}
+.popup-inner {  /* 열렸을 때 팝업창 크기와 색상을 지정합니다. */
+  position:absolute;
+  width: 50%;
+  height: 50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  padding : 10px;
+  background:#fff;
+}
+.popup-close{ /* 팝업창 내 닫기 버튼의 위치를 지정합니다. */
+  position: absolute;
+  display: block;
+  top:10px;
+  right: 10px;
+}
 </style>
 
 
@@ -59,6 +91,16 @@ $(document).ready(function(){
 </div>
 
 <div onclick=""></div>
+
+<div class="popup">  <!-- 표출되는 팝업 입니다. -->
+   	<div class="popup-inner">
+    	<div class="popup-contents">
+     	<a class="popup-close" href="#">X</a> <!-- 팝업 닫기 버튼입니다 -->
+     	팝업 내용
+     	</div>
+   	</div>
+</div>
+
 
 
 </body>

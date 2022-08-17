@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-  
 <style>
-
 table
     {
     	margin-top : 30px;
@@ -24,18 +22,40 @@ table
 	color:#808080
 	
 }
+.popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
+  display: none;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,0.5);
+}
+.popup-inner {  /* 열렸을 때 팝업창 크기와 색상을 지정합니다. */
+  position:absolute;
+  width: 50%;
+  height: 50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  padding : 10px;
+  background:#fff;
+}
 </style>
 
 
   
 <script> //달력만들기
+	var user = '<%=(String)session.getAttribute("SessionUser")%>';
+	
 	let today = new Date(); // 오늘 날짜
 	let date = new Date();
 		
 	
 	$(document).ready(function() {
 	today = new Date();
-	build();
+	
+	build();//달력만듬
 	getDbReservation(today);
 	});
 	
@@ -213,7 +233,7 @@ table
 								const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
 								const td5 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
 								const td6 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
-								const td7 = $("<td class='bkBtn'><button>예약</button></td>");
+								const td7 = $("<td class='popBtn'><button>예약</button></td>");
 									
 								tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));	
 								
@@ -229,41 +249,39 @@ table
 		
 	}//goDbReservation
 	
-	$(document).on('click',".bkBtn",function(){
-			 
-		   const user = '<%=session.getAttribute("SessionUser")%>';
-		   const bTr = $(this).parent();
-		   const bDay = bTr.children('.bDay').text();
-		   const bTime = bTr.children('.bTime').text();
-		   const bCos = bTr.children('.bCos').text();
-		     
-		   if(user == null){
-			   alert('로그인 해주세요');
-			   location.href = "/sample/login";
-		   }
-		   
-		   if(user != null){
-			   $.ajax({
-				   		type:'post'
-					   ,url:'/reservation/getReservation'
-					   ,data:params
-					   ,dataType:'json'
-					   ,success:function(result){
-						   
-					   }
-				       ,error:function(request, status, error){
-				    	   
-				       }
-			   });//ajax끝
-		   }
-		   
-		   console.log(bDay);
-		   console.log(bTime);
-		   console.log(bCos);
-
-	   }); // 동적 버튼생성
-		 
+	$(document).on('click','.popBtn',function(){
+			
+		const bTr = $(this).parent();
+		const bDay = bTr.children('.bDay').text();
+		const bTime = bTr.children('.bTime').text();
+		const bCos = bTr.children('.bCos').text();
+		const bRondf = bTr.children('.bRoundf').text();
+		const bPerson = bTr.children('.bPerson').text();
 		
+		$('.popup').css("display", "flex");
+		$(".popContent").append("<div> 밑으로가면 왜 안될까?</div>");
+		
+		const ul = $("<ul></ul>");
+		const li = $("<li></li>");
+		const span1 = $("<span> 예약자 </span>");
+		const span2 = $("<span> 이름 </span>");
+		const span3 = $("<span> 핸드폰 </span>");
+		const span4 = $("<span> 01012345678 </span>");
+		const span5 = $("<span> 예약일자 </span>");
+		const span6 = $("<span>"+ bDay +"</span>");
+		const span7 = $("<span> 코스/홀/시간 </span>");
+		const span8 = $("<span>" + bCos + "/" + bRoundf + "/" + bTime + "</span>");
+		const span9 = $("<span> 인원 </span>");
+		const span10 = $("<span>"+ bPerson +"</span>");
+
+	 }); // 동적 버튼(팝업생성버튼)
+	
+	$(document).ready(function(){
+		$('.popup-close').on('click', function(){
+			$('.popup').css("display", "none");
+		})
+	})
+	
 		
  
     

@@ -24,5 +24,13 @@ public class ReservationDAO extends AbstractDAO{
 		return (List<HashMap<String, Object>>) selectList("reservation.makeCalendar",yMId);
 	}
 	
-
+	public String makeReservNum() {
+		return (String) selectOne("reservation.makeReservNum");
+	}
+	
+	public int setReservation(HashMap<String, Object> params) {
+		return update("reservation.setReservation",params);
+	}
+	
+	
 }

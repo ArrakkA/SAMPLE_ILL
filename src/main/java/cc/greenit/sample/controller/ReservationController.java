@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cc.greenit.sample.global.Globals;
 import cc.greenit.sample.service.ReservationService;
 import cc.greenit.sample.vo.ResponseResult;
 
@@ -72,6 +74,51 @@ public class ReservationController {
 		
 		return result;
 		
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/setReservation")
+	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
+		
+		
+		
+		ResponseResult result = new ResponseResult();
+		
+		try {
+			session = request.getSession(false);
+				
+			if(session == null) {
+				
+				result.setCode("1111");
+				result.setMessage("session not exist");
+				
+			}else if(session != null) {
+				
+				// 필요한 parameter들 입력
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> sParams = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
+				String rNum = reservationService.makeReservNum();
+				params.put("rNum", rNum);
+				params.putAll(sParams);
+				
+				reservationService.setReservation(params);
+				
+				result.setCode("0000");
+				result.setMessage("session exist");
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			//결과 세팅
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		
+		
+
+		return result;
+				
 	}
 	
 

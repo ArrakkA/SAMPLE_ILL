@@ -8,4 +8,8 @@ public interface ReservationService {
 	public List<HashMap<String, Object>> reservationList(String dateId);
 	
 	public List<HashMap<String, Object>> makeCalendar(String yMId);
+	
+	public String makeReservNum();
+	
+	public int setReservation(HashMap<String, Object> params);
 }

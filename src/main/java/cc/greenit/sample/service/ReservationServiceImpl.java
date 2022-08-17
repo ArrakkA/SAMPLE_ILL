@@ -34,4 +34,15 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDAO.makeCalendar(yMId);
 	}
 
+	@Override
+	public String makeReservNum() {
+	
+		return reservationDAO.makeReservNum();
+	}
+
+	@Override
+	public int setReservation(HashMap<String, Object> params) {
+		return reservationDAO.setReservation(params);
+	}
+
 }

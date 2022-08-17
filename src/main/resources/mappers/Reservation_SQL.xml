@@ -27,10 +27,36 @@
 			   ,CL_BUSINESS
 		 FROM   CL_DAYINFO
 		WHERE   CO_DIV ='100'
-		  AND   CL_SOLAR LIKE CONCAT('%',#{yMId},'%')
+		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
 
 	</select>
+	<select id="makeReservNum" resultType="String">
+	SELECT LPAD(IFNULL(MAX(BK_RSV) +1, 1),12, '0') FROM BK_HISTORY
 	
+	</select>
+	
+	
+	
+	
+	<update id="setReservation" parameterType="hashmap">
+			UPDATE BK_HISTORY SET
+				   
+				   BK_RSVNO = #{rNum}
+				  ,BK_NAME = #{MS_NAME}
+				  ,BK_MSNUM = #{MS_NUM}
+				  ,BK_FIRST_PHONE1 = #{MS_FIRST_PHONE1}
+				  ,BK_MID_PHONE1 = hex(aes_encrypt(#{MS_MID_PHONE1}, 'JBOG'))
+				  ,BK_LAST_PHONE1 = #{MS_LAST_PHONE1}
+				  ,BK_YN = 'Y'
+				  ,UPDATE_STAFF = DATE_FORMAT(now(), "%Y%m%d")
+				  ,UPDATE_DATETIME = now()
+				  ,UPDATE_IP = #{ip}
+			 WHERE CO_DIV = '100'
+			   AND BK_DAY = #{day}
+			   AND BK_COS = #{cos}
+			   AND BK_TIME = #{time}
+				  
+	</update>
 	
 	
 

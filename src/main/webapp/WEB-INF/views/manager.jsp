@@ -258,5 +258,14 @@ function fn_next(page, range, rangeSize, searchType, keyword){
 	 			</ul>
 	 		</div>
 	   </div>
+	   
+	   <div class = "popup">
+	   
+	   
+	   </div>
+	   
+	   
+	   
+	   
 </body>
 </html>

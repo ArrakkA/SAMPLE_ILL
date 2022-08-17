@@ -63,28 +63,28 @@
 			   )       
 			   
 	  VALUES(
-	  			 #{num},
-				 #{id},
-				 SHA2(#{pw},256),
-				 #{name},
-				 #{sex},
-				 #{birth},
-				 #{phoneF},
-				 hex(aes_encrypt(#{phoneM}, 'JBOG')),
-				 #{phoneL},
-				 #{smsChk},
-				 'Y',
-				 hex(aes_encrypt(#{htell}, 'JBOG')),
-				 #{hZip},
-				 #{hAddrs1},
-				 #{hAddrs2},
-				 DATE_FORMAT(now(), "%Y%m%d"),
-				 DATE_FORMAT(now(), "%m-%d" ),
-				 now(),
-				 #{mIP},
-				 DATE_FORMAT(now(), "%m-%d" ),
-				 DATE_FORMAT(now(), "%Y-%m-%d %H:%i:$s"),
-				 #{mIP}		   							 			   					
+	  			 #{num}
+				,#{id}
+			    ,SHA2(#{pw},256)
+				,#{name}
+				,#{sex}
+				,#{birth}
+				,#{phoneF}
+				,hex(aes_encrypt(#{phoneM}, 'JBOG'))
+				,#{phoneL}
+				,#{smsChk}
+				,'Y'
+				,hex(aes_encrypt(#{htell}, 'JBOG'))
+				,#{hZip}
+				,#{hAddrs1}
+				,#{hAddrs2}
+				,DATE_FORMAT(now(), "%Y%m%d")
+				,DATE_FORMAT(now(), "%m-%d" )
+				,now()
+				,#{mIP}
+				,DATE_FORMAT(now(), "%m-%d" )
+				,DATE_FORMAT(now(), "%Y-%m-%d %H:%i:$s")
+				,#{mIP}		   							 			   					
 			)	   
 		
 	</insert>
