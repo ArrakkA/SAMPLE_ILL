@@ -7,7 +7,8 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
-<jsp:include page="./include/calScript.jsp"></jsp:include>
+<link rel="stylesheet" href="<c:url value='/cal.css'/>">
+<script type="text/javascript" src="/cal.js"></script> 
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>

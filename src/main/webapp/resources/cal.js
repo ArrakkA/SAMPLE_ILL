@@ -1,52 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-<style>
-table
-    {
-    	margin-top : 30px;
-        border:1px solid #BDBDBD;
-        text-align:center;
-        width:30%;
-    }
-    
-.blue{
-
-	color:blue
-}
-.red{
-	
-	color:red
-}
-.gray{
-
-	color:#808080
-	
-}
-.popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
-  display: none;
-  position:fixed;
-  width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
-  background:rgba(0,0,0,0.5);
-}
-.popup-inner {  /* 열렸을 때 팝업창 크기와 색상을 지정합니다. */
-  position:absolute;
-  width: 50%;
-  height: 50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
-  padding : 10px;
-  background:#fff;
-}
-</style>
-
-
-  
-<script> //달력만들기
-	var user = '<%=(String)session.getAttribute("SessionUser")%>';
+var user = '<%=(String)session.getAttribute("SessionUser")%>';
 	
 	let today = new Date(); // 오늘 날짜
 	let date = new Date();
@@ -282,8 +234,3 @@ table
 		})
 	})
 	
-		
- 
-    
-</script>
-    
