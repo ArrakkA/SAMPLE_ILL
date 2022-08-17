@@ -1,5 +1,3 @@
-var user = '<%=(String)session.getAttribute("SessionUser")%>';
-	
 	let today = new Date(); // 오늘 날짜
 	let date = new Date();
 		
@@ -211,26 +209,61 @@ var user = '<%=(String)session.getAttribute("SessionUser")%>';
 		const bPerson = bTr.children('.bPerson').text();
 		
 		$('.popup').css("display", "flex");
-		$(".popContent").append("<div> 밑으로가면 왜 안될까?</div>");
 		
-		const ul = $("<ul></ul>");
-		const li = $("<li></li>");
-		const span1 = $("<span> 예약자 </span>");
-		const span2 = $("<span> 이름 </span>");
-		const span3 = $("<span> 핸드폰 </span>");
-		const span4 = $("<span> 01012345678 </span>");
-		const span5 = $("<span> 예약일자 </span>");
-		const span6 = $("<span>"+ bDay +"</span>");
-		const span7 = $("<span> 코스/홀/시간 </span>");
-		const span8 = $("<span>" + bCos + "/" + bRoundf + "/" + bTime + "</span>");
-		const span9 = $("<span> 인원 </span>");
-		const span10 = $("<span>"+ bPerson +"</span>");
-
+		$('#pDay').text(bDay);
+		$('#pCHT').text(bCos + "/ " + bRoundf +"/ " +bTime);
+		$('#pPerson').text(bPerson);
+		$('#pCos').text(bCos);
+		$('#pTime').text(bTime);
+		
 	 }); // 동적 버튼(팝업생성버튼)
 	
 	$(document).ready(function(){
 		$('.popup-close').on('click', function(){
 			$('.popup').css("display", "none");
-		})
-	})
+		});
+		
+		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
+			 
+			 $('.bkBtn').on('click',function(){
+			
+			 const pTr = $(this).parent().parent();
+			 const pDay = pTr.find('#pDay').text();
+			 const pCos = pTr.find('#pCos').text();
+			 const pTime = pTr.find('#pTime').text();
+			 const pip = data.ip;
+			 
+			 const params ={
+			   "day":pDay
+			  ,"cos":pCos
+			  ,"time":pTime
+			  ,"ip":pip
+		   	 }
+		   	 
+		   	 $.ajax({
+				   		type:'post'
+					   ,url:'/reservation/setReservation'
+					   ,data:params
+					   ,dataType:'json'
+					   ,success:function(result){
+						   if(result.code == "0000"){
+							    console.log(result.message)
+								alert('예약이 성공했습니다.');
+								location.href = "sample/home";
+						   }else if(result.code == "1111"){
+							   console.log(result.message)
+							   alert('로그인 해주세요');
+							   location.href = "sample/login";
+						   }else{
+							   alert('에러가 발생했습니다.');
+						   }
+					   }
+				       ,error:function(request, status, error){
+				    	   alert('통신에러가 발생했습니다.');
+				    	   
+				       }
+			   });//ajax끝   	  
+			})//bkBtn
+		})//getJson
+	})//ready
 	

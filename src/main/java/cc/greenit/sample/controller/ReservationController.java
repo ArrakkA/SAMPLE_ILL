@@ -80,32 +80,24 @@ public class ReservationController {
 	@PostMapping(value="/setReservation")
 	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
 		
-		
-		
 		ResponseResult result = new ResponseResult();
-		
 		try {
 			session = request.getSession(false);
 				
 			if(session == null) {
-				
 				result.setCode("1111");
 				result.setMessage("session not exist");
 				
 			}else if(session != null) {
-				
 				// 필요한 parameter들 입력
 				@SuppressWarnings("unchecked")
 				HashMap<String, Object> sParams = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 				String rNum = reservationService.makeReservNum();
 				params.put("rNum", rNum);
 				params.putAll(sParams);
-				
 				reservationService.setReservation(params);
-				
 				result.setCode("0000");
 				result.setMessage("session exist");
-				
 			}
 			
 		}catch(Exception e) {
@@ -114,11 +106,7 @@ public class ReservationController {
 			result.setCode("9999");
 			result.setMessage("error");
 		}
-		
-		
-
-		return result;
-				
+		return result;		
 	}
 	
 

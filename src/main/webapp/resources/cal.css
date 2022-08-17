@@ -40,3 +40,7 @@ table
   padding : 10px;
   background:#fff;
 }
+
+.hiddenKey{
+	display:none;
+}

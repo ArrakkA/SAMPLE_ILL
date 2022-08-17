@@ -63,7 +63,38 @@
 	<!-- 팝업 입니다. -->
 	<div class="popup">  
    	<div class="popup-inner">
-    	<div class="popContent"></div>
+    	<div class="popContent">
+    		<ul class="popuplist">
+	    		<li>
+	    			<span>예약자</span>
+	    			<span id="pName">이름</span>
+	    		</li>
+	    		<li>
+	    			<span>핸드폰</span>
+	    			<span id="pPhone"></span>
+	    		</li>
+	    		<li>
+	    			<span>예약일자</span>
+	    			<span id="pDay"></span>
+	    		</li>
+	    		<li>
+	    			<span>코스/홀/시간</span>
+	    			<span id="pCHT"></span>	    			
+	    		</li>
+	    		<li>
+	    			<span>예약인원</span>
+	    			<span id="pPerson"></span>
+	    		</li>
+	    		<li>
+	    			<span>가격</span>
+	    			<span id="pPrice"></span>
+	    		</li>
+	    		<li class="hiddenKey">
+	    			<span id="pTime"></span>
+	    			<span id="pCos"></span>
+	    		</li>
+    		</ul>
+    	</div>
      	<div class= "buttonBox">
      		<button class="popup-close">닫기</button>
      		<button class="bkBtn">예약하기</button>

@@ -31,7 +31,7 @@
 
 	</select>
 	<select id="makeReservNum" resultType="String">
-	SELECT LPAD(IFNULL(MAX(BK_RSV) +1, 1),12, '0') FROM BK_HISTORY
+	SELECT LPAD(IFNULL(MAX(BK_RSVNO) +1, 1),12, '0') FROM BK_HISTORY
 	
 	</select>
 	
