@@ -249,11 +249,11 @@
 						   if(result.code == "0000"){
 							    console.log(result.message)
 								alert('예약이 성공했습니다.');
-								location.href = "sample/home";
+								location.href = "/home";
 						   }else if(result.code == "1111"){
 							   console.log(result.message)
 							   alert('로그인 해주세요');
-							   location.href = "sample/login";
+							   location.href = "/login";
 						   }else{
 							   alert('에러가 발생했습니다.');
 						   }

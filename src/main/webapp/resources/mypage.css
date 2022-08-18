@@ -1,0 +1,77 @@
+@charset "UTF-8";
+.menuOn{
+	color: #ffffff;
+    background: #ff6600;
+}
+.tablist{
+	width: 1200px;
+    height: 50px;
+    margin: 50px 30px 30px;
+    font-size: 0;
+    box-shadow: 5px 3px 13px 0px #ececec;
+}
+.tab{
+	display: inline-block;
+    width: 171px;
+    height: 50px;
+    color: #707070;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+}
+.content{
+	margin-top:30px;
+}
+.memReservationTable{
+	text-align: center;
+}
+.dayDiv{
+	width: 145px;
+    height: 30px;
+    border: 1px solid #dddddd;
+    padding: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+.dayBox{
+    position: relative;
+    width: 610px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.daySearchBtn{
+	
+	padding: 10px 40px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+.orangeRed{
+	color: #e35d5d;
+}
+.info#info__birth {
+  display: flex;
+}
+
+.info#info__birth select {
+  margin-left : 7px;
+}
+
+.info#info__birth select:first-child {
+  margin-left : 0px;
+}
+
+.info#info__birth select::-webkit-scrollbar {
+  width: 10px;
+}
+
+.info#info__birth select::-webkit-scrollbar-thumb {
+  background-color: #b6b6b6;
+  border-radius: 3px;
+}
+
+.info#info__birth select::-webkit-scrollbar-track {
+  background-color: #ebe9e9;
+  border-radius: 6px;
+}

@@ -6,12 +6,159 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
+<link rel="stylesheet" href="<c:url value='/mypage.css'/>">
+<script type="text/javascript" src="/mypage.js"></script>
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
-<div>
-	<a>예약확인 및 취소</a>
-	<a>회원정보 수정</a>
+<div class="tabList">
+	<a class="menuOn tab" id="tab1" href="javascript:changeContent(1)">예약확인 및 취소</a>
+	<a class="tab" id="tab2" href="javascript:changeContent(2)">회원정보 수정</a>
 </div>
+<div class="content" id="content1">
+	<table class="memReservationTable">
+		<colgroup>
+			<col style="width:20%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+			<col style="width:10%"/>
+		</colgroup>
+		<thead>
+			<tr align="center">
+				<th>예약번호</th>
+				<th>날짜</th>
+				<th>시간</th>
+				<th>코스</th>
+				<th>홀</th>
+				<th>인원</th>
+				<th>그린피 가격</th>
+				<th>예약</th>
+			</tr>
+		</thead>
+		<tbody class="memberReservationList"></tbody>
+	</table>
+</div >
+<div  class="content" id="content2" style="display:none">
+	<div id="wrap">
+		<div class="contents">
+			<div class="subtitle subBottom"></div>
+			<span class="title">회원정보 수정</span>
+			<span class="titleDes"></span>
+		</div>
+		<div class="subLine"></div>
+		<div class="joinGrayBg col-xs-8">
+			<ul class="joinInfoBox">
+				<li class="infoList">
+					<span class="orangeRed">*</span>
+					 아이디
+				</li>
+				<li>
+					<input type="text" id="ms_id" class="idInput" disabled>
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infolist">
+					<span class="orangeRed">*</span>
+					이 름
+				</li>
+				<li>
+					<input type="text" id="ms_name" style="width:150px" disabled>
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infolist">
+					<span class="orangeRed">*</span>
+					 핸드폰
+				</li>
+				<li>
+					<select id="first_phone1" class="select-arrow" style="width:90px; margin-right: 5px">
+						<option value>선택</option>
+						<option value="010">010</option>
+						<option value="011">011</option>
+						<option value="011">012</option>
+						<option value="011">013</option>
+						<option value="011">015</option>
+						<option value="011">016</option>
+						<option value="011">017</option>
+						<option value="011">018</option>
+						<option value="011">019</option>
+					</select>
+					- 	
+					<input type="text" id="mid_phone1" style="width:100px; margin-right: 5px;" >
+					- 
+					<input type="text" id="last_phone1" style="width:100px;" >
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infolist">
+					<span class="orangeRed">*</span>
+					 집전화
+				</li>
+				<li>
+					<input type="text" id="home_tel" style="width:300px; margin-right: 5px;" >
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infoList">
+					<span class="orangeRed">*</span>
+					 지역
+				</li>
+				<li>
+					<input type="text" id="mZip" placeholder="우편번호">
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="mAddres1" placeholder="주소"><br>
+					<input type="text" id="mAddres2" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infoList">
+					<span class="orangeRed">*</span>
+					 성별
+				</li>
+				<li>
+					<select name="selsex" id="ms_sex" class="select-arrow">
+						<option value>선택</option>
+						<option value="1">남</option>
+						<option value="2">여</option>
+					</select>
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infoList">
+					<span class="orangeRed">*</span>
+					 생년월일
+				</li>
+				<li class="info" id="info__birth">
+					<select class="box" id="birth-year">
+				    	<option disabled selected>출생 연도</option>
+				  	</select>
+				  	<select class="box" id="birth-month">
+				    	<option disabled selected>월</option>
+				  	</select>
+				  	<select class="box" id="birth-day">
+				    	<option disabled selected>일</option>
+				  	</select>
+				</li>
+			</ul>
+		</div>
+		<div class="btnbox">
+			<button id="saveBtn" class="btn btn-outline-primary">회원정보 수정</button>
+		</div>
+	</div>
+	
+	
+	
+	
+</div>
+
+
+
+
+
 </body>
 </html>

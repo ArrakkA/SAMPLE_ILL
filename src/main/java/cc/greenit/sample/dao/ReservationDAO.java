@@ -32,5 +32,12 @@ public class ReservationDAO extends AbstractDAO{
 		return update("reservation.setReservation",params);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params) {
+		
+		return (List<HashMap<String, Object>>) selectList("reservation.getMemberReservation", params);
+		
+	}
+	
 	
 }
