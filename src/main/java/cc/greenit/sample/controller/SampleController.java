@@ -39,14 +39,7 @@ public class SampleController {
 					   ,HttpServletRequest request
 					   ,HttpSession session) {
 		
-		//session이 존재하지 않을때
-		session = request.getSession(false);
-		
-		if(session == null) {
-			return "index";
-			
-		}
-		//session 존재시 아이디 확인
+		//session 존재시 아이디 확인 
 		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 		
 		if(member == null) {
@@ -82,16 +75,14 @@ public class SampleController {
 			    		 ,HttpServletRequest request
 						 ,HttpSession session) {
 		
-		session = request.getSession(false);
-		if(session == null) {
-			return "index";	
-		}
 		//session 존재시 아이디 확인
+		@SuppressWarnings("unchecked")
 		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 
 		if(member == null) {
 			return "index";	
 		}
+		
 		model.addAttribute("user", member);
 		return "mypage";
 	}

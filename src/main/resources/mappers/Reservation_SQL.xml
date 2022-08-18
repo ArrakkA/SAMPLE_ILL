@@ -35,12 +35,8 @@
 	
 	</select>
 	
-	
-	
-	
 	<update id="setReservation" parameterType="hashmap">
-			UPDATE BK_HISTORY SET
-				   
+			UPDATE BK_HISTORY SET				  
 				   BK_RSVNO = #{rNum}
 				  ,BK_NAME = #{MS_NAME}
 				  ,BK_MSNUM = #{MS_NUM}
@@ -57,6 +53,20 @@
 			   AND BK_TIME = #{time}
 				  
 	</update>
+	
+	<select id="getMemberReservation" resultType="hashmap">
+		SELECT  CO_DIV
+			   ,BK_DAY 
+			   ,BK_COS 
+			   ,BK_TIME 
+			   ,BK_ROUNDF
+			   ,BK_PERSON
+			   ,BK_CHARGE
+		  FROM  BK_HISTORY
+		 WHERE  CO_DIV = '100'
+		   AND  BK_MSNUM = #{MS_NUM}
+		   
+	</select>
 	
 	
 

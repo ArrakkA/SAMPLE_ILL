@@ -12,4 +12,6 @@ public interface ReservationService {
 	public String makeReservNum();
 	
 	public int setReservation(HashMap<String, Object> params);
+	
+	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params);
 }

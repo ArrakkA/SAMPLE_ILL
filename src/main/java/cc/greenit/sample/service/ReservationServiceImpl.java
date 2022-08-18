@@ -45,4 +45,9 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationDAO.setReservation(params);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params) {
+		return reservationDAO.memberReservationList(params);
+	}
+
 }

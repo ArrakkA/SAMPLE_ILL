@@ -81,20 +81,21 @@ public class ReservationController {
 	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
 		
 		ResponseResult result = new ResponseResult();
+		
 		try {
-			session = request.getSession(false);
+			//세션저장 데이터 가져오기
+			@SuppressWarnings("unchecked")
+			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 				
-			if(session == null) {
+			if(member == null) {
 				result.setCode("1111");
 				result.setMessage("session not exist");
 				
-			}else if(session != null) {
+			}else if(member != null) {
 				// 필요한 parameter들 입력
-				@SuppressWarnings("unchecked")
-				HashMap<String, Object> sParams = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 				String rNum = reservationService.makeReservNum();
 				params.put("rNum", rNum);
-				params.putAll(sParams);
+				params.putAll(member);
 				reservationService.setReservation(params);
 				result.setCode("0000");
 				result.setMessage("session exist");
@@ -109,6 +110,34 @@ public class ReservationController {
 		return result;		
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "/getMemberReservation")
+	public ResponseResult getMemberReservation(HttpServletRequest request,HttpSession session){
+		
+		ResponseResult result = new ResponseResult();
+		
+		
+		
+		try {
+			//세션저장 데이터 가져오기
+			@SuppressWarnings("unchecked")
+			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
+			
+			List<HashMap<String, Object>> data = reservationService.memberReservationList(member);//데이터 가져오기
+			//결과 세팅
+			result.setData(data);
+			result.setCode("0000");
+			result.setMessage("success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			//결과 세팅
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		
+		return result;
+		
+	}
 
 	
 	

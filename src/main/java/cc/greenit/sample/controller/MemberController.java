@@ -1,6 +1,5 @@
 package cc.greenit.sample.controller;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.greenit.sample.global.Globals;
 import cc.greenit.sample.service.MemberService;
+import cc.greenit.sample.vo.ResponseResult;
 
 @Controller
 @RequestMapping("/member")
@@ -83,7 +82,7 @@ public class MemberController {
 	
 	//회원가입
 	@ResponseBody
-	@RequestMapping(value = "/join", method = {RequestMethod.POST, RequestMethod.GET})
+	@PostMapping(value = "/join")
 	public HashMap<String, Object> doJoin(HttpServletRequest request
 										  ,@RequestParam HashMap<String,Object> params){
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -103,19 +102,37 @@ public class MemberController {
 	
 	//회원정보 업데이트
 	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@PostMapping(value = "/update")
 	public HashMap<String, Object> doUpdate(HttpServletRequest request,@RequestParam HashMap<String, Object> params){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		try {
 			memberService.updateMember(params);
-			result.put("status", "업데이트 성공");
+			result.put("status", "success");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return result; 
 	}
-	
+	//내정보 가져오기
+	@ResponseBody
+	@PostMapping(value = "/getMemberInfo")
+	public ResponseResult getMemberInfo(HttpServletRequest request,HttpSession session){
+		ResponseResult result = new ResponseResult();
+		
+		try {
+			@SuppressWarnings("unchecked")
+			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
+			result.setData(member);
+			result.setCode("0000");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		return result;
+	}
 	
 	
 	
