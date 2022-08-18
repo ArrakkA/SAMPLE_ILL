@@ -42,6 +42,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updateMember(params);
 	}
 
+	@Override
+	public String chkIdOverlap(String memId) {
+		return memberDAO.chkIdOverlap(memId);
+	}
+
 	
 	
 }

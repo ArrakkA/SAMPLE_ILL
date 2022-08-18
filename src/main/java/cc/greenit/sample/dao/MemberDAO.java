@@ -30,7 +30,9 @@ public class MemberDAO extends AbstractDAO {
 	public int updateMember(HashMap<String, Object> params){
  		return update("member.updateMember", params);
  	}
- 	
+ 	public String chkIdOverlap(String memId) {
+ 		return (String) selectOne("member.chkIdOverlap", memId);
+ 	}
  	
  	
 }

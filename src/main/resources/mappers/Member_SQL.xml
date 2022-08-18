@@ -115,5 +115,9 @@
 				MS_NUM = #{num} 
 	
 	</update>
-	
+	<select id="chkIdOverlap" resultType="String">
+		SELECT MS_ID
+		  FROM MS_MAININFO
+		 WHERE MS_ID = #{memId}
+	</select>
 </mapper>

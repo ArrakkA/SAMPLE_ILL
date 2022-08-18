@@ -12,4 +12,6 @@ public interface MemberService {
 	public String makeMemNum();
 
 	public int updateMember(HashMap<String, Object> params);
+	
+	public String chkIdOverlap(String memId);
 }

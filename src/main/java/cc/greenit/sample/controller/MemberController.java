@@ -134,7 +134,30 @@ public class MemberController {
 		return result;
 	}
 	
-	
+	@ResponseBody
+	@PostMapping(value = "/chkIdOverlap")
+	public ResponseResult chkIdOverlap(HttpSession session, @RequestParam("memId")String memId){
+		ResponseResult result = new ResponseResult();
+		
+		
+		
+		try {
+			String member = memberService.chkIdOverlap(memId);
+			
+			if(member != null) {
+				result.setCode("1111");
+				result.setMessage("id exist");
+			}else if(member == null){
+				result.setCode("0000");
+				result.setMessage("id not exist");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		return result;
+	}
 	
 	
 	

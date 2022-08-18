@@ -7,10 +7,12 @@
 	<jsp:include page="./include/map.jsp"></jsp:include>
 	<script>
 	$(document).ready(function(){
+		let chkBtn = 0;
 		
 		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
 			$('#saveBtn').on('click', function(){
-					
+				
+				
 				const memId = $('#ms_id').val();
 				const memPw = $('#ms_password').val();
 				const memChKPw = $('#ms_passwordChk').val();
@@ -32,12 +34,12 @@
 				let params = {};
 				params["smsChk"] = 'Y';
 				params["mIP"]= data.ip;
-				params["htell"]= memHtell ; 
-				params["name"] = memName;
+				params["htell"]= memHtell;
 				
 				if(memId == ""){
 					alert("아이디를 입력해주세요")
 					return;
+					
 				}else{
 					params["id"] = memId;
 				}
@@ -45,7 +47,11 @@
 				if(memPw == ""){
 					alert("비밀번호를 입력해주세요")
 					return;
+				}
+				if(name == ""){
+					alert("이름을 입력해주세요")
 				}else{
+					params["name"] = memName;
 				}
 				
 				if(memChKPw == "" && memChkPw != memPw){
@@ -62,14 +68,14 @@
 					params["phoneF"] = memPhoneF;
 				}
 				
-				if(memPhoneF == ""){
+				if(memPhoneM == ""){
 					alert("핸드폰 가운데 번호를 입력해주세요")
 					return;
 				}else{
 					params["phoneM"] = memPhoneM;
 				}
 				
-				if(memPhoneF == ""){
+				if(memPhoneL == ""){
 					alert("핸드폰 뒷 번호를 입력해주세요")
 					return;
 				}else{
@@ -98,28 +104,65 @@
 				}
 				
 				console.log(params);
-
-				$.ajax({ 
-						  type:'post'
-						 ,url:'/member/join'
-						 ,data: params
-						 ,dataType: 'json'
-						 ,success: function(result){
-							  
-							  if(result.code == "0000"){
-								  alert('회원가입 되었습니다 환영합니다!');
-							      location.href="/sample/login";
-							  }else if(result.code == "8888"){
-								  alert('code 8888');
-						  	  }
-						 }
-						 ,error : function(request, status, error) {
-						     alert('통신오류가 발생하였습니다.');
-						 }
-					});	//ajax 종료	
+				if(chkBtn == 0){
+					alert('중복 확인버튼을 눌러주세요')
+				}else if(chkBtn == 1){
+					$.ajax({ 
+							  type:'post'
+							 ,url:'/member/join'
+							 ,data: params
+							 ,dataType: 'json'
+							 ,success: function(result){
+								  
+								  if(result.code == "0000"){
+									  alert('회원가입 되었습니다 환영합니다!');
+								      location.href="/sample/login";
+								  }else if(result.code == "8888"){
+									  alert('code 8888');
+							  	  }
+							 }
+							 ,error : function(request, status, error) {
+							     alert('통신오류가 발생하였습니다.');
+							 }
+						});	//ajax 종료	
+				}
 			 });//jquery btnsave 
-		});
-	});	
+		});//get json
+		
+		
+		$('#chkIdBtn').click(function(){
+			const memId = $('#ms_id').val();
+			const params ={
+				"memId" : memId
+			};
+			
+			
+			if(memId == ""){
+				alert("아이디를 입력해주세요");
+			}else{
+				$.ajax({
+					type:'post'
+				   ,url:'/member/chkIdOverlap'
+				   ,data:params
+				   ,dataType:'json'
+				   ,success:function(result){
+					  	if(result.code == "0000"){
+					  		alert('사용가능한 아이디 입니다.');
+					  		chkBtn = 1;
+					  	}else if(result.code == "1111"){
+					  		alert('이미 존재하는 아이디 입니다.');
+					  		$('#ms_id').val('');
+					  	}
+				   }
+				   ,error:function(request, status, error){
+					   alert('통신오류가 발생하였습니다.');
+				   }
+				});//ajax
+			}
+			
+		});//중복확인 버튼
+		
+	});	//ready
 	</script>
 </head>
 <body>
@@ -151,7 +194,7 @@
 					 비밀번호
 				</li>
 				<li>
-					<input type="text" id="ms_password" class="passInput">
+					<input type="password" id="ms_password" class="passInput">
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -160,7 +203,7 @@
 					 비밀번호확인
 				</li>
 				<li>
-					<input type="text" class="ms_passwordChk" class="idInput">
+					<input type="password" class="ms_passwordChk" class="idInput">
 				</li>
 			</ul>
 			<div>
