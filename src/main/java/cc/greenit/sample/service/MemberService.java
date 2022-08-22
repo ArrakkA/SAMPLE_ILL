@@ -14,4 +14,8 @@ public interface MemberService {
 	public int updateMember(HashMap<String, Object> params);
 	
 	public String chkIdOverlap(String memId);
+	
+	public String chkPassword(HashMap<String, Object> params);
+	
+	public int deleteMember(HashMap<String, Object> params);
 }

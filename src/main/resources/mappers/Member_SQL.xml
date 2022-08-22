@@ -11,7 +11,7 @@
 		   ,MS_NAME
 		   ,MS_ID
 		   ,MS_FIRST_PHONE1
-		   ,AES_DECRYPT(UNHEX(MS_MID_PHONE1), 'JBOG') as MS_MID_PHONE1 
+		   ,AES_DECRYPT(UNHEX(MS_MID_PHONE1), 'JBOG') as MS_MID_PHONE1
 		   ,MS_LAST_PHONE1
 		   ,MS_HOMEZIP
 		   ,MS_HOMETEL
@@ -96,7 +96,6 @@
 		UPDATE MS_MAININFO SET
 		
 			   MS_ID = #{id}
-			   ,MS_PASSWORD = #{pw}
 			   ,MS_NAME = #{name}
 			   ,MS_SEX = #{sex}
 			   ,MS_BIRTH = #{birth}
@@ -112,12 +111,32 @@
 			   ,UPDATE_DATETIME = DATE_FORMAT(now(), "%Y-%m-%d %H:%i:$s")
 			   ,UPDATE_IP = #{mIP}
 		WHERE
-				MS_NUM = #{num} 
+				MS_NUM = #{num}
 	
 	</update>
+	
 	<select id="chkIdOverlap" resultType="String">
 		SELECT MS_ID
 		  FROM MS_MAININFO
 		 WHERE MS_ID = #{memId}
 	</select>
+	
+	<select id="chkPassword" resultType= "String">
+		SELECT MS_PASSWORD
+		  FROM MS_MSININFO
+		 WHERE MS_ID = #{id}
+		   AND MS_NUM = #{num}
+	</select>
+	
+	<delete id="deleteMember" parameterType="hashmap">
+		DELETE FROM MS_MAININFO
+		 WHERE MS_NUM = #{num}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
 </mapper>

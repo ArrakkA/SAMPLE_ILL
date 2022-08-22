@@ -39,5 +39,10 @@ public class ReservationDAO extends AbstractDAO{
 		
 	}
 	
+	public int cancelReservation(HashMap<String, Object> params) {
+		return update("reservation.cancelReservation",params);
+	}
+	
+	
 	
 }

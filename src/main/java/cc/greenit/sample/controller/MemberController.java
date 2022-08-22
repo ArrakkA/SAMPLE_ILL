@@ -27,7 +27,6 @@ public class MemberController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private MemberService memberService;
 	
-	
 	@Autowired
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
@@ -60,7 +59,6 @@ public class MemberController {
 		//코드 표시
 		return result;
 	}
-	
 	//로그아웃
 	@ResponseBody
 	@PostMapping(value = "/logout")
@@ -79,7 +77,6 @@ public class MemberController {
 		}
 		return result;
 	}
-	
 	//회원가입
 	@ResponseBody
 	@PostMapping(value = "/join")
@@ -90,29 +87,13 @@ public class MemberController {
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
 		try { 	
-			int cnt =	memberService.insertMember(params);
+			memberService.insertMember(params);
 			result.put("code", "0000");
 		}catch(Exception e) {
 			e.printStackTrace();
-			
 			result.put("code","9999");
 		}
 		return result;
-	}
-	
-	//회원정보 업데이트
-	@ResponseBody
-	@PostMapping(value = "/update")
-	public HashMap<String, Object> doUpdate(HttpServletRequest request,@RequestParam HashMap<String, Object> params){
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		try {
-			memberService.updateMember(params);
-			result.put("status", "success");
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result; 
 	}
 	//내정보 가져오기
 	@ResponseBody
@@ -138,9 +119,6 @@ public class MemberController {
 	@PostMapping(value = "/chkIdOverlap")
 	public ResponseResult chkIdOverlap(HttpSession session, @RequestParam("memId")String memId){
 		ResponseResult result = new ResponseResult();
-		
-		
-		
 		try {
 			String member = memberService.chkIdOverlap(memId);
 			
@@ -158,7 +136,48 @@ public class MemberController {
 		}
 		return result;
 	}
-	
+	//회원정보 업데이트
+	@ResponseBody
+	@PostMapping(value = "/update")
+	public ResponseResult doUpdate(HttpServletRequest request, HttpSession session, @RequestParam HashMap<String, Object> params){
+		ResponseResult result = new ResponseResult();
+		
+		try {
+			memberService.updateMember(params);
+			result.setCode("0000");
+			result.setMessage("update success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		return result; 
+	}
+	//회원 삭제
+	@ResponseBody
+	@PostMapping(value = "/deleteMember")
+	public ResponseResult deleteMember(HttpServletRequest request, HttpSession session, @RequestParam HashMap<String, Object> params){
+		ResponseResult result = new ResponseResult();
+		try {
+			String chkPw = memberService.chkPassword(params);
+			String memPw = (String) params.get("pw");
+			
+			if(chkPw.equals(memPw)) {
+				memberService.deleteMember(params);
+				session.invalidate();
+				result.setCode("0000");
+				result.setMessage("delete success");
+			}else {
+				result.setCode("1111");
+				result.setMessage("password wrong");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		return result; 
+	}
 	
 	
 	

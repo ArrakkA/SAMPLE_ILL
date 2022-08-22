@@ -1,12 +1,13 @@
+
 $(document).ready(function(){
-	
-	getMemberReservation();
-	optionMake();
+	let chkBtn = 0;
 	
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
-		$('#changeBtn').on('click', function(){
-			const memNum = $('#ms_num').val();
+		$('#saveBtn').on('click', function(){
+		
 			const memId = $('#ms_id').val();
+			const memPw = $('#ms_password').val();
+			const memChkPw = $('#ms_passwordChk').val();
 			const memName = $('#ms_name').val();
 			const memPhoneF =$('#first_phone1').val();
 			const memPhoneM = $('#mid_phone1').val();
@@ -17,7 +18,6 @@ $(document).ready(function(){
 			const memZip = $('#mZip').val();
 			const memHtell = $('#home_tel').val();
 			const year = $('#birth-year').val();
-			
 			if($('#birth-month').val()<10){
 				month = "0" + $('#birth-month').val();
 			}else{
@@ -25,22 +25,51 @@ $(document).ready(function(){
 			}
 			const day = $('#birth-day').val();
 			const memBirth = year + month + day; 
+			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
 			let params = {};
 			
-			console.log('memBirth');
-			
+			console.log(memBirth);
+
 			if(smsChk == true){
 				params["smsChk"] = 'Y'
 			}else if(smsChk == false){
 				params["smsChk"] = 'N'
 			}
 			
-			params["num"]=memNum;
 			params["mIP"]= data.ip;
-			params["htell"]= memHtell;			
-			params["id"] = memId;
-			params["name"] = memName;
+			params["htell"]= memHtell;
+			
+			if(memId == ""){
+				alert("아이디를 입력해주세요");
+				return;
+			}else{
+				params["id"] = memId;
+			}
+			
+			if(memPw == ""){
+				alert("비밀번호를 확인해 주세요");
+				return;
+			}else if(false === pwTest.test(memPw)){
+				alert("비밀번호 규칙이 맞지않습니다.");
+				return;
+			}
+			
+			if(memChkPw == ""){
+				alert("비밀번호확인을 정확히 입력해주세요");
+				return;
+			}else if(memChkPw != memPw){
+				alert('비밀번호확인이 비밀번호와 일치하지 않습니다.')
+				return;
+			}else{				
+				params["pw"] = memChkPw;
+			}
+			
+			if(memName == ""){
+				alert("이름을 입력해주세요");
+			}else{
+				params["name"] = memName;
+			}
 			
 			if(memPhoneF == ""){
 				alert("핸드폰 앞 번호를 입력해주세요");
@@ -83,102 +112,68 @@ $(document).ready(function(){
 			}else{
 				params["birth"] = memBirth;
 			}
+			console.log(params);
+			if(chkBtn == 0){
+				alert('중복 확인버튼을 눌러주세요');
+			}else if(chkBtn == 1){
 				$.ajax({ 
 						  type:'post'
-						 ,url:'/member/update'
+						 ,url:'/member/join'
 						 ,data: params
 						 ,dataType: 'json'
 						 ,success: function(result){
+							  
 							  if(result.code == "0000"){
-								  alert('업데이트가 완료되었습니다.');
-							      location.href="/sample/home";
-							      
-							  }else if(result.code == "1111"){
-								  alert('code 1111');
+								  alert('회원가입 되었습니다 환영합니다!');
+							      location.href="/sample/login";
+							  }else if(result.code == "8888"){
+								  alert('code 8888');
 						  	  }
 						 }
 						 ,error : function(request, status, error) {
 						     alert('통신오류가 발생하였습니다.');
 						 }
 					});	//ajax 종료	
-			});//jquery btnUpdate
+			}
+		 });//jquery btnsave 
 	});//get json
-	$('.memDelBtn').click(function(){
-				
-				const deletePw = $('#delPassword').val();
-				const memId = $('#ms_id').val();
-				const memNum = $('#ms_num').val();
-				
-				const params ={
-					pw : deletePw
-				   ,id : memId
-				   ,num : memNum
-				}
-				
-				$.ajax({ 
-						  type:'post'
-						 ,url:'/member/deleteMember'
-						 ,data: params
-						 ,dataType: 'json'
-						 ,success: function(result){
-							  if(result.code == "0000"){
-								  alert('계정이 삭제되었습니다.');
-							      location.href="/sample/home";
-							      
-							  }else if(result.code == "1111"){
-								  alert(result.message);
-						  	  }
-						 }
-						 ,error : function(request, status, error) {
-						     alert('통신오류가 발생하였습니다.');
-						 }
-					});	//ajax 종료	
-	});// 회원탈퇴 버튼(삭제)
-});
-$(document).on('clcik', '.cancelBtn',function(){
-})//예약취소 동적버튼 클릭시
+	
+	$('#chkIdBtn').click(function(){
+		const memId = $('#ms_id').val();
+		const params ={
+			"memId" : memId
+		};
+		
+		if(memId == ""){
+			alert("아이디를 입력해주세요");
+		}else{
+			$.ajax({
+				type:'post'
+			   ,url:'/member/chkIdOverlap'
+			   ,data:params
+			   ,dataType:'json'
+			   ,success:function(result){
+				  	if(result.code == "0000"){
+				  		alert('사용가능한 아이디 입니다.');
+				  		chkBtn = 1;
+				  		$('#ms_id').attr('disabled', true);
+				  	}else if(result.code == "1111"){
+				  		alert('이미 존재하는 아이디 입니다.');
+				  		$('#ms_id').val('');
+				  	}
+			   }
+			   ,error:function(request, status, error){
+				   alert('통신오류가 발생하였습니다.');
+			   }
+			});//ajax
+		}
+		
+	});//중복확인 버튼
+	
+	optionMake();
+		
+});	//ready
 
-function changeContent(i){
-		$('[id^=tab]').removeClass('menuOn');
-        $('#tab'+i).addClass('menuOn');
-        $('[id^=content]').hide();
-        $('#content' + i).show();
-}
-function getMemberReservation(){
-	$.ajax({
-		type:'post'
-	   ,url:'/reservation/getMemberReservation'
-	   ,data:''
-	   ,dataType:'json'
-	   ,success:function(result){
-			
-			if(result.code=="0000"){
-				const rows = result.data;
-				const table = $('.memberReservationList');
-				table.empty();
-				
-				for(i=0; i<rows.length; i++){
-					const list = rows[i];
-					
-					const tr = $("<tr></tr>");
-					const td1 = $("<td class= 'bDay'>" + list.BK_RSVNO + "</td>");
-					const td2 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
-					const td3 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
-					const td4 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
-					const td5 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
-					const td6 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
-					const td7 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
-					const td8 = $("<td class='cancelBtn'><button>예약 취소</button></td>");
-					
-					table.append(tr.append(td1, td2, td3, td4, td5, td6, td7, td8));	
-				}//for 끝
-			}//if문
-		}
-	   ,error:function(request, status, error){
-			alert('통신오류가 발생했습니다.');
-		}
-	})// ajax 끝 
-}// 그 사람의 예약정보 가져오기
 function optionMake(){
 	let yearOptionMake = false;
 	let monthOptionMake = false;
@@ -212,6 +207,4 @@ function optionMake(){
 			}
 		}
 	})// 일 option
-	
 }// option 만들기
-

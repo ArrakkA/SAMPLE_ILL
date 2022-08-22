@@ -28,7 +28,6 @@ public class ReservationServiceImpl implements ReservationService {
 		
 	}
 
-
 	@Override
 	public List<HashMap<String, Object>> makeCalendar(String yMId) {
 		return reservationDAO.makeCalendar(yMId);
@@ -48,6 +47,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params) {
 		return reservationDAO.memberReservationList(params);
+	}
+
+	@Override
+	public int cancelReservation(HashMap<String, Object> params) {
+		return reservationDAO.cancelReservation(params);
 	}
 
 }

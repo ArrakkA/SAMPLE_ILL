@@ -15,24 +15,20 @@
 			 FROM  BK_HISTORY
 			WHERE  BK_DAY = #{dateId}
 			  AND  BK_YN = 'N'
-			  AND  CO_DIV = '100'
-				  			
+			  AND  CO_DIV = '100'		
 	</select>
 	
-	
 	<select id="makeCalendar" resultType="hashmap">
-	
 		SELECT  CL_SOLAR
 			   ,CL_DAYDIV
 			   ,CL_BUSINESS
 		 FROM   CL_DAYINFO
 		WHERE   CO_DIV ='100'
 		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
-
 	</select>
+	
 	<select id="makeReservNum" resultType="String">
 	SELECT LPAD(IFNULL(MAX(BK_RSVNO) +1, 1),12, '0') FROM BK_HISTORY
-	
 	</select>
 	
 	<update id="setReservation" parameterType="hashmap">
@@ -51,23 +47,39 @@
 			   AND BK_DAY = #{day}
 			   AND BK_COS = #{cos}
 			   AND BK_TIME = #{time}
-				  
 	</update>
 	
 	<select id="getMemberReservation" resultType="hashmap">
-		SELECT  CO_DIV
-			   ,BK_DAY 
-			   ,BK_COS 
-			   ,BK_TIME 
-			   ,BK_ROUNDF
-			   ,BK_PERSON
-			   ,BK_CHARGE
-		  FROM  BK_HISTORY
-		 WHERE  CO_DIV = '100'
-		   AND  BK_MSNUM = #{MS_NUM}
-		   
+			SELECT  CO_DIV
+				   ,BK_RSVNO
+				   ,BK_DAY 
+				   ,BK_COS 
+				   ,BK_TIME 
+				   ,BK_ROUNDF
+				   ,BK_PERSON
+				   ,BK_CHARGE
+			  FROM  BK_HISTORY
+			 WHERE  CO_DIV = '100'
+			   AND  BK_MSNUM = #{MS_NUM}
 	</select>
 	
+	<update id="cancelReservation" parameterType="hashmap">
+			UPDATE BK HISTORY SET
+				  ,BK_NAME = NULL
+				  ,BK_MSNUM = NULL
+				  ,BK_FIRST_PHONE1 = NULL
+				  ,BK_MID_PHONE1 = NULL
+				  ,BK_LAST_PHONE1 = NULL
+				  ,BK_YN = 'N'
+				  ,UPDATE_STAFF = NULL
+				  ,UPDATE_DATETIME = NULL
+				  ,UPDATE_IP = NULL
+		     WHERE CO_DIV = '100'
+		       AND BK_DAY = #{day}
+			   AND BK_COS = #{cos}
+			   AND BK_TIME = #{time}
+			   AND BK_RSVNO = #{rNum}
+	</update>
 	
 
 

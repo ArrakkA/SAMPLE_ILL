@@ -31,13 +31,12 @@ public class ReservationController {
 		this.reservationService = reservationService;
 		
 	}
-
+	
 	@ResponseBody
 	@PostMapping(value = "/getCalendar")
 	public ResponseResult getCalendar(HttpServletRequest request, @RequestParam(name="ymId")String ymId){
 		
 		ResponseResult result = new ResponseResult();
-		
 		try {
 			List<HashMap<String, Object>> data = reservationService.makeCalendar(ymId);
 			result.setData(data);
@@ -48,7 +47,6 @@ public class ReservationController {
 			result.setCode("9999");
 			result.setMessage("error");
 		}
-		
 		return result;
 	}
 	
@@ -77,6 +75,7 @@ public class ReservationController {
 	}
 	
 	@ResponseBody
+	@SuppressWarnings("unchecked")
 	@PostMapping(value="/setReservation")
 	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
 		
@@ -84,7 +83,6 @@ public class ReservationController {
 		
 		try {
 			//세션저장 데이터 가져오기
-			@SuppressWarnings("unchecked")
 			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 				
 			if(member == null) {
@@ -111,16 +109,13 @@ public class ReservationController {
 	}
 	
 	@ResponseBody
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/getMemberReservation")
 	public ResponseResult getMemberReservation(HttpServletRequest request,HttpSession session){
 		
 		ResponseResult result = new ResponseResult();
-		
-		
-		
 		try {
 			//세션저장 데이터 가져오기
-			@SuppressWarnings("unchecked")
 			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 			
 			List<HashMap<String, Object>> data = reservationService.memberReservationList(member);//데이터 가져오기
@@ -135,6 +130,27 @@ public class ReservationController {
 			result.setMessage("error");
 		}
 		
+		return result;
+		
+	}
+	@ResponseBody
+	@PostMapping(value = "/cancelReservation")
+	public ResponseResult cancelReservation(HttpServletRequest request,HttpSession session, @RequestParam HashMap<String,Object> params){
+		
+		ResponseResult result = new ResponseResult();
+		try {
+			//예약 취소
+			reservationService.cancelReservation(params);
+			//결과 세팅
+			result.setCode("0000");
+			result.setMessage("success");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			//결과 세팅
+			result.setCode("9999");
+			result.setMessage("error");
+		}
 		return result;
 		
 	}

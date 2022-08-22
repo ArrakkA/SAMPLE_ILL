@@ -35,7 +35,12 @@
         </tbody>
     </table>
     <!-- 예약정보 테이블 -->
-    <table class= "table table-striped table-sm mainTable">
+    <div>
+    	<a class="tab">전체 코스</a>
+    	<a class="tab">동 코스</a>
+    	<a class="tab">서 코스</a>
+    </div>
+    <table class= "table table-striped table-sm mainTable" id="table1">
 		<colgroup>
 			<col style="width:10%"/>
 			<col style="width:10%"/>

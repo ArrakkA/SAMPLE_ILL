@@ -14,4 +14,6 @@ public interface ReservationService {
 	public int setReservation(HashMap<String, Object> params);
 	
 	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params);
+	
+	public int cancelReservation(HashMap<String, Object> params);
 }

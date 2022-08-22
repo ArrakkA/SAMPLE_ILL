@@ -5,29 +5,6 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
-
-<script>
-$(document).ready(function(){
-	
-	let today = new Date();
-	const thisMonth = today.getMonth()+1;
-	
-	$('.testdiv1').html((thisMonth +1) + "월");
-	
-	$('.testdiv1').on('click', function(){
-		$('.popup').css("display","flex");
-		
-	})
-	$('.popup-close').on('click', function(){
-		$('.popup').css("display","none");
-	})
-	
-	
-	
-})
-
-</script>
-
 <style>
 .blue{
 	color:blue
@@ -66,6 +43,38 @@ $(document).ready(function(){
 }
 </style>
 
+<script>
+$(document).ready(function(){
+	
+	let today = new Date();
+	const thisMonth = today.getMonth()+1;
+	let pwTest = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+	let testPw = $('.testPw').val();
+	
+	$('.testdiv1').html((thisMonth +1) + "월");
+	
+	$('.testdiv1').on('click', function(){
+		$('.popup').css("display","flex");
+		
+	})
+	$('.popup-close').on('click', function(){
+		$('.popup').css("display","none");
+	})
+	
+	$('.testdiv2').on('click',function(){
+		const result = pwTest.test(testPw);
+		console.log(result);
+		console.log(testPw);
+	})
+	
+	
+	
+	
+	
+})
+
+</script>
+
 
 </head>
 <body>
@@ -73,12 +82,20 @@ $(document).ready(function(){
 
 <button id ="find_mistake">테스트용도 입니다요</button>
  
-<input type="checkbox" name="U_checkAgreement1" id="U_checkAgreement1" value="" />
+<input type="checkbox" name="U_checkAgreement1" id="U_checkAgreement1" value="${sessionScope.SessionUser.MS_BIRTH}" />
 
 
 <button class="testdiv1 test">1번버튼</button>
-<button class="testdiv2 test">2번버튼</button>
+<button class="testdiv2 test"> checkbox 버튼</button>
 <button class="testdiv3 test">3번버튼</button>
+
+
+
+
+<div>
+	<input type="checkbox" id="smsChk"> sms수신에 동의 하시겠습니까?
+</div>
+
 
 <div class ="page1"> 
 	<div>요네가신이됩니다.</div>
@@ -88,6 +105,9 @@ $(document).ready(function(){
  </div>
 <div class ="page3"> 
 	<div>요가신이됩니다.</div>
+</div>
+<div>
+	<input type="text" class="testPw"id="testPw"> 제발좀 되봅시다 패스워드 규칙
 </div>
 
 <div onclick=""></div>

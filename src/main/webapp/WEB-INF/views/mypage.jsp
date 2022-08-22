@@ -6,6 +6,7 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
+<jsp:include page="./include/map.jsp"></jsp:include>
 <link rel="stylesheet" href="<c:url value='/mypage.css'/>">
 <script type="text/javascript" src="/mypage.js"></script>
 </head>
@@ -54,10 +55,19 @@
 			<ul class="joinInfoBox">
 				<li class="infoList">
 					<span class="orangeRed">*</span>
+					 회원번호
+				</li>
+				<li>
+					<input type="text" id="ms_num" class="numInput" value="${sessionScope.SessionUser.MS_NUM}" disabled>
+				</li>
+			</ul>
+			<ul class="joinInfoBox">
+				<li class="infoList">
+					<span class="orangeRed">*</span>
 					 아이디
 				</li>
 				<li>
-					<input type="text" id="ms_id" class="idInput" disabled>
+					<input type="text" id="ms_id" class="idInput" value="${sessionScope.SessionUser.MS_ID}" disabled>
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -66,7 +76,7 @@
 					이 름
 				</li>
 				<li>
-					<input type="text" id="ms_name" style="width:150px" disabled>
+					<input type="text" id="ms_name" style="width:150px" value="${sessionScope.SessionUser.MS_NAME}" disabled>
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -75,7 +85,7 @@
 					 핸드폰
 				</li>
 				<li>
-					<select id="first_phone1" class="select-arrow" style="width:90px; margin-right: 5px">
+					<select id="first_phone1" class="select-arrow" value="${sessionScope.SessionUser.MS_FIRST_PHONE1}" style="width:90px; margin-right: 5px">
 						<option value>선택</option>
 						<option value="010">010</option>
 						<option value="011">011</option>
@@ -88,9 +98,9 @@
 						<option value="011">019</option>
 					</select>
 					- 	
-					<input type="text" id="mid_phone1" style="width:100px; margin-right: 5px;" >
+					<input type="text" id="mid_phone1" value="${sessionScope.SessionUser.MS_MID_PHONE1}" style="width:100px; margin-right: 5px;" >
 					- 
-					<input type="text" id="last_phone1" style="width:100px;" >
+					<input type="text" id="last_phone1" value="${sessionScope.SessionUser.MS_LAST_PHONE1}" style="width:100px;" >
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -99,7 +109,7 @@
 					 집전화
 				</li>
 				<li>
-					<input type="text" id="home_tel" style="width:300px; margin-right: 5px;" >
+					<input type="text" id="home_tel" value="${sessionScope.SessionUser.MS_HOMETEL}" style="width:300px; margin-right: 5px;" >
 				</li>
 			</ul>
 			<ul class="joinInfoBox">
@@ -108,10 +118,10 @@
 					 지역
 				</li>
 				<li>
-					<input type="text" id="mZip" placeholder="우편번호">
+					<input type="text" id="mZip" value="${sessionScope.SessionUser.MS_HOMEZIP}" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="mAddres1" placeholder="주소"><br>
-					<input type="text" id="mAddres2" placeholder="상세주소">
+					<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
+					<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
 					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 				</li>
 			</ul>
@@ -121,8 +131,8 @@
 					 성별
 				</li>
 				<li>
-					<select name="selsex" id="ms_sex" class="select-arrow">
-						<option value>선택</option>
+					<select name="selsex" id="ms_sex" class="select-arrow" value="${sessionScope.SessionUser.MS_SEX}">
+						<option>선택</option>
 						<option value="1">남</option>
 						<option value="2">여</option>
 					</select>
@@ -147,16 +157,22 @@
 			</ul>
 		</div>
 		<div class="btnbox">
-			<button id="saveBtn" class="btn btn-outline-primary">회원정보 수정</button>
+			<button id="changeBtn" class="btn btn-outline-primary">회원정보 수정</button>
+			<a class="btn btn-outline-primary" id="tab3" href="javascript:changeContent(3)">회원 탈퇴</a>
 		</div>
 	</div>
-	
-	
-	
-	
 </div>
-
-
+<div  class="content" id="content3" style="display:none">
+	<div>
+		<ul>
+			<li>
+				<div>회원탈퇴 하시려면 비밀번호를 입력해주세요</div>
+				<input type="password" id="delPassword" class="delpassInput">
+				<button class="memDelBtn">삭제</button>
+			</li>
+		</ul>
+	</div>
+</div>
 
 
 
