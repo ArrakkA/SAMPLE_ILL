@@ -9,6 +9,11 @@
 <jsp:include page="./include/map.jsp"></jsp:include>
 <link rel="stylesheet" href="<c:url value='/mypage.css'/>">
 <script type="text/javascript" src="/mypage.js"></script>
+<script>
+	const memSex = ${sessionScope.SessionUser.MS_SEX};
+	const birth = ${sessionScope.SessionUser.MS_BIRTH};
+	const fPhone = ${sessionScope.SessionUser.MS_LAST_PHONE1};
+</script>
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
@@ -58,7 +63,7 @@
 					 회원번호
 				</li>
 				<li>
-					<input type="text" id="ms_num" class="numInput" value="${sessionScope.SessionUser.MS_NUM}" disabled>
+					<input type="text" id="ms_num" class="Input" value="${sessionScope.SessionUser.MS_NUM}" disabled>
 				</li>
 			</ul>
 			<ul class="joinInfoBox">

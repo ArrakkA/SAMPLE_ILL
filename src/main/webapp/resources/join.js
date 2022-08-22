@@ -23,7 +23,11 @@ $(document).ready(function(){
 			}else{
 				month = $('#birth-month').val();
 			}
-			const day = $('#birth-day').val();
+			if($('#birth-day').val()<10){
+				month = "0" + $('#birth-day').val();
+			}else{
+				month = $('#birth-day').val();
+			}
 			const memBirth = year + month + day; 
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");

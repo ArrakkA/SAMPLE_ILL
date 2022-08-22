@@ -1,7 +1,24 @@
 $(document).ready(function(){
 	
+	
+
 	getMemberReservation();
 	optionMake();
+	
+	const birthSt = birth.toString();
+	const year = birthSt.substr(0,4);
+	const month = birthSt.substr(4,2);
+	const day = birthSt.substr(6,2);
+	
+	
+	console.log(birthSt);
+	console.log(fPhone);
+	
+	$('#ms_sex').val(memSex);
+	$('#birth-year').val(year);
+	$('#birth-month').val(month);
+	$('#birth-day').val(day);
+	$('#first_phone1').val(fPhone);
 	
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
 		$('#changeBtn').on('click', function(){
@@ -190,6 +207,7 @@ function optionMake(){
 			
 			for(i=1940; i<=2022; i++){
 				const op= $("<option>" + i + "</option>");
+				op.attr('value', i);
 				$('#birth-year').append(op);
 			}
 		}
@@ -199,15 +217,25 @@ function optionMake(){
 			monthOptionMake = true;
 			for(i=1; i<=12; i++){
 				const op= $("<option>" + i + "</option>");
+				op.attr('value', i);
 				$('#birth-month').append(op);
 			}
 		}
 	})// 월 option
 	$('#birth-day').focus(function(){
+		if($('#birth-month').val() == 4|| $('#birth-month').val() == 6|| $('#birth-month').val() == 9|| $('#birth-month').val() == 11){
+		calLength = 30;
+		}else if($('#birth-month').val() == 2){
+		calLength = 28;
+		}else{
+		calLength = 31;
+		}
+		
 		if(dayOptionMake == false){
 			dayOptionMake = true;
-			for(i=1; i<=31; i++){
+			for(i=1; i<=calLength; i++){
 				const op= $("<option>" + i + "</option>");
+				op.attr('value', i);
 				$('#birth-day').append(op);
 			}
 		}
