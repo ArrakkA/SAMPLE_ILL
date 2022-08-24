@@ -1,23 +1,19 @@
 $(document).ready(function(){
-	
-	
-
 	getMemberReservation();
 	optionMake();
 	
 	const birthSt = birth.toString();
-	const year = birthSt.substr(0,4);
-	const month = birthSt.substr(4,2);
-	const day = birthSt.substr(6,2);
+	const mYear = birthSt.substr(0,4);
+	const mMonth = birthSt.substr(4,2);
+	const mDay = birthSt.substr(6,2);
 	
-	
-	console.log(birthSt);
+	console.log(memSex);
 	console.log(fPhone);
 	
 	$('#ms_sex').val(memSex);
-	$('#birth-year').val(year);
-	$('#birth-month').val(month);
-	$('#birth-day').val(day);
+	$('#birth-year').val(mYear);
+	$('#birth-month').val(mMonth);
+	$('#birth-day').val(mDay);
 	$('#first_phone1').val(fPhone);
 	
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
@@ -40,7 +36,11 @@ $(document).ready(function(){
 			}else{
 				month = $('#birth-month').val();
 			}
-			const day = $('#birth-day').val();
+			if($('#birth-day').val()<10){
+				day = "0" + $('#birth-month').val();
+			}else{
+				day = $('#birth-month').val();
+			}
 			const memBirth = year + month + day; 
 			const smsChk = $('#smsChk').prop("checked");
 			let params = {};
@@ -121,35 +121,33 @@ $(document).ready(function(){
 			});//jquery btnUpdate
 	});//get json
 	$('.memDelBtn').click(function(){
-				
-				const deletePw = $('#delPassword').val();
-				const memId = $('#ms_id').val();
-				const memNum = $('#ms_num').val();
-				
-				const params ={
-					pw : deletePw
-				   ,id : memId
-				   ,num : memNum
-				}
-				
-				$.ajax({ 
-						  type:'post'
-						 ,url:'/member/deleteMember'
-						 ,data: params
-						 ,dataType: 'json'
-						 ,success: function(result){
-							  if(result.code == "0000"){
-								  alert('계정이 삭제되었습니다.');
-							      location.href="/sample/home";
-							      
-							  }else if(result.code == "1111"){
-								  alert(result.message);
-						  	  }
-						 }
-						 ,error : function(request, status, error) {
-						     alert('통신오류가 발생하였습니다.');
-						 }
-					});	//ajax 종료	
+		const deletePw = $('#delPassword').val();
+		const memId = $('#ms_id').val();
+		const memNum = $('#ms_num').val();
+		
+		const params ={
+			pw : deletePw
+		   ,id : memId
+		   ,num : memNum
+		}
+		$.ajax({ 
+				  type:'post'
+				 ,url:'/member/deleteMember'
+				 ,data: params
+				 ,dataType: 'json'
+				 ,success: function(result){
+					  if(result.code == "0000"){
+						  alert('계정이 삭제되었습니다.');
+					      location.href="/sample/home";
+					      
+					  }else if(result.code == "1111"){
+						  alert(result.message);
+				  	  }
+				 }
+				 ,error : function(request, status, error) {
+				     alert('통신오류가 발생하였습니다.');
+				 }
+		});	//ajax 종료	
 	});// 회원탈퇴 버튼(삭제)
 });
 $(document).on('clcik', '.cancelBtn',function(){
@@ -199,11 +197,40 @@ function getMemberReservation(){
 function optionMake(){
 	let yearOptionMake = false;
 	let monthOptionMake = false;
-	let dayOptionMake = false;
-	let today = new Date();
-	let year = today.getFullYear();
-	
 	$('#birth-year').click(function(){
+		yearMake();
+	})//년도 option
+	$('#birth-month').click(function(){
+		monthMake();
+	})// 월 option
+	$('#birth-month').change(function(){
+		dayMake();
+	})
+	$('#birth-year').change(function(){
+		dayMake();
+	})
+	
+	function dayMake(){
+		$('#birth-day').empty();
+		const targetYear = $('#birth-year').val();
+		const targetMonth = $('#birth-month').val();
+		const lastDate = new Date(targetYear, targetMonth, 0);
+		const lastDay = lastDate.getDate();
+		
+		for(i=1; i<=lastDay; i++){
+			const op= $("<option>" + i + "</option>");
+			if(i < 10){
+					j = "0"+ i
+				}else{
+					j= i
+				}
+			op.attr('value', j);
+			$('#birth-day').append(op);			
+		}
+	}//day 만들기
+	function yearMake(){
+		const today = new Date();
+		const year = today.getFullYear();
 		if(yearOptionMake == false){
 			yearOptionMake = true;
 			for(i=year-100; i<=year; i++){
@@ -212,40 +239,20 @@ function optionMake(){
 				$('#birth-year').append(op);
 			}
 		}
-	})//년도 option
-	$('#birth-month').click(function(){
+	}//year 만들기
+	function monthMake(){
 		if(monthOptionMake == false){
 			monthOptionMake = true;
 			for(i=1; i<=12; i++){
 				const op= $("<option>" + i + "</option>");
-				op.attr('value', i);
+				if(i < 10){
+					j = "0"+ i
+				}else{
+					j= i
+				}
+				op.attr('value', j);
 				$('#birth-month').append(op);
 			}
 		}
-	})// 월 option
-	$('#birth-day').click(function(){
-		const targetYear = $('#birth-year').val();
-		const targetMonth = $('#birth-month').val();
-		const lastDate = new Date(targetYear, targetMonth, 0);
-		const lastDay = lastDate.getDate();
-		
-		if(dayOptionMake == false){
-			dayOptionMake = true;
-			for(i=1; i<=lastDay; i++){
-				const op= $("<option>" + i + "</option>");
-				op.attr('value', i);
-				$('#birth-day').append(op);			
-			}
-		}
-	})// 일 option
-	$('#birth-month').change(function(){
-		$('#birth-day').empty();
-		dayOptionMake = false;
-	})
-	$('#birth-year').change(function(){
-		$('#birth-day').empty();
-		dayOptionMake = false;
-	})
-	
+	}//month 만들기
 }// option 만들기
-
