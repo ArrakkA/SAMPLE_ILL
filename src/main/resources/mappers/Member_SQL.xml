@@ -28,7 +28,6 @@
 	SELECT LPAD(IFNULL(MAX(ms_num) +1, 1),12, '0') FROM MS_MAININFO
 	</select>
 	
-	
 	<!-- 회원가입 방법 -->
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MS_MAININFO(

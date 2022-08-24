@@ -7,12 +7,10 @@ $(document).ready(function(){
 	const mMonth = birthSt.substr(4,2);
 	const mDay = birthSt.substr(6,2);
 	
-	console.log(memSex);
-	console.log(fPhone);
-	
 	$('#ms_sex').val(memSex);
 	$('#birth-year').val(mYear);
 	$('#birth-month').val(mMonth);
+	$('#birth-month').trigger('change');
 	$('#birth-day').val(mDay);
 	$('#first_phone1').val(fPhone);
 	
@@ -195,21 +193,16 @@ function getMemberReservation(){
 	})// ajax 끝 
 }// 그 사람의 예약정보 가져오기
 function optionMake(){
-	let yearOptionMake = false;
-	let monthOptionMake = false;
-	$('#birth-year').click(function(){
-		yearMake();
-	})//년도 option
-	$('#birth-month').click(function(){
-		monthMake();
-	})// 월 option
+	yearMake();
+	monthMake();
+	dayMake();
+
 	$('#birth-month').change(function(){
 		dayMake();
 	})
 	$('#birth-year').change(function(){
 		dayMake();
 	})
-	
 	function dayMake(){
 		$('#birth-day').empty();
 		const targetYear = $('#birth-year').val();
@@ -219,11 +212,7 @@ function optionMake(){
 		
 		for(i=1; i<=lastDay; i++){
 			const op= $("<option>" + i + "</option>");
-			if(i < 10){
-					j = "0"+ i
-				}else{
-					j= i
-				}
+			(i < 10)? j ="0"+ i : j = i;
 			op.attr('value', j);
 			$('#birth-day').append(op);			
 		}
@@ -238,17 +227,12 @@ function optionMake(){
 			op.attr('value', i);
 			$('#birth-year').append(op);
 		}
-		
 	}//year 만들기
 	function monthMake(){
 		$('#birth-month').empty();
 		for(i=1; i<=12; i++){
 			const op= $("<option>" + i + "</option>");
-			if(i < 10){
-				j = "0"+ i
-			}else{
-				j= i
-			}
+			(i < 10)? j ="0"+ i : j = i;
 			op.attr('value', j);
 			$('#birth-month').append(op);
 		}

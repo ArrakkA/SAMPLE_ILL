@@ -65,7 +65,7 @@
 	
 	<update id="cancelReservation" parameterType="hashmap">
 			UPDATE BK HISTORY SET
-				  ,BK_NAME = NULL
+				  BK_NAME = NULL
 				  ,BK_MSNUM = NULL
 				  ,BK_FIRST_PHONE1 = NULL
 				  ,BK_MID_PHONE1 = NULL
