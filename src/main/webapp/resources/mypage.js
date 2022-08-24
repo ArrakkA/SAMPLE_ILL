@@ -231,28 +231,27 @@ function optionMake(){
 	function yearMake(){
 		const today = new Date();
 		const year = today.getFullYear();
-		if(yearOptionMake == false){
-			yearOptionMake = true;
-			for(i=year-100; i<=year; i++){
-				const op= $("<option>" + i + "</option>");
-				op.attr('value', i);
-				$('#birth-year').append(op);
-			}
+		
+		$('#birth-year').empty();
+		for(i=year-100; i<=year; i++){
+			const op= $("<option>" + i + "</option>");
+			op.attr('value', i);
+			$('#birth-year').append(op);
 		}
+		
 	}//year 만들기
 	function monthMake(){
-		if(monthOptionMake == false){
-			monthOptionMake = true;
-			for(i=1; i<=12; i++){
-				const op= $("<option>" + i + "</option>");
-				if(i < 10){
-					j = "0"+ i
-				}else{
-					j= i
-				}
-				op.attr('value', j);
-				$('#birth-month').append(op);
+		$('#birth-month').empty();
+		for(i=1; i<=12; i++){
+			const op= $("<option>" + i + "</option>");
+			if(i < 10){
+				j = "0"+ i
+			}else{
+				j= i
 			}
+			op.attr('value', j);
+			$('#birth-month').append(op);
 		}
+		
 	}//month 만들기
 }// option 만들기
