@@ -86,9 +86,16 @@ public class MemberController {
 		
 		String memNum = memberService.makeMemNum();
 		params.put("num",memNum);
+		String memId = (String) params.get("id");
+		String member = memberService.chkIdOverlap(memId);
+		
 		try { 	
-			memberService.insertMember(params);
-			result.put("code", "0000");
+			if(member != null) {
+				result.put("code", "1111");	
+			}else if(member == null) {
+				memberService.insertMember(params);
+				result.put("code", "0000");	
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			result.put("code","9999");

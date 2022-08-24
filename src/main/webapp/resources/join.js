@@ -132,7 +132,9 @@ $(document).ready(function(){
 							      location.href="/sample/login";
 							  }else if(result.code == "8888"){
 								  alert('code 8888');
-						  	  }
+						  	  }else if(result.code == "1111"){
+								  alert('다시한번 아이디 중복확인을 해주세요')
+						      }						 
 						 }
 						 ,error : function(request, status, error) {
 						     alert('통신오류가 발생하였습니다.');
@@ -177,38 +179,56 @@ $(document).ready(function(){
 	optionMake();
 		
 });	//ready
-
 function optionMake(){
 	let yearOptionMake = false;
 	let monthOptionMake = false;
 	let dayOptionMake = false;
+	let today = new Date();
+	let year = today.getFullYear();
 	
-	$('#birth-year').focus(function(){
+	$('#birth-year').click(function(){
 		if(yearOptionMake == false){
 			yearOptionMake = true;
-			
-			for(i=1940; i<=2022; i++){
+			for(i=year-100; i<=year; i++){
 				const op= $("<option>" + i + "</option>");
+				op.attr('value', i);
 				$('#birth-year').append(op);
 			}
 		}
 	})//년도 option
-	$('#birth-month').focus(function(){
+	$('#birth-month').click(function(){
 		if(monthOptionMake == false){
 			monthOptionMake = true;
 			for(i=1; i<=12; i++){
 				const op= $("<option>" + i + "</option>");
+				op.attr('value', i);
 				$('#birth-month').append(op);
 			}
 		}
 	})// 월 option
-	$('#birth-day').focus(function(){
+	$('#birth-day').click(function(){
+		const targetYear = $('#birth-year').val();
+		const targetMonth = $('#birth-month').val();
+		const lastDate = new Date(targetYear, targetMonth, 0);
+		const lastDay = lastDate.getDate();
+		
 		if(dayOptionMake == false){
 			dayOptionMake = true;
-			for(i=1; i<=31; i++){
+			for(i=1; i<=lastDay; i++){
 				const op= $("<option>" + i + "</option>");
-				$('#birth-day').append(op);
+				op.attr('value', i);
+				$('#birth-day').append(op);			
 			}
 		}
 	})// 일 option
+	
+	$('#birth-month').change(function(){
+		$('#birth-day').empty();
+		dayOptionMake = false;
+	})
+	$('#birth-year').change(function(){
+		$('#birth-day').empty();
+		dayOptionMake = false;
+	})
+	
 }// option 만들기

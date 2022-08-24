@@ -200,19 +200,20 @@ function optionMake(){
 	let yearOptionMake = false;
 	let monthOptionMake = false;
 	let dayOptionMake = false;
+	let today = new Date();
+	let year = today.getFullYear();
 	
-	$('#birth-year').focus(function(){
+	$('#birth-year').click(function(){
 		if(yearOptionMake == false){
 			yearOptionMake = true;
-			
-			for(i=1940; i<=2022; i++){
+			for(i=year-100; i<=year; i++){
 				const op= $("<option>" + i + "</option>");
 				op.attr('value', i);
 				$('#birth-year').append(op);
 			}
 		}
 	})//년도 option
-	$('#birth-month').focus(function(){
+	$('#birth-month').click(function(){
 		if(monthOptionMake == false){
 			monthOptionMake = true;
 			for(i=1; i<=12; i++){
@@ -222,24 +223,29 @@ function optionMake(){
 			}
 		}
 	})// 월 option
-	$('#birth-day').focus(function(){
-		if($('#birth-month').val() == 4|| $('#birth-month').val() == 6|| $('#birth-month').val() == 9|| $('#birth-month').val() == 11){
-		calLength = 30;
-		}else if($('#birth-month').val() == 2){
-		calLength = 28;
-		}else{
-		calLength = 31;
-		}
+	$('#birth-day').click(function(){
+		const targetYear = $('#birth-year').val();
+		const targetMonth = $('#birth-month').val();
+		const lastDate = new Date(targetYear, targetMonth, 0);
+		const lastDay = lastDate.getDate();
 		
 		if(dayOptionMake == false){
 			dayOptionMake = true;
-			for(i=1; i<=calLength; i++){
+			for(i=1; i<=lastDay; i++){
 				const op= $("<option>" + i + "</option>");
 				op.attr('value', i);
-				$('#birth-day').append(op);
+				$('#birth-day').append(op);			
 			}
 		}
 	})// 일 option
+	$('#birth-month').change(function(){
+		$('#birth-day').empty();
+		dayOptionMake = false;
+	})
+	$('#birth-year').change(function(){
+		$('#birth-day').empty();
+		dayOptionMake = false;
+	})
 	
 }// option 만들기
 
