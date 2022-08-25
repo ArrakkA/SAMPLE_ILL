@@ -11,9 +11,8 @@
 </head>
 <body>
   <jsp:include page="./include/navbar.jsp" ></jsp:include>
-  
-  
-	<div id="wrap">
+
+	<div class="row g-3 container">
 		<div class="contents">
 			<div class="subtitle subBottom"></div>
 			<span class="title">간편회원가입</span>
@@ -21,8 +20,8 @@
 		</div>
 		<div class="subLine"></div>
 		<div class="joinTitle titleTop">간편회원가입</div>
-		<div class="joinGrayBg col-xs-8">
-			<ul class="joinInfoBox">
+		<div class="joinGrayBg col-xs- form">
+			<ul class="col-lg-10">
 				<li class="infoList">
 					<span class="orangeRed">*</span>
 					 아이디

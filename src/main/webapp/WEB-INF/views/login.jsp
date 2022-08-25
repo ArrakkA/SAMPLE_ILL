@@ -18,10 +18,8 @@
 			<input type="text" id="mem_id" placeholder="username"/>
 			<input type="password" id="mem_pw" placeholder="password"/>
 			<button id="loginBtn">login</button>
-			<p class="message">아직 회원이 아니신가요? <a href="sample/join">회원 가입 하세요</a></p>
+			<p class="message">아직 회원이 아니신가요? <a href="sample/join">회원가입 하세요</a></p>
 		</div>
 	</div>
 </div>
-
-
 </html>
