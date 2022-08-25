@@ -10,7 +10,7 @@
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
-
+<div>변경이되긴하나요?</div>
 main content
 
 </body>
