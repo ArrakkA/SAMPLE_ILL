@@ -70,6 +70,7 @@
 				  ,BK_FIRST_PHONE1 = NULL
 				  ,BK_MID_PHONE1 = NULL
 				  ,BK_LAST_PHONE1 = NULL
+				  ,BK_RSVNO = NULL
 				  ,BK_YN = 'N'
 				  ,UPDATE_STAFF = NULL
 				  ,UPDATE_DATETIME = NULL
