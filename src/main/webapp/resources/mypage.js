@@ -106,7 +106,7 @@ $(document).ready(function(){
 						 ,success: function(result){
 							  if(result.code == "0000"){
 								  alert('업데이트가 완료되었습니다.');
-							      location.href="/sample/home";
+							      location.href="home";
 							      
 							  }else if(result.code == "1111"){
 								  alert('code 1111');
@@ -136,7 +136,7 @@ $(document).ready(function(){
 				 ,success: function(result){
 					  if(result.code == "0000"){
 						  alert('계정이 삭제되었습니다.');
-					      location.href="/sample/home";
+					      location.href="home";
 					      
 					  }else if(result.code == "1111"){
 						  alert(result.message);
@@ -147,10 +147,50 @@ $(document).ready(function(){
 				 }
 		});	//ajax 종료	
 	});// 회원탈퇴 버튼(삭제)
-});
-$(document).on('clcik', '.cancelBtn',function(){
-})//예약취소 동적버튼 클릭시
+	$('#popup-close').on('click', function(){
+		$('.popup').css("display", "none");
+	});// 팝업 취소버튼
 
+	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
+		$('#deleteBtn').on('click', function (){
+			const pTr = $(this).parent().parent();
+			const pDay = pTr.find('#pDay').text();
+			const pCos = pTr.find('#pCos').text();
+			const pTime = pTr.find('#pTime').text();
+			const pNum = pTr.find('#pNum').text();
+			const pip = data.ip;
+
+			console.log(pDay);
+			console.log(pCos);
+			console.log(pTime);
+			console.log(pNum);
+
+			const params = {
+				"day":pDay
+				,"cos":pCos
+				,"time":pTime
+				,"rNum":pNum
+				,"ip":pip
+			}
+			$.ajax({
+				type:'post'
+				,url:'/reservation/cancelReservation'
+				,data:params
+				,dataType:'json'
+				,success:function(result){
+					if(result.code== '0000'){
+						alert('성공적으로 취소되었습니다.')
+						location.href = 'mypage';
+					}
+				}
+				,error:function(request, status, error){
+					alert('통신오류가 발생했습니다.');
+				}
+			})// ajax 끝
+		});//예약 취소 확정 버튼
+	})// get Json
+
+});
 function changeContent(i){
 		$('[id^=tab]').removeClass('menuOn');
         $('#tab'+i).addClass('menuOn');
@@ -174,11 +214,11 @@ function getMemberReservation(){
 					const list = rows[i];
 					
 					const tr = $("<tr></tr>");
-					const td1 = $("<td class= 'bDay'>" + list.BK_RSVNO + "</td>");
+					const td1 = $("<td class= 'bNum'>" + list.BK_RSVNO + "</td>");
 					const td2 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
 					const td3 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
 					const td4 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
-					const td5 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
+					const td5 = $("<td class= 'bRound>" + list.BK_ROUNDF + "</td>");
 					const td6 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
 					const td7 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
 					const td8 = $("<td class='cancelBtn'><button>예약 취소</button></td>");
@@ -192,6 +232,27 @@ function getMemberReservation(){
 		}
 	})// ajax 끝 
 }// 그 사람의 예약정보 가져오기
+
+$(document).on('click','.cancelBtn',function(){
+
+	const bTr = $(this).parent();
+	const bDay = bTr.children('.bDay').text();
+	const bTime = bTr.children('.bTime').text();
+	const bCos = bTr.children('.bCos').text();
+	const bRound = bTr.children('.bRound').text();
+	const bPerson = bTr.children('.bPerson').text();
+	const bNum = bTr.children('.bNum').text();
+
+	$('.popup').css("display", "flex");
+	$('#pDay').text(bDay);
+	$('#pNum').text(bNum);
+	$('#pCHT').text(bCos + "/ " + bRound +"/ " +bTime);
+	$('#pPerson').text(bPerson);
+	$('#pCos').text(bCos);
+	$('#pTime').text(bTime);
+
+}); // 동적 버튼(팝업생성버튼)
+
 function optionMake(){
 	yearMake();
 	monthMake();

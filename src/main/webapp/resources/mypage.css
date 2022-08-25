@@ -1,4 +1,28 @@
 @charset "UTF-8";
+/*팝업용 css */
+.popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
+    display: none;
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.5);
+}
+.popup-inner {  /* 열렸을 때 팝업창 크기와 색상을 지정합니다. */
+    position:absolute;
+    width: 50%;
+    height: 50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    padding : 10px;
+    background:#fff;
+}
+.hiddenKey{
+    display:none;
+}
+
 .menuOn{
 	color: #ffffff;
     background: #ff6600;

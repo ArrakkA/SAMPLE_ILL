@@ -1,26 +1,23 @@
 	let today = new Date(); // 오늘 날짜
 	let date = new Date();
-		
-	
+	let dayDate;
 	$(document).ready(function() {
-	today = new Date();
-	
+	const nowYear = (today.getFullYear()).toString();
+	const nowMonth = (today.getMonth()+1).toString();
+	const nowDay = nowYear + nowMonth;
 	build();//달력만듬
-	getDbReservation(today);
+	getDbReservation(nowDay);
 	});
-	
     function beforem() //이전 달을 today에 값을 저장
     { 
         today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
         build(); //만들기
     }
-    
     function nextm()  //다음 달을 today에 저장
     {
         today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
         build(); //만들기
     }
-    
     function build()
     {
         const nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
@@ -104,11 +101,11 @@
        goDbDate(today);
     }//달력 build() 끝
 	function goDbDate(today){
-    	
 		const yearId =today.getFullYear().toString();
 		const thisMonth =today.getMonth()+1;
         const monthId =thisMonth.toString();
-        
+
+
         if(thisMonth <10){
       	   var testId ="0"+ monthId;
       	   
@@ -149,44 +146,28 @@
 			      alert('통신오류가 발생하였습니다.');
 			  }
 		}); //ajax 끝
-	} //goDbDay 끝 
-
+	} //goDbDay 끝
 	function getDbReservation(date){
-		
 		$('.registerList').empty();
-		
+		dayDate = date;
 		const dateId = date;
 		const params ={
 				"dateId":dateId
 		}
-		$.ajax({ 
-			
+		$.ajax({
 			  type:'post'
 			  ,url:'/reservation/getReservation'
 			  ,data:params
 			  ,dataType:'json'
 			  ,success:function(result){
-				  
-				  
 				  		if(result.code=="0000"){
 				 			const rows = result.data;
 				 			const tbody = $("#registerList");
 							tbody.empty();
 							
 							for(i=0; i<rows.length; i++){
-							    var list = rows[i];
-								
-								const tr = $("<tr></tr>");
-								const td1 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
-								const td2 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
-								const td3 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
-								const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
-								const td5 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
-								const td6 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
-								const td7 = $("<td class='popBtn'><button>예약</button></td>");
-									
-								tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));	
-								
+							    const list = rows[i];
+								tableMade(list,tbody);
 							}//for문 끝
 				  		}else{
 				  			alert(result.message);
@@ -196,74 +177,141 @@
 					      alert('통신오류가 발생하였습니다.');
 					}
 		});//ajax 끝
-		
 	}//goDbReservation
-	
+	function tableMade(list,tbody){
+		const tr = $("<tr></tr>");
+		const td1 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
+		const td2 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
+		const td3 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
+		const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
+		const td5 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
+		const td6 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
+		const td7 = $("<td class='popBtn'><button>예약</button></td>");
+
+		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));
+	} //table 중복때문에 만듬
+
 	$(document).on('click','.popBtn',function(){
-			
+
 		const bTr = $(this).parent();
 		const bDay = bTr.children('.bDay').text();
 		const bTime = bTr.children('.bTime').text();
 		const bCos = bTr.children('.bCos').text();
 		const bRoundf = bTr.children('.bRoundf').text();
 		const bPerson = bTr.children('.bPerson').text();
-		
+
 		$('.popup').css("display", "flex");
-		
+
 		$('#pDay').text(bDay);
 		$('#pCHT').text(bCos + "/ " + bRoundf +"/ " +bTime);
 		$('#pPerson').text(bPerson);
 		$('#pCos').text(bCos);
 		$('#pTime').text(bTime);
-		
-	 }); // 동적 버튼(팝업생성버튼)
-	
+
+		 }); // 동적 버튼(팝업생성버튼)
 	$(document).ready(function(){
 		$('.popup-close').on('click', function(){
 			$('.popup').css("display", "none");
-		});
-		
+		}); //팝업 취소 버튼
 		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
-			 
+
 			 $('.bkBtn').on('click',function(){
-			
 			 const pTr = $(this).parent().parent();
 			 const pDay = pTr.find('#pDay').text();
 			 const pCos = pTr.find('#pCos').text();
 			 const pTime = pTr.find('#pTime').text();
 			 const pip = data.ip;
-			 
 			 const params ={
 			   "day":pDay
 			  ,"cos":pCos
 			  ,"time":pTime
 			  ,"ip":pip
-		   	 }
-		   	 
-		   	 $.ajax({
-				   		type:'post'
+			 }
+			 $.ajax({
+						type:'post'
 					   ,url:'/reservation/setReservation'
 					   ,data:params
 					   ,dataType:'json'
 					   ,success:function(result){
 						   if(result.code == "0000"){
-							    console.log(result.message)
+								console.log(result.message)
 								alert('예약이 성공했습니다.');
-								location.href = "/home";
+								location.href = "home";
 						   }else if(result.code == "1111"){
 							   console.log(result.message)
 							   alert('로그인 해주세요');
-							   location.href = "/login";
+							   location.href = "login";
 						   }else{
 							   alert('에러가 발생했습니다.');
 						   }
 					   }
-				       ,error:function(request, status, error){
-				    	   alert('통신에러가 발생했습니다.');
-				    	   
-				       }
-			   });//ajax끝   	  
+					   ,error:function(request, status, error){
+						   alert('통신에러가 발생했습니다.');
+
+					   }
+			   });//ajax끝
 			})//bkBtn
 		})//getJson
+		$('.cosA').click(function (){
+			const params ={
+				"dateId": dayDate
+			}
+			$.ajax({
+				type:'post'
+				,url:'/reservation/getReservation'
+				,data:params
+				,dataType:'json'
+				,success:function(result){
+					if(result.code=="0000"){
+						const rows = result.data;
+						const tbody = $("#registerList");
+						tbody.empty();
+						for(i=0; i<rows.length; i++){
+							const list = rows[i];
+							if(list.BK_COS == 'A') {
+								tableMade(list,tbody);
+							}
+						}//for문 끝
+					}else{
+						alert(result.message);
+					}
+				}
+				,error : function(request, status, error) {
+					alert('통신오류가 발생하였습니다.');
+				}
+			});//ajax 끝
+		})
+		$('.cosB').click(function(){
+			const params ={
+				"dateId": dayDate
+			}
+			$.ajax({
+				type:'post'
+				,url:'/reservation/getReservation'
+				,data:params
+				,dataType:'json'
+				,success:function(result){
+					if(result.code=="0000"){
+						const rows = result.data;
+						const tbody = $("#registerList");
+						tbody.empty();
+						for(i=0; i<rows.length; i++){
+							const list = rows[i];
+							if(list.BK_COS == 'B') {
+								tableMade(list,tbody);
+							}
+						}//for문 끝
+					}else{
+						alert(result.message);
+					}
+				}
+				,error : function(request, status, error) {
+					alert('통신오류가 발생하였습니다.');
+				}
+			});//ajax 끝
+		})
+		$('.all').click(function (){
+			getDbReservation(dayDate);
+		})
 	})//ready
 	

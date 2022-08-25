@@ -36,9 +36,9 @@
     </table>
     <!-- 예약정보 테이블 -->
     <div>
-    	<a class="tab">전체 코스</a>
-    	<a class="tab">동 코스</a>
-    	<a class="tab">서 코스</a>
+    	<a class="tab all">전체 코스</a>
+    	<a class="tab cosA">동 코스</a>
+    	<a class="tab cosB">서 코스</a>
     </div>
     <table class= "table table-striped table-sm mainTable" id="table1">
 		<colgroup>
@@ -66,7 +66,7 @@
 	</table>
 	
 	<!-- 팝업 입니다. -->
-	<div class="popup">  
+<div class="popup">
    	<div class="popup-inner">
     	<div class="popContent">
     		<ul class="popuplist">

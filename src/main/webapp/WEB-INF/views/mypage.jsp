@@ -12,7 +12,7 @@
 <script>
 	const memSex = ${sessionScope.SessionUser.MS_SEX};
 	const birth = ${sessionScope.SessionUser.MS_BIRTH};
-	const fPhone = ${sessionScope.SessionUser.MS_LAST_PHONE1};
+	const fPhone = '${sessionScope.SessionUser.MS_FIRST_PHONE1}';
 </script>
 </head>
 <body>
@@ -177,6 +177,55 @@
 				<button class="memDelBtn">삭제</button>
 			</li>
 		</ul>
+	</div>
+</div>
+
+<!-- 팝업 입니다. -->
+<div class="popup">
+	<div class="popup-inner">
+		<div class="popContent">
+			<ul class="popuplist">
+				<li>
+					<span>예약자</span>
+					<span id="pName">${sessionScope.SessionUser.MS_NAME}</span>
+				</li>
+				<li>
+					<span>예약 번호</span>
+					<span id="pNum"></span>
+				</li>
+				<li>
+					<span>핸드폰</span>
+					<span id="pPhone">${sessionScope.SessionUser.MS_FIRST_PHONE1}-${sessionScope.SessionUser.MS_MID_PHONE1}-${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
+				</li>
+				<li>
+					<span>예약일자</span>
+					<span id="pDay"></span>
+				</li>
+				<li>
+					<span>코스/홀/시간</span>
+					<span id="pCHT"></span>
+				</li>
+				<li>
+					<span>예약인원</span>
+					<span id="pPerson"></span>
+				</li>
+				<li>
+					<span>가격</span>
+					<span id="pPrice"></span>
+				</li>
+				<li class="hiddenKey">
+					<span id="pTime"></span>
+					<span id="pCos"></span>
+					<span id="pPhoneF">${sessionScope.SessionUser.MS_FIRST_PHONE1}</span>
+					<span id="pPhoneM">${sessionScope.SessionUser.MS_MID_PHONE1}</span>
+					<span id="pPhoneL">${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
+				</li>
+			</ul>
+		</div>
+		<div class= "buttonBox">
+			<button id="popup-close">닫기</button>
+			<button id="deleteBtn"> 취소 </button>
+		</div>
 	</div>
 </div>
 

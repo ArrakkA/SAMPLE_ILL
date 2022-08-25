@@ -129,7 +129,7 @@ $(document).ready(function(){
 							  
 							  if(result.code == "0000"){
 								  alert('회원가입 되었습니다 환영합니다!');
-							      location.href="/sample/login";
+							      location.href="login";
 							  }else if(result.code == "8888"){
 								  alert('code 8888');
 						  	  }else if(result.code == "1111"){

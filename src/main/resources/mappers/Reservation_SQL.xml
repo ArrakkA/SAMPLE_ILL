@@ -64,7 +64,7 @@
 	</select>
 	
 	<update id="cancelReservation" parameterType="hashmap">
-			UPDATE BK HISTORY SET
+			UPDATE BK_HISTORY SET
 				  BK_NAME = NULL
 				  ,BK_MSNUM = NULL
 				  ,BK_FIRST_PHONE1 = NULL
@@ -72,9 +72,8 @@
 				  ,BK_LAST_PHONE1 = NULL
 				  ,BK_RSVNO = NULL
 				  ,BK_YN = 'N'
-				  ,UPDATE_STAFF = NULL
-				  ,UPDATE_DATETIME = NULL
-				  ,UPDATE_IP = NULL
+				  ,UPDATE_DATETIME = now()
+				  ,UPDATE_IP = #{ip}
 		     WHERE CO_DIV = '100'
 		       AND BK_DAY = #{day}
 			   AND BK_COS = #{cos}
