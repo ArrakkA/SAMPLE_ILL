@@ -31,11 +31,9 @@ public class ReservationController {
 		this.reservationService = reservationService;
 		
 	}
-	
 	@ResponseBody
 	@PostMapping(value = "/getCalendar")
 	public ResponseResult getCalendar(HttpServletRequest request, @RequestParam(name="ymId")String ymId){
-		
 		ResponseResult result = new ResponseResult();
 		try {
 			List<HashMap<String, Object>> data = reservationService.makeCalendar(ymId);
@@ -53,9 +51,7 @@ public class ReservationController {
 	@ResponseBody
 	@PostMapping(value = "/getReservation")
 	public ResponseResult getReservation(HttpServletRequest request, @RequestParam(name="dateId")String dateId){
-		
 		ResponseResult result = new ResponseResult();
-		
 		try {
 			//쿼리문 저장
 			List<HashMap<String, Object>> data = reservationService.reservationList(dateId);
@@ -69,26 +65,20 @@ public class ReservationController {
 			result.setCode("9999");
 			result.setMessage("error");
 		}
-		
 		return result;
-		
 	}
-	
 	@ResponseBody
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="/setReservation")
 	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
 		
 		ResponseResult result = new ResponseResult();
-		
 		try {
 			//세션저장 데이터 가져오기
 			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
-				
 			if(member == null) {
 				result.setCode("1111");
 				result.setMessage("session not exist");
-				
 			}else if(member != null) {
 				// 필요한 parameter들 입력
 				String rNum = reservationService.makeReservNum();
@@ -98,7 +88,6 @@ public class ReservationController {
 				result.setCode("0000");
 				result.setMessage("session exist");
 			}
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			//결과 세팅
@@ -129,14 +118,11 @@ public class ReservationController {
 			result.setCode("9999");
 			result.setMessage("error");
 		}
-		
 		return result;
-		
 	}
 	@ResponseBody
 	@PostMapping(value = "/cancelReservation")
 	public ResponseResult cancelReservation(HttpServletRequest request,HttpSession session, @RequestParam HashMap<String,Object> params){
-		
 		ResponseResult result = new ResponseResult();
 		try {
 			//예약 취소
@@ -144,7 +130,6 @@ public class ReservationController {
 			//결과 세팅
 			result.setCode("0000");
 			result.setMessage("success");
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 			//결과 세팅
@@ -152,7 +137,6 @@ public class ReservationController {
 			result.setMessage("error");
 		}
 		return result;
-		
 	}
 
 	

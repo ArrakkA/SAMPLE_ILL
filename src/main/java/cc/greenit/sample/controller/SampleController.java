@@ -58,17 +58,18 @@ public class SampleController {
 	public String login(Locale locale, Model model) {
 		return "login";
 	}
-	
 	@GetMapping(value = "/join")
 	public String wellcome(Locale locale, Model model) {
 		return "join";
 	}
-	
 	@GetMapping(value = "/test")
-	public String test(Locale locale, Model model) {
+	public String test1(Locale locale, Model model) {
 		return "test";
 	}
-	
+	@GetMapping(value = "/test2")
+	public String test2(Locale locale, Model model) {
+		return "test2";
+	}
 	@GetMapping(value = "/mypage")
 	public String mypage(Locale locale
 			    		 ,Model model

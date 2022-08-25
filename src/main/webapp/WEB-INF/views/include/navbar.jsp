@@ -20,38 +20,46 @@
 		});//click 이벤트 		
 	});//ready
 </script>
-
+<link rel="stylesheet" href="<c:url value='/navbar.css'/>">
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/sample/home">Greenit JSP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/sample/home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/sample/calendar">예약 화면</a>
-        </li>
+      <a class="navbar-brand" href="/sample/home">Greenit JSP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/sample/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/sample/calendar">예약 화면</a>
+              </li>
+          </ul>
 	    <c:if test="${ SessionUser == null}">
-	        <li class="nav-item">
-		        <a class="nav-link" href="/sample/login">로그인</a>
-		    </li>
-		    <li class="nav-item">
-		        <a class="nav-link" href="/sample/join">회원가입</a>
-		    </li>
-	    </c:if>
+            <ul class="navbar-nav me-auto ">
+                <li class="nav-item">
+                    <a class="nav-link loginBtn " href="/sample/login">
+                        <span>로그인</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link signUpBtn mb-lg-0" href="/sample/join">
+                        <span>회원가입</span>
+                    </a>
+                </li>
+                </c:if>
+            </ul>
 	    <c:if test="${ SessionUser != null }">
-	        <li class="nav-item">
-	        	<button class="nav-link logout">로그아웃</button>
-	        </li>
-	        <li class="nav-item">
-	        	<a class="nav-link" href="/sample/mypage">마이페이지</a>
-	        </li>	
-	    </c:if> 
-     </ul>
-    </div> 
-  </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <button class="nav-link logout logoutBtn">로그아웃</button>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mypageBtn" href="/sample/mypage">마이페이지</a>
+                </li>
+            </ul>
+	    </c:if>
+        </div>
+    </div>
 </nav>
