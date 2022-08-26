@@ -2,12 +2,19 @@
 	let date = new Date();
 	let dayDate;
 	$(document).ready(function() {
-	const nowYear = (today.getFullYear()).toString();
-	const nowMonth = (today.getMonth()+1).toString();
-	const nowDay = nowYear + nowMonth;
+	let nowYear = (today.getFullYear()).toString();
+	let nowMonth = (today.getMonth()+1).toString();
+	let nowYMonth = nowYear + nowMonth;
+	const nowDay = (today.getDate()).toString();
 	build();//달력만듬
-	getDbReservation(nowDay);
+	getDbReservation(nowYMonth);
+
+
+	$(".head-month").text(nowMonth+ "-" + nowYear);
+	$('.head-day').text(nowDay);
+
 	});
+
     function beforem() //이전 달을 today에 값을 저장
     { 
         today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
@@ -179,16 +186,27 @@
 		});//ajax 끝
 	}//goDbReservation
 	function tableMade(list,tbody){
+		const tListDay = list.BK_DAY;
+		const tYear = tListDay.substr(0,4);
+		const tMonth = tListDay.substr(4, 2);
+		const tDay = tListDay.substr(6,2);
+
+		let td3 = '';
 		const tr = $("<tr></tr>");
-		const td1 = $("<td class= 'bDay'>" + list.BK_DAY + "</td>");
+		const td1 = $("<td class= 'bListDay'>" + tYear +"/"+ tMonth +"/"+ tDay +"</td>");
 		const td2 = $("<td class= 'bTime'>" + list.BK_TIME + "</td>");
-		const td3 = $("<td class= 'bCos'>" + list.BK_COS + "</td>");
+		if(list.BK_COS == 'A'){
+			td3 = $("<td class= 'bCos'> 동 코스 </td>");
+		}else if(list.BK_COS == 'B'){
+			td3 = $("<td class= 'bCos'> 서 코스 </td>");
+		}
 		const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
 		const td5 = $("<td class= 'bPerson'>" + list.BK_PERSON + "</td>");
 		const td6 = $("<td class= 'bCharge'>" + list.BK_CHARGE + "</td>");
-		const td7 = $("<td class='popBtn'><button>예약</button></td>");
+		const td7 = $("<td class='popBtn'> 예약</td>");
+		const td8 = $("<td class= 'bDay' style='display: none'>" + tListDay + "</td>");
 
-		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7));
+		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7, td8));
 	} //table 중복때문에 만듬
 
 	$(document).on('click','.popBtn',function(){
@@ -199,7 +217,7 @@
 		const bCos = bTr.children('.bCos').text();
 		const bRoundf = bTr.children('.bRoundf').text();
 		const bPerson = bTr.children('.bPerson').text();
-
+		const blistDay = bTr.children('.bListDay').text();
 		$('.popup').css("display", "flex");
 
 		$('#pDay').text(bDay);
@@ -207,7 +225,7 @@
 		$('#pPerson').text(bPerson);
 		$('#pCos').text(bCos);
 		$('#pTime').text(bTime);
-
+		$('#pListDay').text(blistDay);
 		 }); // 동적 버튼(팝업생성버튼)
 	$(document).ready(function(){
 		$('.popup-close').on('click', function(){
@@ -218,9 +236,19 @@
 			 $('.bkBtn').on('click',function(){
 			 const pTr = $(this).parent().parent();
 			 const pDay = pTr.find('#pDay').text();
-			 const pCos = pTr.find('#pCos').text();
+			 const pCosName = pTr.find('#pCos').text();
 			 const pTime = pTr.find('#pTime').text();
 			 const pip = data.ip;
+			 let pCos = '';
+
+			 if(pCosName == '동 코스'){
+				 pCos = 'A';
+			 }else if(pCosName == '서 코스'){
+				 pCos = 'B';
+			 }
+
+
+
 			 const params ={
 			   "day":pDay
 			  ,"cos":pCos

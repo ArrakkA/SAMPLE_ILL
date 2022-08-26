@@ -4,34 +4,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="./include/header.jsp" ></jsp:include>
-<link rel="stylesheet" href="<c:url value='/cal.css'/>">
-<script type="text/javascript" src="/cal.js"></script> 
+	<jsp:include page="./include/header.jsp" ></jsp:include>
+	<link rel="stylesheet" href="<c:url value='/cal.css'/>">
+	<script type="text/javascript" src="/cal.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 <div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-6 text-center mb-5">
+			<h2 class="heading-section">테이블 예약 정보</h2>
+		</div>
+	</div>
 	<!-- 캘린더 입니다 -->
-	<table align="center" id="calendar">
-		<tr>
-			<td><font size=1%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
-			<td colspan="5" align="center" id="yearmonth"></td>
-			<td><font size=1%; color="#B3B6B3"><label onclick="nextm()" id="next"></label></font></td>
-		</tr>
-		<thead>
-		<tr>
-			<td align="center"><div style ="color: red">SUN</div></td>
-			<td align="center"> MON</td>
-			<td align="center"> TUE </td>
-			<td align="center"> WEN </td>
-			<td align="center"> THR </td>
-			<td align="center"> FRI </td>
-			<td align="center"><div style ="color: blue">SAT</div></td>
-		</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="elegant-calencar d-md-flex">
+				<div class="wrap-header d-flex align-items-center img">
+					<p id="reset">Today</p>
+					<div id="header" class="p-0">
+						<div class="head-info">
+							<div class="head-month"></div>
+							<div class="head-day"></div>
+						</div>
+					</div>
+				</div>
+				<div class="calendar-wrap">
+					<div class="w-100 button-wrap">
+						<div class="pre-button d-flex align-items-center justify-content-center" onclick="beforem()"><i class="fa fa-chevron-left"></i></div>
+						<div class="next-button d-flex align-items-center justify-content-center" onclick="nextm()"><i class="fa fa-chevron-right"></i></div>
+					</div>
+			<table align="center" id="calendar">
+				<tr>
+					<td><span style="color: #B3B6B3; "><label  id="before"></label></span></td>
+					<td colspan="5" align="center" id="yearmonth"></td>
+					<td><span style="color: #B3B6B3; "><label  id="next"></label></span></td>
+				</tr>
+				<thead>
+				<tr>
+					<td><div style ="color: red">SUN</div></td>
+					<td> MON</td>
+					<td> TUE </td>
+					<td> WEN </td>
+					<td> THR </td>
+					<td> FRI </td>
+					<td><div style ="color: blue">SAT</div></td>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
     <!-- 예약정보 테이블 -->
     <div>
@@ -39,7 +66,7 @@
     	<a class="tab cosA">동 코스</a>
     	<a class="tab cosB">서 코스</a>
     </div>
-    <table class= "table table-striped table-sm mainTable" id="table1">
+    <table id="table1">
 		<colgroup>
 			<col style="width:10%"/>
 			<col style="width:10%"/>
@@ -79,7 +106,7 @@
 	    		</li>
 	    		<li>
 	    			<span>예약일자</span>
-	    			<span id="pDay"></span>
+	    			<span id="pListDay"></span>
 	    		</li>
 	    		<li>
 	    			<span>코스/홀/시간</span>
@@ -94,6 +121,7 @@
 	    			<span id="pPrice"></span>
 	    		</li>
 	    		<li class="hiddenKey">
+					<span id="pDay"></span>
 	    			<span id="pTime"></span>
 	    			<span id="pCos"></span>
 	    		</li>

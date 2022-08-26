@@ -27,7 +27,7 @@ public class ManagerController {
 	private ManagerService managerService;
 	private MemberService memberService;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	
 	
 	@Autowired
