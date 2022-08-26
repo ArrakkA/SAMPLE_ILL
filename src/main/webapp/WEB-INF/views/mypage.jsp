@@ -174,7 +174,7 @@
 			<li>
 				<div>회원탈퇴 하시려면 비밀번호를 입력해주세요</div>
 				<input type="password" id="delPassword" class="delpassInput">
-				<button class="memDelBtn">삭제</button>
+				<button id ="memDelBtn" class="memDelBtn">삭제</button>
 			</li>
 		</ul>
 	</div>

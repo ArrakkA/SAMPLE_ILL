@@ -111,7 +111,7 @@
 	<!-- 삭제시 패스워드 확인 -->
 	<select id="chkPassword" resultType= "String">
 		SELECT MS_PASSWORD
-		  FROM MS_MSININFO
+		  FROM MS_MAININFO
 		 WHERE MS_ID = #{id}
 		   AND MS_NUM = #{num}
 	</select>

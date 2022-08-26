@@ -4,7 +4,6 @@ $(document).ready(function(){
 	
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
 		$('#saveBtn').on('click', function(){
-		
 			const memId = $('#ms_id').val();
 			const memPw = $('#ms_password').val();
 			const memChkPw = $('#ms_passwordChk').val();
@@ -18,29 +17,18 @@ $(document).ready(function(){
 			const memZip = $('#mZip').val();
 			const memHtell = $('#home_tel').val();
 			const year = $('#birth-year').val();
-			if($('#birth-month').val()<10){
-				month = "0" + $('#birth-month').val();
-			}else{
-				month = $('#birth-month').val();
-			}
-			if($('#birth-day').val()<10){
-				day= "0" + $('#birth-day').val();
-			}else{
-				day = $('#birth-day').val();
-			}
-			const memBirth = year + month + day; 
+			const month = $('#birth-month').val();
+			const day = $('#birth-day').val();
+			const memBirth = year + month + day;
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
 			let params = {};
-			
-			console.log(memBirth);
 
 			if(smsChk == true){
 				params["smsChk"] = 'Y'
 			}else if(smsChk == false){
 				params["smsChk"] = 'N'
 			}
-			
 			params["mIP"]= data.ip;
 			params["htell"]= memHtell;
 			
@@ -50,7 +38,6 @@ $(document).ready(function(){
 			}else{
 				params["id"] = memId;
 			}
-			
 			if(memPw == ""){
 				alert("비밀번호를 확인해 주세요");
 				return;
@@ -58,7 +45,6 @@ $(document).ready(function(){
 				alert("비밀번호 규칙이 맞지않습니다.");
 				return;
 			}
-			
 			if(memChkPw == ""){
 				alert("비밀번호확인을 정확히 입력해주세요");
 				return;
@@ -143,13 +129,15 @@ $(document).ready(function(){
 			}
 		 });//jquery btnsave 
 	});//get json
-	
+	$('#ms_id').change(function (){
+		chkBtn = 0;
+	});
+
 	$('#chkIdBtn').click(function(){
 		const memId = $('#ms_id').val();
 		const params ={
 			"memId" : memId
 		};
-		
 		if(memId == ""){
 			alert("아이디를 입력해주세요");
 		}else{
@@ -162,7 +150,6 @@ $(document).ready(function(){
 				  	if(result.code == "0000"){
 				  		alert('사용가능한 아이디 입니다.');
 				  		chkBtn = 1;
-				  		$('#ms_id').attr('disabled', true);
 				  	}else if(result.code == "1111"){
 				  		alert('이미 존재하는 아이디 입니다.');
 				  		$('#ms_id').val('');
@@ -174,58 +161,52 @@ $(document).ready(function(){
 			});//ajax
 		}
 	});//중복확인 버튼
-	
 	optionMake();
 });	//ready
 function optionMake(){
-	let yearOptionMake = false;
-	let monthOptionMake = false;
-	$('#birth-year').click(function(){
-		yearMake();
-	})//년도 option
-	$('#birth-month').click(function(){
-		monthMake();
-	})// 월 option
+	yearMake();
+	monthMake();
+	dayMake();
+
 	$('#birth-month').change(function(){
 		dayMake();
 	})
 	$('#birth-year').change(function(){
 		dayMake();
 	})
-	
 	function dayMake(){
 		$('#birth-day').empty();
 		const targetYear = $('#birth-year').val();
 		const targetMonth = $('#birth-month').val();
 		const lastDate = new Date(targetYear, targetMonth, 0);
 		const lastDay = lastDate.getDate();
-		
+
 		for(i=1; i<=lastDay; i++){
 			const op= $("<option>" + i + "</option>");
-			op.attr('value', i);
-			$('#birth-day').append(op);			
+			(i < 10)? j ="0"+ i : j = i;
+			op.attr('value', j);
+			$('#birth-day').append(op);
 		}
 	}//day 만들기
 	function yearMake(){
 		const today = new Date();
 		const year = today.getFullYear();
-		if(yearOptionMake == false){
-			yearOptionMake = true;
-			for(i=year-100; i<=year; i++){
-				const op= $("<option>" + i + "</option>");
-				op.attr('value', i);
-				$('#birth-year').append(op);
-			}
+
+		$('#birth-year').empty();
+		for(i=year-100; i<=year; i++){
+			const op= $("<option>" + i + "</option>");
+			op.attr('value', i);
+			$('#birth-year').append(op);
 		}
 	}//year 만들기
 	function monthMake(){
-		if(monthOptionMake == false){
-			monthOptionMake = true;
-			for(i=1; i<=12; i++){
-				const op= $("<option>" + i + "</option>");
-				op.attr('value', i);
-				$('#birth-month').append(op);
-			}
+		$('#birth-month').empty();
+		for(i=1; i<=12; i++){
+			const op= $("<option>" + i + "</option>");
+			(i < 10)? j ="0"+ i : j = i;
+			op.attr('value', j);
+			$('#birth-month').append(op);
 		}
+
 	}//month 만들기
 }// option 만들기
