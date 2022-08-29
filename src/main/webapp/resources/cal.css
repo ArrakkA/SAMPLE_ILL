@@ -7,7 +7,15 @@ table
         text-align:center;
         width:30%;
     }
-    
+.gray{
+    color:#808080
+}
+.red.gray{
+    color:#808080
+}
+.blue.gray{
+    color:#808080
+}
 .blue{
 
 	color:blue
@@ -15,11 +23,6 @@ table
 .red{
 	
 	color:red
-}
-.gray{
-
-	color:#808080
-	
 }
 .popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
   display: none;

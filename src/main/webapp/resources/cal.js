@@ -8,6 +8,7 @@
 	const nowDay = (today.getDate()).toString();
 	build();//달력만듬
 	getDbReservation(nowYMonth);
+	let realDay = '';
 
 
 	$(".head-month").text(nowMonth+ "-" + nowYear);
@@ -29,11 +30,13 @@
     {
         const nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
         const lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
-        const tbcal = document.getElementById("calendar");// 테이블 달력을 만들 테이블
+        const tbcal = document.getElementById("dates");// 테이블 달력을 만들 테이블
         const thisMonth = today.getMonth()+1;
         const yearId = today.getFullYear().toString();
         const monthId = thisMonth.toString();
-       
+
+		$('#dates').empty();
+
         if(thisMonth <10){
      	   var testId = "0"+ monthId;  
         }else{
@@ -92,17 +95,18 @@
             cnt = cnt + 1;
 
             if (cnt % 7 == 1) {//일요일 계산
-            	const sunDay = "<div style='color:red' class='registerDay' onclick ='getDbReservation("+ ymId + j +")' id='" +ymId + j +"'>" + i +"</div>";
+            	const sunDay = "<div class='registerDay' onclick ='getDbReservation("+ ymId + j +")' id='" +ymId + j +"'>" + i +"</div>";
                 cell.innerHTML = sunDay;//일요일에 색
             }
             if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
-            	 const satDay = "<div style='color: blue' class=' registerDay' onclick ='getDbReservation("+ ymId + j +")' id='"+ymId + j +"'>" + i+ "</div>";				
+            	 const satDay = "<div class=' registerDay' onclick ='getDbReservation("+ ymId + j +")' id='"+ymId + j +"'>" + i+ "</div>";
                 cell.innerHTML = satDay;
                 row = calendar.insertRow();// 줄 추가
             }
             if(today.getFullYear() == date.getFullYear() && today.getMonth()==date.getMonth() && i==date.getDate()) 
             {
-                cell.bgColor = "#BCF1B1"; //오늘날짜배경색
+                cell.bgColor = "#BCF1B1";
+				//오늘날짜배경색
             }
         } //for 달력만들기
        goDbDate(today);
@@ -138,11 +142,17 @@
 						  for(i=0; i<rows.length; i++){
 							  const business = rows[i].CL_BUSINESS;
 							  const solar = rows[i].CL_SOLAR;
-							  
+							  const nowDay = rows[i].NOW_DAY;
+
 							  if(business == '2'){
 								  $('[id='+ solar + ']').addClass('blue');
 							  }else if(business == '3' || business == '4'){
 								  $('[id='+ solar + ']').addClass('red');
+							  }
+
+							  if(solar<nowDay){
+								  $('[id='+ solar + ']').prop("onclick", null).off('click');
+								  $('[id='+ solar + ']').addClass('gray');
 							  }
 						  };  
 				  }else{

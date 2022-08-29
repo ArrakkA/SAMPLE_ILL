@@ -22,6 +22,7 @@
 		SELECT  CL_SOLAR
 			   ,CL_DAYDIV
 			   ,CL_BUSINESS
+			   ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
 		 FROM   CL_DAYINFO
 		WHERE   CO_DIV ='100'
 		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
