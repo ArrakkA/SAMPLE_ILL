@@ -6,12 +6,12 @@
 	<select id="reservationTable"  resultType="hashmap">
 			
 			SELECT CO_DIV
-				  ,BK_DAY 
-				  ,BK_COS 
-				  ,BK_TIME 
+				  ,BK_DAY
+				  ,BK_COS
+				  ,BK_TIME
 				  ,BK_ROUNDF
 				  ,BK_PERSON
-				  ,BK_CHARGE	   
+				  ,BK_CHARGE
 			 FROM  BK_HISTORY
 			WHERE  BK_DAY = #{dateId}
 			  AND  BK_YN = 'N'
@@ -81,8 +81,13 @@
 			   AND BK_TIME = #{time}
 			   AND BK_RSVNO = #{rNum}
 	</update>
-	
-
+    <select id="reservationCnt" resultType="hashmap">
+		select count(BK_TIME) as ReservationCnt
+		from bk_history bh
+		where BK_DAY like CONCAT(#{yMId},'%')
+		  and bk_yn = 'N'
+		group by BK_DAY;
+	</select>
 
 
 

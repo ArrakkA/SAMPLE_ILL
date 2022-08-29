@@ -51,7 +51,13 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public int cancelReservation(HashMap<String, Object> params) {
+
 		return reservationDAO.cancelReservation(params);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> reservationCnt(String yMId) {
+		return reservationDAO.reservationCnt(yMId);
 	}
 
 }

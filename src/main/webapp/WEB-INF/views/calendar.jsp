@@ -7,10 +7,6 @@
 	<jsp:include page="./include/header.jsp" ></jsp:include>
 	<link rel="stylesheet" href="<c:url value='/cal.css'/>">
 	<script type="text/javascript" src="/cal.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/css/style.css">
-</head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 <div class="container">

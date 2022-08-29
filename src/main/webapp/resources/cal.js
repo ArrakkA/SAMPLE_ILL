@@ -218,6 +218,36 @@
 
 		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7, td8));
 	} //table 중복때문에 만듬
+	function reservationCnt(date){
+
+		const params ={
+			'dateId':date
+		}
+		$.ajax({
+			type:post
+			,url:'/reservation/getReservationCnt'
+			,data:params
+			,dataType:'json'
+			,success:function(result){
+				if(result.code == "0000"){
+					const rows = result.data;
+					for(i=0; i<rows.length; i++){
+						(i < 10)? j ="0"+ i : j = i;
+						const list = rows[i];
+						if(Number(list.ReservationCnt) >40) {
+							$('[id=' + date + j + ']').append("<div class='greenDay'></div>");
+						} else if(Number(list.ReservationCnt)<40 &&)
+					}
+				}
+
+			}
+			,error : function(request, status, error) {
+				alert('통신오류가 발생하였습니다.');
+			}
+		})// ajax 끝
+
+
+	}// 예약 횟수 구현
 
 	$(document).on('click','.popBtn',function(){
 
@@ -256,8 +286,6 @@
 			 }else if(pCosName == '서 코스'){
 				 pCos = 'B';
 			 }
-
-
 
 			 const params ={
 			   "day":pDay

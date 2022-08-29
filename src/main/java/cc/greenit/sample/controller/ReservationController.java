@@ -138,7 +138,24 @@ public class ReservationController {
 		}
 		return result;
 	}
-
+	@ResponseBody
+	@PostMapping(value = "/cancelReservation")
+	public ResponseResult reservationCnt(HttpServletRequest request,HttpSession session, @RequestParam("YMId") String YMId){
+		ResponseResult result = new ResponseResult();
+		try {
+			//날짜별 세팅
+			reservationService.reservationCnt(YMId);
+			//결과 세팅
+			result.setCode("0000");
+			result.setMessage("success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			//결과 세팅
+			result.setCode("9999");
+			result.setMessage("error");
+		}
+		return result;
+	}
 	
 	
 	
