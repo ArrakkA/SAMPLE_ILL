@@ -1,19 +1,28 @@
 	let today = new Date(); // 오늘 날짜
 	let date = new Date();
 	let dayDate;
+
 	$(document).ready(function() {
 	let nowYear = (today.getFullYear()).toString();
 	let nowMonth = (today.getMonth()+1).toString();
 	const nowDay = (today.getDate()).toString();
 	build();//달력만듬
-
 	$('.popup-close').on('click', function(){
 		$('.popup').css("display", "none");
 	}); //팝업 취소 버튼
 	$(".head-month").text(nowMonth+ "-" + nowYear);
 	$('.head-day').text(nowDay);
 	});
-
+	function beforem() //이전 달을 today에 값을 저장
+	{
+		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+		build(); //만들기
+	}
+	function nextm()  //다음 달을 today에 저장
+	{
+		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+		build(); //만들기
+	}
     function build()
     {
         const nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
@@ -226,7 +235,7 @@
 						const cntNum = Number(list.ReservationCnt);
 						const realDate = ymId + j
 
-						if( realDate > list.NOW_DAY){
+						if( realDate >= list.NOW_DAY){
 							if( cntNum >= 40) {
 								$('[id=' + realDate + ']').append("<div class='leftSeat greenDay'>"+ cntNum +"</div>")
 							} else if( cntNum < 40 && cntNum > 20){

@@ -148,7 +148,7 @@ $(document).ready(function(){
 				,"ip":pip
 			}
 			chkDay(pDay);
-			(today > rDate) ? reservationChk = false : true;
+			(today > rDate ) ? reservationChk = false : true;
 			if(reservationChk == false){
 				alert('예약 취소가능 기간이 지났습니다.');
 			}else if(reservationChk == true){
