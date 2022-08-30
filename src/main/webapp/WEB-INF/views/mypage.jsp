@@ -9,6 +9,7 @@
 <jsp:include page="./include/map.jsp"></jsp:include>
 <link rel="stylesheet" href="<c:url value='/mypage.css'/>">
 <script type="text/javascript" src="/mypage.js"></script>
+<script type="text/javascript" src="/optionMake.js"></script>
 <script>
 	const memSex = ${sessionScope.SessionUser.MS_SEX};
 	const birth = ${sessionScope.SessionUser.MS_BIRTH};
@@ -21,19 +22,21 @@
 	<a class="menuOn tab" id="tab1" href="javascript:changeContent(1)">예약확인 및 취소</a>
 	<a class="tab" id="tab2" href="javascript:changeContent(2)">회원정보 수정</a>
 </div>
+<!-- 예약표 입니다 -->
 <div class="content" id="content1">
-	<table class="memReservationTable">
-		<colgroup>
-			<col style="width:20%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-			<col style="width:10%"/>
-		</colgroup>
-		<thead>
+	<div class="container reservationContent">
+		<table class="memReservationTable">
+			<colgroup>
+				<col style="width:15%"/>
+				<col style="width:10%"/>
+				<col style="width:7%"/>
+				<col style="width:7%"/>
+				<col style="width:7%"/>
+				<col style="width:7%"/>
+				<col style="width:10%"/>
+				<col style="width:127px"/>
+			</colgroup>
+			<thead>
 			<tr align="center">
 				<th>예약번호</th>
 				<th>날짜</th>
@@ -44,127 +47,131 @@
 				<th>그린피 가격</th>
 				<th>예약</th>
 			</tr>
-		</thead>
-		<tbody class="memberReservationList"></tbody>
-	</table>
-</div >
+			</thead>
+			<tbody class="memberReservationList"></tbody>
+		</table>
+	</div >
+</div>
+<!-- 회원정보 수정 페이지 입니다 -->
 <div  class="content" id="content2" style="display:none">
 	<div id="wrap">
-		<div class="contents">
-			<div class="subtitle subBottom"></div>
-			<span class="title">회원정보 수정</span>
-			<span class="titleDes"></span>
-		</div>
-		<div class="subLine"></div>
-		<div class="joinGrayBg col-xs-8">
-			<ul class="joinInfoBox">
-				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 회원번호
-				</li>
-				<li>
-					<input type="text" id="ms_num" class="Input" value="${sessionScope.SessionUser.MS_NUM}" disabled>
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 아이디
-				</li>
-				<li>
-					<input type="text" id="ms_id" class="idInput" value="${sessionScope.SessionUser.MS_ID}" disabled>
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infolist">
-					<span class="orangeRed">*</span>
-					이 름
-				</li>
-				<li>
-					<input type="text" id="ms_name" style="width:150px" value="${sessionScope.SessionUser.MS_NAME}" disabled>
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infolist">
-					<span class="orangeRed">*</span>
-					 핸드폰
-				</li>
-				<li>
-					<select id="first_phone1" class="select-arrow" value="${sessionScope.SessionUser.MS_FIRST_PHONE1}" style="width:90px; margin-right: 5px">
-						<option value>선택</option>
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="012">012</option>
-						<option value="013">013</option>
-						<option value="014">014</option>
-						<option value="015">015</option>
-						<option value="016">016</option>
-						<option value="017">017</option>
-						<option value="018">018</option>
-						<option value="019">019</option>
-					</select>
-					- 	
-					<input type="text" id="mid_phone1" value="${sessionScope.SessionUser.MS_MID_PHONE1}" style="width:100px; margin-right: 5px;" >
-					- 
-					<input type="text" id="last_phone1" value="${sessionScope.SessionUser.MS_LAST_PHONE1}" style="width:100px;" >
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infolist">
-					<span class="orangeRed">*</span>
-					 집전화
-				</li>
-				<li>
-					<input type="text" id="home_tel" value="${sessionScope.SessionUser.MS_HOMETEL}" style="width:300px; margin-right: 5px;" >
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 지역
-				</li>
-				<li>
-					<input type="text" id="mZip" value="${sessionScope.SessionUser.MS_HOMEZIP}" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
-					<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
-					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 성별
-				</li>
-				<li>
-					<select name="selsex" id="ms_sex" class="select-arrow" value="${sessionScope.SessionUser.MS_SEX}">
-						<option>선택</option>
-						<option value="1">남</option>
-						<option value="2">여</option>
-					</select>
-				</li>
-			</ul>
-			<ul class="joinInfoBox">
-				<li class="infoList">
-					<span class="orangeRed">*</span>
-					 생년월일
-				</li>
-				<li class="info" id="info__birth">
-					<select class="box" id="birth-year">
-				    	<option disabled selected>출생 연도</option>
-				  	</select>
-				  	<select class="box" id="birth-month">
-				    	<option disabled selected>월</option>
-				  	</select>
-				  	<select class="box" id="birth-day">
-				    	<option disabled selected>일</option>
-				  	</select>
-				</li>
-			</ul>
-		</div>
-		<div class="btnbox">
-			<button id="changeBtn" class="btn btn-outline-primary">회원정보 수정</button>
-			<a class="btn btn-outline-primary" id="tab3" href="javascript:changeContent(3)">회원 탈퇴</a>
+		<div class="container joinContent">
+			<div class="contents">
+				<div class="subtitle subBottom"></div>
+				<span class="title">회원정보 수정</span>
+				<span class="titleDes"></span>
+			</div>
+			<div class="subLine"></div>
+			<div class="joinGrayBg col-xs-8">
+				<ul class="joinInfoBox">
+					<li class="infoList">
+						<span class="orangeRed">*</span>
+						회원번호
+					</li>
+					<li>
+						<input type="text" id="ms_num" class="Input" value="${sessionScope.SessionUser.MS_NUM}" disabled>
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infoList">
+						<span class="orangeRed">*</span>
+						아이디
+					</li>
+					<li>
+						<input type="text" id="ms_id" class="idInput" value="${sessionScope.SessionUser.MS_ID}" disabled>
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infolist">
+						<span class="orangeRed">*</span>
+						이 름
+					</li>
+					<li>
+						<input type="text" id="ms_name" style="width:150px" value="${sessionScope.SessionUser.MS_NAME}" disabled>
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infolist">
+						<span class="orangeRed">*</span>
+						핸드폰
+					</li>
+					<li>
+						<select id="first_phone1" class="select-arrow" value="${sessionScope.SessionUser.MS_FIRST_PHONE1}" style="width:90px; margin-right: 5px">
+							<option value>선택</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="012">012</option>
+							<option value="013">013</option>
+							<option value="014">014</option>
+							<option value="015">015</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+							<option value="018">018</option>
+							<option value="019">019</option>
+						</select>
+						-
+						<input type="text" id="mid_phone1" value="${sessionScope.SessionUser.MS_MID_PHONE1}" style="width:100px; margin-right: 5px;" >
+						-
+						<input type="text" id="last_phone1" value="${sessionScope.SessionUser.MS_LAST_PHONE1}" style="width:100px;" >
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infolist">
+						<span class="orangeRed">*</span>
+						집전화
+					</li>
+					<li>
+						<input type="text" id="home_tel" value="${sessionScope.SessionUser.MS_HOMETEL}" style="width:300px; margin-right: 5px;" >
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infoList">
+						<span class="orangeRed">*</span>
+						지역
+					</li>
+					<li>
+						<input type="text" id="mZip" value="${sessionScope.SessionUser.MS_HOMEZIP}" placeholder="우편번호">
+						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
+						<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infoList">
+						<span class="orangeRed">*</span>
+						성별
+					</li>
+					<li>
+						<select name="selsex" id="ms_sex" class="select-arrow" value="${sessionScope.SessionUser.MS_SEX}">
+							<option>선택</option>
+							<option value="1">남</option>
+							<option value="2">여</option>
+						</select>
+					</li>
+				</ul>
+				<ul class="joinInfoBox">
+					<li class="infoList">
+						<span class="orangeRed">*</span>
+						생년월일
+					</li>
+					<li class="info" id="info__birth">
+						<select class="box" id="birth-year">
+							<option disabled selected>출생 연도</option>
+						</select>
+						<select class="box" id="birth-month">
+							<option disabled selected>월</option>
+						</select>
+						<select class="box" id="birth-day">
+							<option disabled selected>일</option>
+						</select>
+					</li>
+				</ul>
+			</div>
+			<div class="btnbox">
+				<button id="changeBtn" class="btn btn-outline-primary">회원정보 수정</button>
+				<a class="btn btn-outline-primary" id="tab3" href="javascript:changeContent(3)">회원 탈퇴</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -179,7 +186,6 @@
 		</ul>
 	</div>
 </div>
-
 <!-- 팝업 입니다. -->
 <div class="popup">
 	<div class="popup-inner">
@@ -220,14 +226,22 @@
 					<span id="pPhoneM">${sessionScope.SessionUser.MS_MID_PHONE1}</span>
 					<span id="pPhoneL">${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
 				</li>
+				<div class="red"> * 예약취소 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
 			</ul>
 		</div>
 		<div class= "buttonBox">
-			<button id="popup-close">닫기</button>
-			<button id="deleteBtn"> 취소 </button>
+			<button id="popup-close" class="btn">닫기</button>
+			<button id="cancelBtn" class="btn"> 취소 </button>
+			<button id="changeReservationBtn" class="btn"> 변경 </button>
 		</div>
 	</div>
 </div>
+
+<!-- 예약 변경 화면입니다.-->
+
+
+
+
 
 </body>
 </html>

@@ -139,15 +139,16 @@ public class ReservationController {
 		return result;
 	}
 	@ResponseBody
-	@PostMapping(value = "/cancelReservation")
+	@PostMapping(value = "/reservationCnt")
 	public ResponseResult reservationCnt(HttpServletRequest request,HttpSession session, @RequestParam("YMId") String YMId){
 		ResponseResult result = new ResponseResult();
 		try {
 			//날짜별 세팅
-			reservationService.reservationCnt(YMId);
+			List<HashMap<String, Object>> Cnt = (List<HashMap<String, Object>>) reservationService.reservationCnt(YMId);
 			//결과 세팅
 			result.setCode("0000");
 			result.setMessage("success");
+			result.setData(Cnt);
 		}catch(Exception e) {
 			e.printStackTrace();
 			//결과 세팅

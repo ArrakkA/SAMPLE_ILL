@@ -56,8 +56,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> reservationCnt(String yMId) {
-		return reservationDAO.reservationCnt(yMId);
+	public List<HashMap<String, Object>> reservationCnt(String YMId) {
+
+		return reservationDAO.reservationCnt(YMId);
 	}
 
 }

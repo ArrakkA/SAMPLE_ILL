@@ -43,7 +43,18 @@ table
   padding : 10px;
   background:#fff;
 }
-
 .hiddenKey{
 	display:none;
+}
+.leftSeat{
+    font-size: 8px;
+}
+.leftSeat.redDay{
+    color:red;
+}
+.leftSeat.greenDay{
+    color:green;
+}
+.leftSeat.yellowDay{
+    color:orange;
 }

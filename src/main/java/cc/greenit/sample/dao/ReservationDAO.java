@@ -44,8 +44,8 @@ public class ReservationDAO extends AbstractDAO{
 		return update("reservation.cancelReservation",params);
 	}
 
-	public List<HashMap<String, Object>> reservationCnt(String yMId){
-		return (List<HashMap<String, Object>>) selectList("reservation.reservationCnt",yMId);
+	public List<HashMap<String, Object>> reservationCnt(String YMId){
+		return (List<HashMap<String, Object>>) selectList("reservation.reservationCnt",YMId);
 	}
 	
 }

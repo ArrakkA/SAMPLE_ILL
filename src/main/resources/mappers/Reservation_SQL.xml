@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="reservation">
-
 	<select id="reservationTable"  resultType="hashmap">
 			
 			SELECT CO_DIV
@@ -17,7 +16,6 @@
 			  AND  BK_YN = 'N'
 			  AND  CO_DIV = '100'		
 	</select>
-	
 	<select id="makeCalendar" resultType="hashmap">
 		SELECT  CL_SOLAR
 			   ,CL_DAYDIV
@@ -27,11 +25,9 @@
 		WHERE   CO_DIV ='100'
 		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
 	</select>
-	
 	<select id="makeReservNum" resultType="String">
 	SELECT LPAD(IFNULL(MAX(BK_RSVNO) +1, 1),12, '0') FROM BK_HISTORY
 	</select>
-	
 	<update id="setReservation" parameterType="hashmap">
 			UPDATE BK_HISTORY SET				  
 				   BK_RSVNO = #{rNum}
@@ -49,7 +45,6 @@
 			   AND BK_COS = #{cos}
 			   AND BK_TIME = #{time}
 	</update>
-	
 	<select id="getMemberReservation" resultType="hashmap">
 			SELECT  CO_DIV
 				   ,BK_RSVNO
@@ -63,7 +58,6 @@
 			 WHERE  CO_DIV = '100'
 			   AND  BK_MSNUM = #{MS_NUM}
 	</select>
-	
 	<update id="cancelReservation" parameterType="hashmap">
 			UPDATE BK_HISTORY SET
 				  BK_NAME = NULL
@@ -83,8 +77,9 @@
 	</update>
     <select id="reservationCnt" resultType="hashmap">
 		select count(BK_TIME) as ReservationCnt
+			  ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
 		from bk_history bh
-		where BK_DAY like CONCAT(#{yMId},'%')
+		where BK_DAY like CONCAT(#{YMId},'%')
 		  and bk_yn = 'N'
 		group by BK_DAY;
 	</select>

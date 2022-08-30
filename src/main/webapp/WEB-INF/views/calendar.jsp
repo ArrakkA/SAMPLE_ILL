@@ -86,7 +86,6 @@
 		<tbody class="registerList" id="registerList">
 		</tbody>
 	</table>
-	
 	<!-- 팝업 입니다. -->
 <div class="popup">
    	<div class="popup-inner">
@@ -94,11 +93,11 @@
     		<ul class="popuplist">
 	    		<li>
 	    			<span>예약자</span>
-	    			<span id="pName">이름</span>
+	    			<span id="pName">${sessionScope.SessionUser.MS_NAME}</span>
 	    		</li>
 	    		<li>
 	    			<span>핸드폰</span>
-	    			<span id="pPhone"></span>
+	    			<span id="pPhone">${sessionScope.SessionUser.MS_FIRST_PHONE1}-${sessionScope.SessionUser.MS_MID_PHONE1}-${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
 	    		</li>
 	    		<li>
 	    			<span>예약일자</span>
@@ -129,11 +128,8 @@
      	</div>
    	</div>
 </div>
-
-    
-    
 </body>
-		
-		
-		
+
+
+
 </html>

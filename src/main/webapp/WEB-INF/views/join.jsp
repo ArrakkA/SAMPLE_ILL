@@ -7,6 +7,7 @@
 <jsp:include page="./include/header.jsp" ></jsp:include>
 <jsp:include page="./include/map.jsp"></jsp:include>
 <script type="text/javascript" src="/join.js"></script>
+<script type="text/javascript" src="/optionMake.js"></script>
 <link rel="stylesheet" href="<c:url value='/join.css'/>">
 </head>
 <body>
