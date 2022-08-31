@@ -107,7 +107,7 @@
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="mAddres1" placeholder="주소"><br>
 							<input type="text" id="mAddres2" placeholder="상세주소">
-							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 						</li>
 					</ul>
 					<ul class="joinInfoBox">
@@ -117,7 +117,7 @@
 						</li>
 						<li>
 							<select name="selsex" id="ms_sex" class="select-arrow">
-								<option value>선택</option>
+								<option value="0">선택</option>
 								<option value="1">남</option>
 								<option value="2">여</option>
 							</select>

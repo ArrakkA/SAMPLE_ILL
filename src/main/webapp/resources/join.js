@@ -52,34 +52,36 @@ $(document).ready(function(){
 			}else{				
 				params["pw"] = memChkPw;
 			}
-			
 			if(memName == ""){
 				alert("이름을 입력해주세요");
+				return;
 			}else{
 				params["name"] = memName;
 			}
-			
 			if(memPhoneF == ""){
 				alert("핸드폰 앞 번호를 입력해주세요");
 				return;
 			}else{
 				params["phoneF"] = memPhoneF;
 			}
-			
 			if(memPhoneM == ""){
 				alert("핸드폰 가운데 번호를 입력해주세요");
 				return;
-			}else{
+			}else if(memPhoneM.length < 4){
+				alert('핸드폰 가운데 번호 4자리 입력해주세요');
+				return;
+			}else {
 				params["phoneM"] = memPhoneM;
 			}
-			
-			if(memPhoneL == ""){
+			if(memPhoneL == ''){
 				alert("핸드폰 뒷 번호를 입력해주세요");
 				return;
-			}else{
+			}else if(memPhoneL.length < 4) {
+				alert('핸드폰 뒷 번호를 4자리 입력해주세요');
+				return;
+			} else{
 				params["phoneL"] = memPhoneL;
 			}
-			
 			if( memAddrrs2 == ""){
 				alert("주소를 입력해주세요");
 				return;
@@ -88,7 +90,7 @@ $(document).ready(function(){
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
 			}
-			if(memSex == "선택"){
+			if(memSex == ""){
 				alert("성별을 선택해주세요");
 				return;
 			}else{

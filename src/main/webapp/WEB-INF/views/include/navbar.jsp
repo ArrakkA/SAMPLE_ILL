@@ -1,30 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script>
+	$(document).ready(function(){
+		$('.logout').on('click', function(){
+			$.ajax({
+				type:'post'
+			    ,url:'${pageContext.request.contextPath}/member/logout'
+			    ,data:''
+			    ,dataType:'json'
+			    ,success: function(result){
+			    	alert(result.status);
+			    	location.href="/sample/login";
+			    }
+			    ,error: function(request, status, error){
+			    }
+			});//ajax끝
+		});//click 이벤트
+	});//ready
+</script>
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/navbar.css'/>">
-<script type="text/javascript" language="javascript">
-    $(document).ready(function(){
-        $('.logout').on('click', function(){
-            $.ajax({
-                type:'post'
-                ,url:'${pageContext.request.contextPath}/member/logout'
-                ,data:''
-                ,dataType:'json'
-                ,success: function(result){
-                    alert(result.status);
-                    location.href="/sample/login";
-                }
-                ,error: function(request, status, error){
-                }
-            });//ajax끝
-
-        });//click 이벤트
-    });//ready
-</script>
+<div>
+<!-- 로딩바 -->
+<div id = "Progress_Loading">
+    <img id="Progress_Img" src="./po.gif"/>
+</div>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
       <a class="navbar-brand" href="/sample/home">Greenit JSP</a>

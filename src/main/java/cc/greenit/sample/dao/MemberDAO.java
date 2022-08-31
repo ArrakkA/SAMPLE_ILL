@@ -39,7 +39,7 @@ public class MemberDAO extends AbstractDAO {
  	}
  	
  	public int deleteMember(HashMap<String, Object> params) {
- 		return delete("member.deleteMember", params);
+		return update("member.deleteMember", params);
  	}
  	
  }

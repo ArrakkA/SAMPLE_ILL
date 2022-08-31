@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="member">
-	
-	
 	<!-- 로그인 시스템/ 유저 세션 저장 -->
 	<select id="selectMember" parameterType="hashmap" resultType="hashmap">
 	SELECT MS_NUM
@@ -21,13 +19,12 @@
 	  FROM MS_MAININFO
 	 WHERE MS_ID = #{id}
 	   AND MS_PASSWORD  = SHA2(#{pw},256)
+	   AND MS_BLANK = 'N'
 	</select>
-
 	<!-- 회원번호 규칙 -->
 	<select id="makeMemNum" resultType="String">
 	SELECT LPAD(IFNULL(MAX(ms_num) +1, 1),12, '0') FROM MS_MAININFO
 	</select>
-	
 	<!-- 회원가입 방법 -->
 	<insert id="insertMember" parameterType="hashmap">
 		INSERT INTO MS_MAININFO(
@@ -79,8 +76,6 @@
 				,#{mIP}		   							 			   					
 			)
 	</insert>
-	
-	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember" parameterType="hashmap">
 		UPDATE MS_MAININFO SET
@@ -116,15 +111,10 @@
 		   AND MS_NUM = #{num}
 	</select>
 	<!-- 회원정보 삭제 -->
-	<delete id="deleteMember" parameterType="hashmap">
-		DELETE FROM MS_MAININFO
+	<update id="deleteMember" parameterType="hashmap">
+		UPDATE MS_MAININFO SET
+		       MS_BLANK = 'Y'
 		 WHERE MS_NUM = #{num}
-	</delete>
-	
-	
-	
-	
-	
-	
-	
+	</update>
+
 </mapper>

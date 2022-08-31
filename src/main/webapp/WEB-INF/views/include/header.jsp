@@ -11,6 +11,17 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="#">
+<script>
+    $(document).ready(function(){
+        $('#Progress_Loading').hide();
+        $(document).ajaxStart(function (){
+            $('#Progress_Loading').show();
+         });
+         $(document).ajaxStop(function (){
+            $('#Progress_Loading').hide();
+        });
+    });
+</script>
 <style>
 	.p-r10{
 		
@@ -27,9 +38,27 @@
 	}
 	#Progress_Loading
 	{
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		background: #ffffff;
+        display: none;
+        position:fixed;
+        width: 100%;
+        height: 100%;
+        top:0;
+        left:0;
+        background:rgba(0,0,0,0.5);
 	}
+    body
+    {
+        text-align: center;
+        margin: 0 auto;
+    }
+    #Progress_Img
+    {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background: #ffffff;
+    }
+    .red{
+        color:red;
+    }
 </style>

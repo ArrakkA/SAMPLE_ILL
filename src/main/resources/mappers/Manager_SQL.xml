@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="manager">
+	<!-- 회원정보 리스트 -->
 	<select id="getRegisterList" resultType="cc.greenit.sample.vo.ManagerVO">
 		SELECT MS_NUM, MS_ID, MS_NAME, MS_SEX, MS_BIRTH
 		
@@ -25,14 +26,12 @@
  			</if>
  			
  		</trim>
-		
-	
+
 		LIMIT #{startList},#{listSize}
 	</select>
-	
+	<!-- 회원 수-->
 	<select id="getRegisterListCnt" resultType="int">
 		SELECT count(*) as listCnt
-				
 		FROM MS_MAININFO
 		
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -52,9 +51,8 @@
  				AND MS_BIRTH like CONCAT('%',#{keyword},'%')
  			</if>
  		</trim>
-
 	</select>
-	
+	<!-- 회원 정보 새로 생성-->
 	<insert id="insertManager" parameterType="cc.greenit.sample.vo.ManagerVO">
 		INSERT INTO MS_MAININFO(
 			   MS_NUM
@@ -74,7 +72,7 @@
 		
 	
 	</insert>
-	
+	<!-- 회원 정보 업데이트-->
 	<update id="updateManager" parameterType="cc.greenit.sample.vo.ManagerVO">
 	
 		UPDATE MS_MAININFO SET
@@ -88,7 +86,7 @@
 	
 	
 	</update>
-	
+	<!-- 회원 정보 삭제-->
 	<delete id="deleteManager" parameterType="cc.greenit.sample.vo.ManagerVO">
 	
 		DELETE FROM MS_MAININFO

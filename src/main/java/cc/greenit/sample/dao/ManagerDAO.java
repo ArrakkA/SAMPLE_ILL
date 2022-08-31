@@ -27,7 +27,6 @@ public class ManagerDAO extends AbstractDAO{
 	}
 	
 	public int insertManager(ManagerVO managerVO) {
-		
 		return insert("manager.insertManager", managerVO);
 	}
 	

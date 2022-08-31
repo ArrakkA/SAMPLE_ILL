@@ -57,10 +57,10 @@
 	</div>
 </div>
     <!-- 예약정보 테이블 -->
-    <div>
-    	<a class="tab all">전체 코스</a>
-    	<a class="tab cosA">동 코스</a>
-    	<a class="tab cosB">서 코스</a>
+    <div class="tablist">
+    	<a class="tab all"> 전체 코스 </a>
+    	<a class="tab cosA"> 동 코스 </a>
+    	<a class="tab cosB"> 서 코스 </a>
     </div>
     <table id="table1">
 		<colgroup>
@@ -92,27 +92,27 @@
     	<div class="popContent">
     		<ul class="popuplist">
 	    		<li>
-	    			<span>예약자</span>
+	    			<span>예약자</span>-
 	    			<span id="pName">${sessionScope.SessionUser.MS_NAME}</span>
 	    		</li>
 	    		<li>
-	    			<span>핸드폰</span>
+	    			<span>핸드폰</span>:
 	    			<span id="pPhone">${sessionScope.SessionUser.MS_FIRST_PHONE1}-${sessionScope.SessionUser.MS_MID_PHONE1}-${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
 	    		</li>
 	    		<li>
-	    			<span>예약일자</span>
+	    			<span>예약일자</span>-
 	    			<span id="pListDay"></span>
 	    		</li>
 	    		<li>
-	    			<span>코스/홀/시간</span>
+	    			<span>코스/홀/시간</span>-
 	    			<span id="pCHT"></span>	    			
 	    		</li>
 	    		<li>
-	    			<span>예약인원</span>
+	    			<span>예약인원</span>-
 	    			<span id="pPerson"></span>
 	    		</li>
 	    		<li>
-	    			<span>가격</span>
+	    			<span>가격</span>-
 	    			<span id="pPrice"></span>
 	    		</li>
 	    		<li class="hiddenKey">
@@ -120,6 +120,7 @@
 	    			<span id="pTime"></span>
 	    			<span id="pCos"></span>
 	    		</li>
+				<div class="red"> * 예약취소/변경 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
     		</ul>
     	</div>
      	<div class= "buttonBox">

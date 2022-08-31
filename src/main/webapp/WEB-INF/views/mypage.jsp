@@ -134,7 +134,7 @@
 						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 						<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
 						<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+						<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 					</li>
 				</ul>
 				<ul class="joinInfoBox">
@@ -205,7 +205,7 @@
 				</li>
 				<li>
 					<span>예약일자</span>
-					<span id="pDay"></span>
+					<span id="pListDay"></span>
 				</li>
 				<li>
 					<span>코스/홀/시간</span>
@@ -225,8 +225,9 @@
 					<span id="pPhoneF">${sessionScope.SessionUser.MS_FIRST_PHONE1}</span>
 					<span id="pPhoneM">${sessionScope.SessionUser.MS_MID_PHONE1}</span>
 					<span id="pPhoneL">${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
+					<span id="pDay"></span>
 				</li>
-				<div class="red"> * 예약취소 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
+				<div class="red"> * 예약취소/변경 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
 			</ul>
 		</div>
 		<div class= "buttonBox">
@@ -236,12 +237,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- 예약 변경 화면입니다.-->
-
-
-
-
-
 </body>
 </html>

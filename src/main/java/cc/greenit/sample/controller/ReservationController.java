@@ -29,7 +29,6 @@ public class ReservationController {
 	@Autowired
 	public ReservationController(ReservationService reservationService) {
 		this.reservationService = reservationService;
-		
 	}
 	@ResponseBody
 	@PostMapping(value = "/getCalendar")
@@ -77,16 +76,21 @@ public class ReservationController {
 			//세션저장 데이터 가져오기
 			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 			if(member == null) {
-				result.setCode("1111");
+				result.setCode("2222");
 				result.setMessage("session not exist");
 			}else if(member != null) {
-				// 필요한 parameter들 입력
+				// 필요한 parameter 입력
 				String rNum = reservationService.makeReservNum();
 				params.put("rNum", rNum);
 				params.putAll(member);
-				reservationService.setReservation(params);
-				result.setCode("0000");
-				result.setMessage("session exist");
+				int rCnt = reservationService.setReservation(params);
+				if(rCnt == 0){
+					result.setCode("1111");
+					result.setMessage("reservation Data is not exist");
+				}else if(rCnt == 1){
+				 	result.setCode("0000");
+					result.setMessage("reservation Success");
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -138,28 +142,4 @@ public class ReservationController {
 		}
 		return result;
 	}
-	@ResponseBody
-	@PostMapping(value = "/reservationCnt")
-	public ResponseResult reservationCnt(HttpServletRequest request,HttpSession session, @RequestParam("YMId") String YMId){
-		ResponseResult result = new ResponseResult();
-		try {
-			//날짜별 세팅
-			List<HashMap<String, Object>> Cnt = (List<HashMap<String, Object>>) reservationService.reservationCnt(YMId);
-			//결과 세팅
-			result.setCode("0000");
-			result.setMessage("success");
-			result.setData(Cnt);
-		}catch(Exception e) {
-			e.printStackTrace();
-			//결과 세팅
-			result.setCode("9999");
-			result.setMessage("error");
-		}
-		return result;
-	}
-	
-	
-	
-	
-
 }

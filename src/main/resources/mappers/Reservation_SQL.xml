@@ -3,7 +3,6 @@
  
 <mapper namespace="reservation">
 	<select id="reservationTable"  resultType="hashmap">
-			
 			SELECT CO_DIV
 				  ,BK_DAY
 				  ,BK_COS
@@ -14,20 +13,34 @@
 			 FROM  BK_HISTORY
 			WHERE  BK_DAY = #{dateId}
 			  AND  BK_YN = 'N'
-			  AND  CO_DIV = '100'		
+			  AND  CO_DIV = '100'
 	</select>
 	<select id="makeCalendar" resultType="hashmap">
-		SELECT  CL_SOLAR
-			   ,CL_DAYDIV
-			   ,CL_BUSINESS
-			   ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
-		 FROM   CL_DAYINFO
-		WHERE   CO_DIV ='100'
-		  AND   CL_SOLAR LIKE CONCAT(#{yMId},'%')
+		SELECT  A.CO_DIV
+			   ,A.CL_SOLAR
+			   ,A.CL_DAYDIV
+			   ,A.CL_BUSINESS
+		       ,A.CL_BK_START
+		       ,A.CL_BK_START_TIME
+			   ,B.ReservationCnt
+			   ,DATE_FORMAT(now(), '%Y%m%d') as NOW_DAY
+			   ,DATE_FORMAT(now(), '%H%i') as NOW_TIME
+		  FROM  CL_DAYINFO as A
+	 left join (select CO_DIV
+					  ,BK_DAY
+				      ,count(bh.BK_TIME) as ReservationCnt
+				  from bk_history bh
+				 where BK_DAY like CONCAT(#{YMId},'%')
+				 group by BK_DAY) as B
+			on 	A.CO_DIV = B.CO_DIV
+		   and  A.CL_SOLAR = B.BK_DAY
+		 WHERE  A.CO_DIV ='100'
+		   AND  A.CL_SOLAR LIKE CONCAT(#{YMId},'%')
 	</select>
 	<select id="makeReservNum" resultType="String">
 	SELECT LPAD(IFNULL(MAX(BK_RSVNO) +1, 1),12, '0') FROM BK_HISTORY
 	</select>
+	<!-- 예약 버튼 -->
 	<update id="setReservation" parameterType="hashmap">
 			UPDATE BK_HISTORY SET				  
 				   BK_RSVNO = #{rNum}
@@ -44,6 +57,7 @@
 			   AND BK_DAY = #{day}
 			   AND BK_COS = #{cos}
 			   AND BK_TIME = #{time}
+			   AND BK_YN = 'N'
 	</update>
 	<select id="getMemberReservation" resultType="hashmap">
 			SELECT  CO_DIV
@@ -54,13 +68,14 @@
 				   ,BK_ROUNDF
 				   ,BK_PERSON
 				   ,BK_CHARGE
+				   ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
 			  FROM  BK_HISTORY
 			 WHERE  CO_DIV = '100'
 			   AND  BK_MSNUM = #{MS_NUM}
 	</select>
 	<update id="cancelReservation" parameterType="hashmap">
 			UPDATE BK_HISTORY SET
-				  BK_NAME = NULL
+				   BK_NAME = NULL
 				  ,BK_MSNUM = NULL
 				  ,BK_FIRST_PHONE1 = NULL
 				  ,BK_MID_PHONE1 = NULL
@@ -75,14 +90,6 @@
 			   AND BK_TIME = #{time}
 			   AND BK_RSVNO = #{rNum}
 	</update>
-    <select id="reservationCnt" resultType="hashmap">
-		select count(BK_TIME) as ReservationCnt
-			  ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
-		from bk_history bh
-		where BK_DAY like CONCAT(#{YMId},'%')
-		  and bk_yn = 'N'
-		group by BK_DAY;
-	</select>
 
 
 
