@@ -5,14 +5,13 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
-<jsp:include page="./include/map.jsp"></jsp:include>
+<script type="text/javascript" src="/map.js"></script>
 <script type="text/javascript" src="/join.js"></script>
 <script type="text/javascript" src="/optionMake.js"></script>
 <link rel="stylesheet" href="<c:url value='/join.css'/>">
 </head>
 <body>
   <jsp:include page="./include/navbar.jsp" ></jsp:include>
-
 	<div id="wrap">
 		<div id="header" class="joinHeader">
 			<h3>
@@ -107,7 +106,7 @@
 							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="mAddres1" placeholder="주소"><br>
 							<input type="text" id="mAddres2" placeholder="상세주소">
-							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 						</li>
 					</ul>
 					<ul class="joinInfoBox">

@@ -6,8 +6,8 @@
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
-<jsp:include page="./include/map.jsp"></jsp:include>
 <link rel="stylesheet" href="<c:url value='/mypage.css'/>">
+<script type="text/javascript" src="/map.js"></script>
 <script type="text/javascript" src="/mypage.js"></script>
 <script type="text/javascript" src="/optionMake.js"></script>
 <script>
@@ -131,10 +131,10 @@
 					</li>
 					<li>
 						<input type="text" id="mZip" value="${sessionScope.SessionUser.MS_HOMEZIP}" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="button" id="addrsBtn" value="우편번호 찾기"><br>
 						<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
 						<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
-						<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 					</li>
 				</ul>
 				<ul class="joinInfoBox">

@@ -20,6 +20,9 @@ $(document).ready(function(){
 			const memBirth = year + month + day;
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
+			$('#addrsBtn').click(function (){
+				sample6_execDaumPostcode();
+			});
 			let params = {};
 
 			if(smsChk == true){
@@ -82,10 +85,13 @@ $(document).ready(function(){
 			} else{
 				params["phoneL"] = memPhoneL;
 			}
-			if( memAddrrs2 == ""){
-				alert("주소를 입력해주세요");
+			if(memAddrrs2 == ""){
+				alert("상세 주소를 입력해주세요");
 				return;
-			}else{
+			}else if(memAddrrs1 == "") {
+				alert("우편번호 찾기를 눌러주세요");
+				return;
+			}else {
 				params["hAddrs1"] = memAddrrs1;
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
@@ -106,33 +112,32 @@ $(document).ready(function(){
 			if(chkBtn == 0){
 				alert('중복 확인버튼을 눌러주세요');
 			}else if(chkBtn == 1){
-				$.ajax({ 
-						  type:'post'
-						 ,url:'/member/join'
-						 ,data: params
-						 ,dataType: 'json'
-						 ,success: function(result){
-							  
-							  if(result.code == "0000"){
-								  alert('회원가입 되었습니다 환영합니다!');
-							      location.href="login";
-							  }else if(result.code == "8888"){
-								  alert('code 8888');
-						  	  }else if(result.code == "1111"){
-								  alert('다시한번 아이디 중복확인을 해주세요 ')
-						      }						 
-						 }
-						 ,error : function(request, status, error) {
-						     alert('통신오류가 발생하였습니다.');
-						 }
-					});	//ajax 종료	
+				$.ajax({
+					  type:'post'
+					 ,url:'/member/join'
+					 ,data: params
+					 ,dataType: 'json'
+					 ,success: function(result){
+
+						  if(result.code == "0000"){
+							  alert('회원가입 되었습니다 환영합니다!');
+							  location.href="login";
+						  }else if(result.code == "8888"){
+							  alert('code 8888');
+						  }else if(result.code == "1111"){
+							  alert('다시한번 아이디 중복확인을 해주세요 ')
+						  }
+					 }
+					 ,error : function(request, status, error) {
+						 alert('통신오류가 발생하였습니다.');
+					 }
+				});	//ajax 종료
 			}
-		 });//jquery btnsave 
+		 });//jquery btn save
 	});//get json
 	$('#ms_id').change(function (){
 		chkBtn = 0;
 	});
-
 	$('#chkIdBtn').click(function(){
 		const memId = $('#ms_id').val();
 		const params ={

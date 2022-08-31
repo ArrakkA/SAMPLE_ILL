@@ -74,6 +74,10 @@ $(document).ready(function(){
 			const day = $('#birth-day').val();
 			const memBirth = year + month + day;
 			const smsChk = $('#smsChk').prop("checked");
+			$('#addrsBtn').click(function (){
+				sample6_execDaumPostcode();
+			});
+
 			const params = {
 				"num": memNum
 				, "mIP": data.ip
@@ -111,10 +115,13 @@ $(document).ready(function(){
 			} else {
 				params["phoneL"] = memPhoneL;
 			}
-			if (memAddrrs2 == "") {
-				alert("주소를 입력해주세요");
+			if(memAddrrs2 == ""){
+				alert("상세 주소를 입력해주세요");
 				return;
-			} else {
+			}else if(memAddrrs1 == "") {
+				alert("우편번호 찾기를 눌러주세요");
+				return;
+			}else {
 				params["hAddrs1"] = memAddrrs1;
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
@@ -156,7 +163,7 @@ $(document).ready(function(){
 			const pTime = pTr.find('#pTime').text();
 			const pNum = pTr.find('#pNum').text();
 			const pip = data.ip;
-			const params = {
+			let params = {
 				"day":pDay
 				,"cos":pCos
 				,"time":pTime
@@ -252,7 +259,7 @@ function getMemberReservation(){
 							td4 = $("<td class= 'bCosName'> 동 코스 </td>");
 							td9 = $("<td class= 'bCos hiddenKey'>" + list.BK_COS + "</td>");
 						}else if(list.BK_COS == 'B'){
-							td4 = $("<td class= 'bCos'> 서 코스 </td>");
+							td4 = $("<td class= 'bCosName'> 서 코스 </td>");
 							td9 = $("<td class= 'bCos hiddenKey'>" + list.BK_COS + "</td>");
 						}
 						const td5 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");

@@ -203,7 +203,7 @@
 			td3 = $("<td class= 'bCosName'> 동 코스 </td>");
 			td9 = $("<td class= 'bCos hiddenKey'>" + list.BK_COS + "</td>");
 		}else if(list.BK_COS == 'B'){
-			td3 = $("<td class= 'bCos'> 서 코스 </td>");
+			td3 = $("<td class= 'bCosName'> 서 코스 </td>");
 			td9 = $("<td class= 'bCos hiddenKey'>" + list.BK_COS + "</td>");
 		}
 		const td4 = $("<td class= 'bRoundf'>" + list.BK_ROUNDF + "</td>");
