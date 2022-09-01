@@ -219,7 +219,9 @@
 					<span>가격</span>
 					<span id="pPrice"></span>
 				</li>
+
 				<li class="hiddenKey">
+					<input id="pDay"/>
 					<form id="changeKey" method="post" action="/reservation/dataMove">
 						<input id="pNum1" name="rNum"/>
 					</form>

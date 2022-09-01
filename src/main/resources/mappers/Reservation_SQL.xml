@@ -31,6 +31,7 @@ left outer join(select CO_DIV
 				      ,count(bh.BK_TIME) as ReservationCnt
 				  from bk_history bh
 				 where BK_DAY like CONCAT(#{YMId},'%')
+				   and BK_YN = 'N'
 				 group by BK_DAY) as B
 			on 	A.CO_DIV = B.CO_DIV
 		   and  A.CL_SOLAR = B.BK_DAY
@@ -96,21 +97,4 @@ left outer join(select CO_DIV
 		   AND BK_TIME = #{time}
 		   AND BK_YN = 'N'
 	</select>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>

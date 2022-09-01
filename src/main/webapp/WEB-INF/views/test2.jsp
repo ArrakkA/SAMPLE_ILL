@@ -53,19 +53,16 @@
       width: 1.5rem;
       height: 100vh;
     }
-
     .bi {
       vertical-align: -.125em;
       fill: currentColor;
     }
-
     .nav-scroller {
       position: relative;
       z-index: 2;
       height: 2.75rem;
       overflow-y: hidden;
     }
-
     .nav-scroller .nav {
       display: flex;
       flex-wrap: nowrap;

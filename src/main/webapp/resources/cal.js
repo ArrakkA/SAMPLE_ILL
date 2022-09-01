@@ -141,8 +141,12 @@ $(document).ready(function() {
 								  $('[id=' + solar + ']').append("<div class='leftSeat greenDay'>"+ cntNum +"</div>")
 							  } else if( cntNum < 40 && cntNum >= 20){
 								  $('[id=' + solar + ']').append("<div class='leftSeat yellowDay'>"+ cntNum +"</div>")
-							  }else if( cntNum < 20){
+							  }else if( cntNum < 20 && cntNum >0){
 								  $('[id=' + solar + ']').append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
+							  }else if(cntNum == 0){
+								  $('[id='+ solar + ']').prop("onclick", null).off('click');
+								  $('[id=' + solar + ']').append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
+								  $('[id=' + solar + ']').css("color",'hsl(0,100%,50%,0.3)');
 							  }
 						  }
 					   };

@@ -23,40 +23,23 @@ $(document).ready(function(){
 		console.log(url);
 	});
 	$('#btnDelete').on('click', function(){
-		
 		var chk = $('tbody>tr>td').find('input:eq(1)');
 		var chkBox = $("input[name=deleteChk]:checked");
-		console.log(chk)
-		
 		chkBox.each(function(i){
-			
 			var tr = chkBox.parent().parent();
 			var tdC = tr.children('.discrimination');
-			
 			var tdNum = tdC.children('.numBox');
 			var tdType = tdC.children('.registerType');
-			
-			console.log(tr);
-			console.log(tdC);
-			console.log(tdNum);
-			console.log("원본",tdType.val());
-		
 			if(tdNum == null){		
 				tr.remove();	
 			}else{
-				
 				tr.hide();
 				tdType.val('d');
 				chkBox.prop("checked", false);
-				console.log("수정본",tdType.val());
-				
 			}
 		});//each문 chkbox수만큼 돌림
 	});
 	$('#btnAdd').on('click', function(){
-		
-		console.log('click btnAdd')
-		
 		var insertTb = "";
 		
 		insertTb += '<tr id="tableNum">';
@@ -72,7 +55,6 @@ $(document).ready(function(){
 		insertTb += '</tr>';
 		
 		$('#registerList').prepend(insertTb);
-		  
 	});
 	
 	$('#btnRegister').on('click', function(){

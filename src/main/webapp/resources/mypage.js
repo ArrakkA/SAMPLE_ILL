@@ -159,8 +159,11 @@ $(document).ready(function(){
 		});// 회원정보 수정 버튼
 		$('#cancelBtn').on('click', function (){
 			const pTr = $(this).parent().parent();
-			const pNum = pTr.find('#pNum').val();
+			const pNum = pTr.find('#pNum1').val();
+			const pDay = pTr.children().find('#pDay').val();
 			const pip = data.ip;
+			console.log(pNum);
+			console.log(pDay);
 			let params = {
 				"rNum":pNum
 				,"ip":pip

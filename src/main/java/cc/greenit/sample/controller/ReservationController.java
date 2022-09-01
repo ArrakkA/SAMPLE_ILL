@@ -19,10 +19,8 @@ import cc.greenit.sample.vo.ResponseResult;
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
-	
 	private ReservationService reservationService;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@Autowired
 	public ReservationController(ReservationService reservationService) {
 		this.reservationService = reservationService;
@@ -140,7 +138,6 @@ public class ReservationController {
 		model.addAttribute("rNum", params.get("rNum").toString());
 		return "calendar";
 	}
-
 	@ResponseBody
 	@PostMapping(value = "/changeReservation")
 	public ResponseResult changeReservation(@RequestParam HashMap<String,Object> params, HttpSession session){
