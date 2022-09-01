@@ -25,10 +25,8 @@ $(document).ready(function(){
 			const memBirth = year + month + day;
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
+			let params = {};
 
-			let params = {
-
-			};
 			if(smsChk){
 				params["smsChk"] = 'Y'
 			}else{

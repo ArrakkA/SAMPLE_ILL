@@ -47,12 +47,10 @@ public class SampleController {
 		return "home";
 		
 	}
-	
 	@GetMapping(value ="/")
 	public String index(Locale locale, Model model) {
 		return "index";
 	}
-	
 	@GetMapping(value = "/login")
 	public String login(Locale locale, Model model) {
 		return "login";
@@ -70,13 +68,12 @@ public class SampleController {
 		return "test2";
 	}
 	@GetMapping(value = "/mypage")
+	@SuppressWarnings("unchecked")
 	public String mypage(Locale locale
 			    		 ,Model model
 			    		 ,HttpServletRequest request
 						 ,HttpSession session) {
-		
 		//session 존재시 아이디 확인
-		@SuppressWarnings("unchecked")
 		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 
 		if(member == null) {
@@ -85,20 +82,12 @@ public class SampleController {
 		model.addAttribute("user", member);
 		return "mypage";
 	}
-	
 	@GetMapping(value = "/userEdit")
 	public String userEdit(Locale locale, Model model) {
-		
 		return "useredit";
 	}
-	
 	@GetMapping(value ="/calendar")
 	public String getCalendar(Model model) {
-		
 		return "calendar";
-		
-		
 	}
-	
-		
 }

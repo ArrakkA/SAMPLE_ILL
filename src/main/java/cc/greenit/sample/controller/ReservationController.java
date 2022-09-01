@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import cc.greenit.sample.global.Globals;
 import cc.greenit.sample.service.ReservationService;
@@ -70,7 +67,6 @@ public class ReservationController {
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="/setReservation")
 	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
-		
 		ResponseResult result = new ResponseResult();
 		try {
 			//세션저장 데이터 가져오기
@@ -104,7 +100,6 @@ public class ReservationController {
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/getMemberReservation")
 	public ResponseResult getMemberReservation(HttpServletRequest request,HttpSession session){
-		
 		ResponseResult result = new ResponseResult();
 		try {
 			//세션저장 데이터 가져오기
@@ -141,9 +136,13 @@ public class ReservationController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/dataMove")
+	@PostMapping(value = "/dataMove")
 	public String dataMove(Model model,@RequestParam HashMap<String,Object> params){
-		model.addAttribute("changeReservation", params);
+		model.addAttribute("changeReservation", params.toString());
+		model.addAttribute("day", params.get("day").toString());
+		model.addAttribute("time", params.get("time").toString());
+		model.addAttribute("rName", params.get("rNum").toString());
+		model.addAttribute("cos", params.get("cos").toString());
 		return "calendar";
 	}
 }

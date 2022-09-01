@@ -41,9 +41,7 @@ public class ManagerController {
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
-		
 		int listCnt = managerService.getRegisterListCnt(search);
-		
 		search.pageInfo(page, range , listCnt);
 		
 		model.addAttribute("pagination", search);
@@ -57,25 +55,17 @@ public class ManagerController {
 		int ucnt = 0;
 		int dcnt = 0;
 		for(int i = 0; i< paramList.size(); i++) {
-			
 			ManagerVO managerVO = paramList.get(i);
 			String type = managerVO.getMs_type();
-			
 			if("u".equals(type)) {
-				
 				if(managerService.updateManager(managerVO) > 0) ucnt++;
-				
 			}else if("i".equals(type)) {
-			
 				String mNum = memberService.makeMemNum();
 				managerVO.setMs_num(mNum);
 				if(managerService.insertManager(managerVO) > 0)icnt++;
-				
 			}else if("d".equals(type)) {
-				
 				if(managerService.deleteManager(managerVO) > 0) dcnt++;
 			}
-		
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("insertCnt", icnt);

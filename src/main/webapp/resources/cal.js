@@ -1,12 +1,13 @@
-	let today = new Date(); // 오늘 날짜
-	let date = new Date();
-	let dayDate;
-	let nowYear = (date.getFullYear()).toString();
-	let nowMonth = (date.getMonth()+1).toString();
-	let nowDay = (date.getDate()).toString();
-	let nowDate = nowYear + nowMonth + nowDay;
-	$(document).ready(function() {
-	build();//달력만듬
+
+let today = new Date(); // 오늘 날짜
+let date = new Date();
+let dayDate;
+let nowYear = (date.getFullYear()).toString();
+let nowMonth = (date.getMonth()+1).toString();
+let nowDay = (date.getDate()).toString();
+let nowDate = nowYear + nowMonth + nowDay;
+$(document).ready(function() {
+		build();//달력만듬
 	$('.popup-close').on('click', function(){
 		$('.popup').css("display", "none");
 	}); //팝업 취소 버튼
