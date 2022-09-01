@@ -7,6 +7,10 @@
 	<jsp:include page="./include/header.jsp" ></jsp:include>
 	<link rel="stylesheet" href="<c:url value='/cal.css'/>">
 	<script type="text/javascript" src="/cal.js"></script>
+		<script>
+			const change = ${changeReservation};
+			console.log(change);
+		</script>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 <div class="container">

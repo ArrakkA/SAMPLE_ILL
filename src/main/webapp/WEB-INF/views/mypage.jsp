@@ -131,7 +131,7 @@
 					</li>
 					<li>
 						<input type="text" id="mZip" value="${sessionScope.SessionUser.MS_HOMEZIP}" placeholder="우편번호">
-						<input type="button" id="addrsBtn" value="우편번호 찾기"><br>
+						<input type="button" id="addrsBtn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 						<input type="text" id="mAddres1" value="${sessionScope.SessionUser.MS_HOMEADDR1}" placeholder="주소"><br>
 						<input type="text" id="mAddres2" value="${sessionScope.SessionUser.MS_HOMEADDR2}" placeholder="상세주소">
 						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
@@ -144,7 +144,7 @@
 					</li>
 					<li>
 						<select name="selsex" id="ms_sex" class="select-arrow" value="${sessionScope.SessionUser.MS_SEX}">
-							<option>선택</option>
+							<option value>선택</option>
 							<option value="1">남</option>
 							<option value="2">여</option>
 						</select>
@@ -220,12 +220,12 @@
 					<span id="pPrice"></span>
 				</li>
 				<li class="hiddenKey">
-					<span id="pTime"></span>
-					<span id="pCos"></span>
-					<span id="pPhoneF">${sessionScope.SessionUser.MS_FIRST_PHONE1}</span>
-					<span id="pPhoneM">${sessionScope.SessionUser.MS_MID_PHONE1}</span>
-					<span id="pPhoneL">${sessionScope.SessionUser.MS_LAST_PHONE1}</span>
-					<span id="pDay"></span>
+					<form id="changeKey" method="post" action="/reservation/dataMove">
+						<input id="pTime" name="time"/>
+						<input id="pCos" name="cos"/>
+						<input id="pDay" name="day"/>
+						<input id="pNum1" name="rNum"/>
+					</form>
 				</li>
 				<div class="red"> * 예약취소/변경 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
 			</ul>

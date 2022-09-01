@@ -41,7 +41,6 @@ public class SampleController {
 		
 		//session 존재시 아이디 확인 
 		HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
-		
 		if(member == null) {
 			return "index";
 		}
@@ -83,7 +82,6 @@ public class SampleController {
 		if(member == null) {
 			return "index";	
 		}
-		
 		model.addAttribute("user", member);
 		return "mypage";
 	}

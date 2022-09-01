@@ -1,5 +1,9 @@
 let today = new Date();
 $(document).ready(function(){
+	$('#addrsBtn').click(function (){
+		$('#mAddres1').attr("disabled", true);
+		$('#mZip').attr("disabled", true);
+	});
 	$('#ms_num').change(function(){
 		alert('비정상 적인 접근 방법입니다.')
 		location.href = 'mypage';
@@ -74,9 +78,6 @@ $(document).ready(function(){
 			const day = $('#birth-day').val();
 			const memBirth = year + month + day;
 			const smsChk = $('#smsChk').prop("checked");
-			$('#addrsBtn').click(function (){
-				sample6_execDaumPostcode();
-			});
 
 			const params = {
 				"num": memNum
@@ -158,10 +159,10 @@ $(document).ready(function(){
 		});// 회원정보 수정 버튼
 		$('#cancelBtn').on('click', function (){
 			const pTr = $(this).parent().parent();
-			const pDay = pTr.find('#pDay').text();
-			const pCos = pTr.find('#pCos').text();
-			const pTime = pTr.find('#pTime').text();
-			const pNum = pTr.find('#pNum').text();
+			const pDay = pTr.find('#pDay').val();
+			const pCos = pTr.find('#pCos').val();
+			const pTime = pTr.find('#pTime').val();
+			const pNum = pTr.find('#pNum').val();
 			const pip = data.ip;
 			let params = {
 				"day":pDay
@@ -195,6 +196,9 @@ $(document).ready(function(){
 				})// ajax 끝
 			}//if 문 chk 체크
 		});//예약 취소 확정 버튼
+		$('#changeReservationBtn').click(function(){
+			$('#changeKey').submit();
+		})// form 전송
 	})// get Json
 });//ready
 $(document).on('click','.cancelBtn',function(){
@@ -210,14 +214,15 @@ $(document).on('click','.cancelBtn',function(){
 	const bListDay = bTr.children('.bListDay').text();
 
 	$('.popup').css("display", "flex");
-	$('#pDay').text(bDay);
+	$('#pDay').val(bDay);
 	$('#pNum').text(bNum);
 	$('#pCHT').text(bCos + "/ " + bRound +"/ " +bkTime);
 	$('#pPerson').text(bPerson);
 	$('#pPrice').text(bPrice);
-	$('#pCos').text(bCos);
-	$('#pTime').text(bTime);
+	$('#pCos').val(bCos);
+	$('#pTime').val(bTime);
 	$('#pListDay').text(bListDay);
+	$('#pNum1').val(bNum);
 
 }); // 동적 버튼(팝업생성버튼)
 function changeContent(i){

@@ -40,7 +40,6 @@ public class MemberController {
 										   ,HttpSession session 
 										   ,@RequestParam HashMap<String, Object> params
 									       ){
-		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		try {
 			HashMap<String, Object> member = memberService.selectMember(params);

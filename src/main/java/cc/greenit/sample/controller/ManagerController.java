@@ -23,21 +23,14 @@ import cc.greenit.sample.vo.ManagerVO;
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
-	
 	private ManagerService managerService;
 	private MemberService memberService;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	
-	
 	@Autowired
 	public ManagerController(ManagerService managerService, MemberService memberService) {
-		
 		this.managerService = managerService;
 		this.memberService = memberService;
-		
 	}
-	
 	@GetMapping(value= "/getRegisterList")
 	public String getRegister(Model model
 			,@RequestParam(required= false, defaultValue ="1") int page
@@ -57,16 +50,12 @@ public class ManagerController {
 		model.addAttribute("registerList", managerService.getRegisterList(search));
 		return "manager";
 	}
-	
 	@ResponseBody
 	@PostMapping(value="/managedata")
 	public HashMap<String, Object> managementManager(@RequestBody List<ManagerVO> paramList) {
-		
-		
 		int icnt = 0;
 		int ucnt = 0;
 		int dcnt = 0;
-		
 		for(int i = 0; i< paramList.size(); i++) {
 			
 			ManagerVO managerVO = paramList.get(i);
@@ -88,20 +77,11 @@ public class ManagerController {
 			}
 		
 		}
-		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		
 		result.put("insertCnt", icnt);
 		result.put("updateCnt", ucnt);
 		result.put("deleteCnt", dcnt);
-		
 		return result;
 		
 	}
-
-
-
-	
-
-
 }

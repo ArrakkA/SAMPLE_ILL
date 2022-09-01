@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +47,6 @@ public class ReservationController {
 		}
 		return result;
 	}
-	
 	@ResponseBody
 	@PostMapping(value = "/getReservation")
 	public ResponseResult getReservation(HttpServletRequest request, @RequestParam(name="dateId")String dateId){
@@ -100,7 +100,6 @@ public class ReservationController {
 		}
 		return result;		
 	}
-	
 	@ResponseBody
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/getMemberReservation")
@@ -141,5 +140,10 @@ public class ReservationController {
 			result.setMessage("error");
 		}
 		return result;
+	}
+	@RequestMapping(value = "/dataMove")
+	public String dataMove(Model model,@RequestParam HashMap<String,Object> params){
+		model.addAttribute("changeReservation", params);
+		return "calendar";
 	}
 }

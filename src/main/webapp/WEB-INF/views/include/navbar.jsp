@@ -25,8 +25,8 @@
 <link rel="stylesheet" href="<c:url value='/navbar.css'/>">
 <div>
 <!-- 로딩바 -->
-<div id = "Progress_Loading">
-    <img id="Progress_Img" src="./po.gif"/>
+<div id = "Progress_Loading" style="z-index: 9999">
+    <img id="Progress_Img" src="<c:url value='/images/po.gif'/>"/>
 </div>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">

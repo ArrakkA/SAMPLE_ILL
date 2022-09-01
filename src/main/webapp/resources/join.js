@@ -1,5 +1,10 @@
 $(document).ready(function(){
 	let chkBtn = 0;
+
+	$('#addrsBtn').click(function (){
+		$('#mAddres1').attr("disabled", true);
+		$('#mZip').attr("disabled", true);
+	});
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
 		$('#saveBtn').on('click', function(){
 			const memId = $('#ms_id').val();
@@ -20,14 +25,13 @@ $(document).ready(function(){
 			const memBirth = year + month + day;
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
-			$('#addrsBtn').click(function (){
-				sample6_execDaumPostcode();
-			});
-			let params = {};
 
-			if(smsChk == true){
+			let params = {
+
+			};
+			if(smsChk){
 				params["smsChk"] = 'Y'
-			}else if(smsChk == false){
+			}else{
 				params["smsChk"] = 'N'
 			}
 			params["mIP"]= data.ip;
@@ -42,7 +46,7 @@ $(document).ready(function(){
 			if(memPw == ""){
 				alert("비밀번호를 확인해 주세요");
 				return;
-			}else if(false === pwTest.test(memPw)){
+			}else if(!pwTest.test(memPw)){
 				alert("비밀번호 규칙이 맞지않습니다.");
 				return;
 			}
@@ -61,13 +65,13 @@ $(document).ready(function(){
 			}else{
 				params["name"] = memName;
 			}
-			if(memPhoneF == ""){
+			if(memPhoneF == ''){
 				alert("핸드폰 앞 번호를 입력해주세요");
 				return;
 			}else{
 				params["phoneF"] = memPhoneF;
 			}
-			if(memPhoneM == ""){
+			if(memPhoneM == ''){
 				alert("핸드폰 가운데 번호를 입력해주세요");
 				return;
 			}else if(memPhoneM.length < 4){
@@ -96,7 +100,7 @@ $(document).ready(function(){
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
 			}
-			if(memSex == ""){
+			if(memSex == ''){
 				alert("성별을 선택해주세요");
 				return;
 			}else{
@@ -118,7 +122,6 @@ $(document).ready(function(){
 					 ,data: params
 					 ,dataType: 'json'
 					 ,success: function(result){
-
 						  if(result.code == "0000"){
 							  alert('회원가입 되었습니다 환영합니다!');
 							  location.href="login";

@@ -22,11 +22,11 @@
 			   ,A.CL_BUSINESS
 		       ,A.CL_BK_START
 		       ,A.CL_BK_START_TIME
-			   ,B.ReservationCnt
+			   ,IFNULL(B.ReservationCnt, 0) as ReservationCnt
 			   ,DATE_FORMAT(now(), '%Y%m%d') as NOW_DAY
 			   ,DATE_FORMAT(now(), '%H%i') as NOW_TIME
 		  FROM  CL_DAYINFO as A
-	 left join (select CO_DIV
+left outer join(select CO_DIV
 					  ,BK_DAY
 				      ,count(bh.BK_TIME) as ReservationCnt
 				  from bk_history bh
