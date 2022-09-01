@@ -26,7 +26,6 @@ public class SampleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
 	private SampleService sampleService;
-	
 	@Autowired
 	public SampleController(SampleService sampleService) {
 		this.sampleService = sampleService;

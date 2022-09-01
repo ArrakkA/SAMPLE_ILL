@@ -17,4 +17,5 @@ public interface ReservationService {
 	
 	public int cancelReservation(HashMap<String, Object> params);
 
+	public int chkReservationCnt(HashMap<String, Object> params);
 }

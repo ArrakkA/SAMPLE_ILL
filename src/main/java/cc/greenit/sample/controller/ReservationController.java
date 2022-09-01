@@ -1,5 +1,4 @@
 package cc.greenit.sample.controller;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class ReservationController {
 	@ResponseBody
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="/setReservation")
-	public ResponseResult setReservation(HttpServletRequest request, @RequestParam HashMap<String, Object> params, HttpSession session) {
+	public ResponseResult setReservation(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		ResponseResult result = new ResponseResult();
 		try {
 			//세션저장 데이터 가져오기
@@ -138,11 +137,28 @@ public class ReservationController {
 	}
 	@PostMapping(value = "/dataMove")
 	public String dataMove(Model model,@RequestParam HashMap<String,Object> params){
-		model.addAttribute("changeReservation", params.toString());
-		model.addAttribute("day", params.get("day").toString());
-		model.addAttribute("time", params.get("time").toString());
-		model.addAttribute("rName", params.get("rNum").toString());
-		model.addAttribute("cos", params.get("cos").toString());
+		model.addAttribute("rNum", params.get("rNum").toString());
 		return "calendar";
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/changeReservation")
+	public ResponseResult changeReservation(@RequestParam HashMap<String,Object> params, HttpSession session){
+		ResponseResult result = new ResponseResult();
+		try{
+			int chkCnt = reservationService.chkReservationCnt(params);
+			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
+			if(chkCnt == 0){
+				result.setCode("1111");
+			}else if(chkCnt == 1){
+				reservationService.cancelReservation(params);
+				params.putAll(member);
+				reservationService.setReservation(params);
+				result.setCode("0000");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

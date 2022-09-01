@@ -159,16 +159,10 @@ $(document).ready(function(){
 		});// 회원정보 수정 버튼
 		$('#cancelBtn').on('click', function (){
 			const pTr = $(this).parent().parent();
-			const pDay = pTr.find('#pDay').val();
-			const pCos = pTr.find('#pCos').val();
-			const pTime = pTr.find('#pTime').val();
 			const pNum = pTr.find('#pNum').val();
 			const pip = data.ip;
 			let params = {
-				"day":pDay
-				,"cos":pCos
-				,"time":pTime
-				,"rNum":pNum
+				"rNum":pNum
 				,"ip":pip
 			}
 			const rYear = pDay.substr(0,4);

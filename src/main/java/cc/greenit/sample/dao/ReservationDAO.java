@@ -42,4 +42,7 @@ public class ReservationDAO extends AbstractDAO{
 
 		return update("reservation.cancelReservation",params);
 	}
+	public int chkReservationCnt(HashMap<String,Object> params){
+		return selectCnt("reservation.chkReservationCnt", params);
+	}
 }

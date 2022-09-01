@@ -20,7 +20,6 @@ public class ReservationServiceImpl implements ReservationService {
 		this.reservationDAO = reservationDAO;
 		
 	}
-	
 	@Override
 	public List<HashMap<String, Object>> reservationList(String dateId) {
 		
@@ -41,15 +40,17 @@ public class ReservationServiceImpl implements ReservationService {
 	public int setReservation(HashMap<String, Object> params) {
 		return reservationDAO.setReservation(params);
 	}
-
 	@Override
 	public List<HashMap<String, Object>> memberReservationList(HashMap<String, Object> params) {
 		return reservationDAO.memberReservationList(params);
 	}
-
 	@Override
 	public int cancelReservation(HashMap<String, Object> params) {
 
 		return reservationDAO.cancelReservation(params);
+	}
+	@Override
+	public int chkReservationCnt(HashMap<String, Object> params) {
+		return reservationDAO.chkReservationCnt(params);
 	}
 }

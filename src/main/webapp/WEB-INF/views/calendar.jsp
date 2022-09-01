@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	System.out.printf("############" +request.getParameter("rNum"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +11,9 @@
 <link rel="stylesheet" href="<c:url value='/cal.css'/>">
 <script type="text/javascript" src="/cal.js"></script>
 <script>
-	<%--const change = '${changeReservation}';--%>
-	<%--console.log(change);--%>
+	let reservationNumber = '${rNum}';
+	console.log('${rNum}');
+	console.log(reservationNumber);
 </script>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
@@ -129,7 +133,12 @@
     	</div>
      	<div class= "buttonBox">
      		<button class="popup-close">닫기</button>
-     		<button class="bkBtn">예약하기</button>
+			<c:if test="${ rNum == null }">
+     			<button id="bkBtn">예약하기</button>
+			</c:if>
+			<c:if test="${ rNum != null }">
+				<button id="changeBtn">변경하기</button>
+			</c:if>
      	</div>
    	</div>
 </div>

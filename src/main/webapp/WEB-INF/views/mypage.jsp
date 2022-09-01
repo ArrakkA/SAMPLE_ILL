@@ -221,9 +221,6 @@
 				</li>
 				<li class="hiddenKey">
 					<form id="changeKey" method="post" action="/reservation/dataMove">
-						<input id="pTime" name="time"/>
-						<input id="pCos" name="cos"/>
-						<input id="pDay" name="day"/>
 						<input id="pNum1" name="rNum"/>
 					</form>
 				</li>

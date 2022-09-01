@@ -85,12 +85,17 @@ left outer join(select CO_DIV
 				  ,UPDATE_DATETIME = now()
 				  ,UPDATE_IP = #{ip}
 		     WHERE CO_DIV = '100'
-		       AND BK_DAY = #{day}
-			   AND BK_COS = #{cos}
-			   AND BK_TIME = #{time}
 			   AND BK_RSVNO = #{rNum}
 	</update>
-
+	<select id="chkReservationCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM BK_HISTORY
+		 WHERE CO_DIV = '100'
+		   AND BK_DAY = #{day}
+		   AND BK_COS = #{cos}
+		   AND BK_TIME = #{time}
+		   AND BK_YN = 'N'
+	</select>
 
 
 

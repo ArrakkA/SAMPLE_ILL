@@ -115,7 +115,7 @@ $(document).ready(function() {
 			  ,success: function(result){
 				  if(result.code == "0000") {
 					  const rows = result.data;
-					  for(i=0; i<rows.length; i++){
+					  for(let i=0; i<rows.length; i++){
 						  const list = rows[i];
 						  const business = list.CL_BUSINESS;
 						  const solar = list.CL_SOLAR;
@@ -149,6 +149,7 @@ $(document).ready(function() {
 				  }else{
 					  alert(result.message);
 				  }
+
 			  }
 			  ,error : function(request, status, error){
 			      alert('통신오류가 발생하였습니다.');
@@ -196,6 +197,7 @@ $(document).ready(function() {
 		let td3 = '';
 		let td6 = '';
 		let td9 = '';
+		let td7 = '';
 		let td10 = '';
 		const tr = $("<tr></tr>");
 		const td1 = $("<td class= 'bListDay'>" + tYear +"/"+ tMonth +"/"+ tDay +"</td>");
@@ -216,7 +218,11 @@ $(document).ready(function() {
 			td6 = $("<td class= 'bChargeView'> 20,0000 </td>");
 			td10 = $("<td class= 'bCharge hiddenKey'>" + list.BK_CHARGE + "</td>");
 		}
-		const td7 = $("<td class='popBtn'> 예약</td>");
+		if(reservationNumber == ''){
+			td7 = $("<td class='popBtn'> 예약</td>");
+		}else{
+			td7 = $("<td class='popBtn'> 변경</td>");
+		}
 		const td8 = $("<td class= 'bDay hiddenKey'>" + tListDay + "</td>");
 		const td11 = $("<td class= 'bTime hiddenKey'>" + list.BK_TIME + "</td>");
 		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11));
@@ -245,15 +251,12 @@ $(document).ready(function() {
 	}); // 동적 버튼(팝업생성버튼)
 	$(document).ready(function(){
 		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
-			 $('.bkBtn').on('click',function(){
+			 $('#bkBtn').on('click',function(){
 			 const pTr = $(this).parent().parent();
 			 const pDay = pTr.find('#pDay').text();
 			 const pCos = pTr.find('#pCos').text();
 			 const pTime = pTr.find('#pTime').text();
 			 const pip = data.ip;
-			 console.log(pDay);
-			 console.log(pCos);
-			 console.log(pTime);
 				 const params ={
 			   "day":pDay
 			  ,"cos":pCos
@@ -285,7 +288,45 @@ $(document).ready(function() {
 					   alert('통신에러가 발생했습니다.');
 				 }
 			   });//ajax 끝
-			})//bkBtn
+			});//bkBtn
+			$('#changeBtn').click(function(){
+				const pTr = $(this).parent().parent();
+				const pDay = pTr.find('#pDay').text();
+				const pCos = pTr.find('#pCos').text();
+				const pTime = pTr.find('#pTime').text();
+				const pip = data.ip;
+				const params ={
+					"day":pDay
+					,"cos":pCos
+					,"time":pTime
+					,"ip":pip
+					,"rNum":reservationNumber
+				}
+				console.log(params);
+				$.ajax({
+					type:'post'
+					,url:'/reservation/changeReservation'
+					,data:params
+					,dataType:'json'
+					,success:function(result){
+						if(result.code == "0000"){
+							console.log(result.message)
+							alert('예약이 성공했습니다.');
+							location.href = "sample/home";
+						}else if(result.code == "1111"){
+							alert("이미 예약이 된 예약정보입니다.")
+							location.href = "/sample/mypage";
+						}else{
+							alert('에러가 발생했습니다.');
+						}
+					}
+					,error:function(request, status, error){
+						alert('통신에러가 발생했습니다.');
+					}
+				});//ajax 끝
+			});//changeBtn
+
+
 		})//getJson
 			$('.cosA').click(function (){
 				if(dayDate == null){
