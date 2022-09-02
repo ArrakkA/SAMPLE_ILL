@@ -79,5 +79,10 @@ table
     color: #ffffff;
     background: #ff6600;
     font-weight:900;
-
+}
+.sort{
+    width: 15px;
+    height: 15px;
+    object-fit: cover;
+    align-content: center;
 }

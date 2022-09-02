@@ -146,7 +146,7 @@ $(document).ready(function() {
 							  }else if(cntNum == 0){
 								  $('[id='+ solar + ']').prop("onclick", null).off('click');
 								  $('[id=' + solar + ']').append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
-								  $('[id=' + solar + ']').css("color",'hsl(0,100%,50%,0.3)');
+								  $('[id=' + solar + ']').css("color",'hsl(0,100%,50%,0.6)');
 							  }
 						  }
 					   };
@@ -162,6 +162,7 @@ $(document).ready(function() {
 	} //goDbDay 끝
 	function getDbReservation(date){
 		$('.registerList').empty();
+		$('.sort').attr('src', "/images/sortimage.png");
 		dayDate = date;
 		const dateId = date;
 		const params ={
@@ -329,90 +330,119 @@ $(document).ready(function() {
 					}
 				});//ajax 끝
 			});//changeBtn
-
-
 		})//getJson
-			$('.cosA').click(function (){
-				if(dayDate == null){
-					alert("날짜를 선택해주세요");
-					return;
-				}else{
-					$('.tab').removeClass('menuOn');
-					$('.cosA').addClass('menuOn');
-					const params ={
-						"dateId": dayDate
+		$('.cosA').click(function (){
+			if(dayDate == null){
+				alert("날짜를 선택해주세요");
+				return;
+			}else{
+				$('.sort').attr('src', "/images/sortimage.png");
+				$('.tab').removeClass('menuOn');
+				$('.cosA').addClass('menuOn');
+				const params ={
+					"dateId": dayDate
+				}
+				$.ajax({
+					type:'post'
+					,url:'/reservation/getReservation'
+					,data:params
+					,dataType:'json'
+					,success:function(result){
+						if(result.code=="0000"){
+							const rows = result.data;
+							const tbody = $("#registerList");
+							tbody.empty();
+							for(i=0; i<rows.length; i++){
+								const list = rows[i];
+								if(list.BK_COS == 'A') {
+									tableMade(list,tbody);
+								}
+							}//for 끝
+						}else{
+							alert(result.message);
+						}
 					}
-					$.ajax({
-						type:'post'
-						,url:'/reservation/getReservation'
-						,data:params
-						,dataType:'json'
-						,success:function(result){
-							if(result.code=="0000"){
-								const rows = result.data;
-								const tbody = $("#registerList");
-								tbody.empty();
-								for(i=0; i<rows.length; i++){
-									const list = rows[i];
-									if(list.BK_COS == 'A') {
-										tableMade(list,tbody);
-									}
-								}//for 끝
-							}else{
-								alert(result.message);
-							}
-						}
-						,error : function(request, status, error) {
-							alert('통신오류가 발생하였습니다.');
-						}
-					});//ajax 끝
-				}
-			})
-			$('.cosB').click(function(){
-				if(dayDate == null){
-					alert("날짜를 선택해주세요");
-					return;
-				}else{
-					$('.tab').removeClass('menuOn');
-					$('.cosB').addClass('menuOn');
-					const params ={
-						"dateId": dayDate
+					,error : function(request, status, error) {
+						alert('통신오류가 발생하였습니다.');
 					}
-					$.ajax({
-						type:'post'
-						,url:'/reservation/getReservation'
-						,data:params
-						,dataType:'json'
-						,success:function(result){
-							if(result.code=="0000"){
-								const rows = result.data;
-								const tbody = $("#registerList");
-								tbody.empty();
-								for(i=0; i<rows.length; i++){
-									const list = rows[i];
-									if(list.BK_COS == 'B') {
-										tableMade(list,tbody);
-									}
-								}//for문 끝
-							}else{
-								alert(result.message);
-							}
-						}
-						,error : function(request, status, error) {
-							alert('통신오류가 발생하였습니다.');
-						}
-					});//ajax 끝
+				});//ajax 끝
+			}
+		})
+		$('.cosB').click(function(){
+			if(dayDate == null){
+				alert("날짜를 선택해주세요");
+				return;
+			}else{
+				$('.sort').attr('src', "/images/sortimage.png");
+				$('.tab').removeClass('menuOn');
+				$('.cosB').addClass('menuOn');
+				const params ={
+					"dateId": dayDate
 				}
-			})
-			$('.all').click(function (){
-				if(dayDate == null){
-					alert("날짜를 선택해주세요");
-					return;
-				}else {
-					$('.tab').removeClass('menuOn');
-					$('.all').addClass('menuOn');
-					getDbReservation(dayDate);
+				$.ajax({
+					type:'post'
+					,url:'/reservation/getReservation'
+					,data:params
+					,dataType:'json'
+					,success:function(result){
+						if(result.code=="0000"){
+							const rows = result.data;
+							const tbody = $("#registerList");
+							tbody.empty();
+							for(i=0; i<rows.length; i++){
+								const list = rows[i];
+								if(list.BK_COS == 'B') {
+									tableMade(list,tbody);
+								}
+							}//for문 끝
+						}else{
+							alert(result.message);
+						}
+					}
+					,error : function(request, status, error) {
+						alert('통신오류가 발생하였습니다.');
+					}
+				});//ajax 끝
+			}
+		})
+		$('.all').click(function (){
+			if(dayDate == null){
+				alert("날짜를 선택해주세요");
+				return;
+			}else {
+				$('.sort').attr('src', "/images/sortimage.png");
+				$('.tab').removeClass('menuOn');
+				$('.all').addClass('menuOn');
+				getDbReservation(dayDate);
+			}
+		})
+		$('#table1 th').each(function (column) {
+			$(this).click(function() {
+				let sortNum;
+				if ($(this).is('.asc')) {		// 현재 오름차순인 경우(asc)
+					$(this).removeClass('asc');
+					$(this).addClass('desc');	// 내림차순으로 변경(desc)
+					$(this).children().attr('src', "/images/descimage.png");	// 이미지 src 수정
+					sortNum = -1;
+				} else {	// 현재 오름차순 아닌 경우
+					$(this).addClass('asc');	// 오름차순으로 변경
+					$(this).removeClass('desc');
+					sortNum = 1;
+					$(this).children().attr('src', "/images/ascimage.png");	// 이미지 src 수정
 				}
-			})
+				$(this).siblings().removeClass('asc');
+				$(this).siblings().removeClass('desc');
+				const rec = $('#table1').find('tbody>tr').get();
+				console.log(rec);
+				rec.sort(function (a, b) {
+					const tdCol1 = $(a).children('td').eq(column).text().toUpperCase();
+					const tdCol2 = $(b).children('td').eq(column).text().toUpperCase();
+					return (tdCol1 < tdCol2)?-sortNum:(tdCol1 > tdCol2)?sortNum:0;
+				});
+				$.each(rec, function(index, row) {
+					$('#table1 tbody').append(row);
+				});
+			});
+		});// sort
 	})//ready
 	

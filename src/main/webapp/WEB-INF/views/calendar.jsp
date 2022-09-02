@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	System.out.printf("############" +request.getParameter("rNum"));
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +24,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="elegant-calencar d-md-flex">
-				<div class="wrap-header d-flex align-items-center img">
+				<div class="wrap-header d-flex align-items-center img" style="background-image: url('/images/bg.jpg')">
 					<p id="reset">Today</p>
 					<div id="header" class="p-0">
 						<div class="head-info">
@@ -83,11 +80,11 @@
 		<thead>
 			<tr align="center">
 				<th>날짜</th>
-				<th>시간</th>
-				<th>코스</th>
+				<th>시간<img class="sort" src="/images/sortimage.png"></th>
+				<th>코스<img class="sort" src="/images/sortimage.png"></th>
 				<th>홀</th>
-				<th>인원</th>
-				<th>그린피 가격</th>
+				<th>인원<img class="sort" src="/images/sortimage.png"></th>
+				<th>그린피 가격<img class="sort" src="/images/sortimage.png"></th>
 				<th>예약</th>
 			</tr>
 		</thead>
