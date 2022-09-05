@@ -168,6 +168,8 @@ $(document).ready(function() {
 		const params ={
 			"dateId":dateId
 		}
+		$('#dates').find('.nowOn').removeClass('nowOn');
+		$('[id='+ dayDate + ']').addClass('nowOn');
 		$.ajax({
 			type:'post'
 			,url:'/reservation/getReservation'
@@ -422,13 +424,13 @@ $(document).ready(function() {
 				if ($(this).is('.asc')) {		// 현재 오름차순인 경우(asc)
 					$(this).removeClass('asc');
 					$(this).addClass('desc');	// 내림차순으로 변경(desc)
-					$(this).children().attr('src', "/images/descimage.png");	// 이미지 src 수정
+					$(this).children().attr('src', "/images/ascimage.png");	// 이미지 src 수정
 					sortNum = -1;
 				} else {	// 현재 오름차순 아닌 경우
 					$(this).addClass('asc');	// 오름차순으로 변경
 					$(this).removeClass('desc');
 					sortNum = 1;
-					$(this).children().attr('src', "/images/ascimage.png");	// 이미지 src 수정
+					$(this).children().attr('src', "/images/descimage.png");	// 이미지 src 수정
 				}
 				$(this).siblings().removeClass('asc');
 				$(this).siblings().removeClass('desc');

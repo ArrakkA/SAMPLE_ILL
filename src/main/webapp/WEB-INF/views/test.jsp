@@ -65,11 +65,6 @@ $(document).ready(function(){
 		console.log(result);
 		console.log(testPw);
 	})
-	
-	
-	
-	
-	
 })
 
 </script>

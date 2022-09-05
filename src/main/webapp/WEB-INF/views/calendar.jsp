@@ -9,8 +9,6 @@
 <script type="text/javascript" src="/cal.js"></script>
 <script>
 	let reservationNumber = '${rNum}';
-	console.log('${rNum}');
-	console.log(reservationNumber);
 </script>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
