@@ -9,12 +9,8 @@
 .blue{
 	color:blue
 }
-
-
 .on{
-
 	color:red
-
 }
 .popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
   display: none;
@@ -66,6 +62,10 @@ $(document).ready(function(){
 		console.log(testPw);
 	})
 })
+function buttonClick(i){
+	console.log('buttonClick'+ i);
+}
+
 
 </script>
 
@@ -114,7 +114,35 @@ $(document).ready(function(){
      	</div>
    	</div>
 </div>
-
+<div class="row text-center py-3 mt-3">
+	<div class="col-8 mx-auto d-none d-lg-block">
+		<div class="nav-wrapper position-relative end-0">
+			<ul class="nav nav-pills nav-fill p-1" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" role="tab" aria-controls="pos1" aria-selected="true"
+					   onclick='buttonClick(1)'>
+						POS-1
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#" role="tab" aria-controls="pos2" aria-selected="false" onclick="buttonClick(2)">
+						POS-2
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#" role="tab" aria-controls="pos3" aria-selected="false">
+						POS-3
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#" role="tab" aria-controls="pos4" aria-selected="false">
+						POS-4
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
 
 
 </body>
