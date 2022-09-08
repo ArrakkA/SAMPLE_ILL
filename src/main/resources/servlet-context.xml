@@ -25,6 +25,8 @@
 		<interceptor>
 			<mapping path="/sample/**" />
 			<exclude-mapping path="/sample/login"/>
+			<exclude-mapping path="/sample/join"/>
+			<exclude-mapping path="/sample/calendar"/>
 			<beans:ref bean="AuthenticationInterceptor"/>
 		</interceptor>
 	</interceptors>

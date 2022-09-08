@@ -138,7 +138,7 @@
 			 ,MS_SEX
 		FROM MS_MAININFO
 		WHERE SESSION_ID =#{sessionId}
-		  and LIMIT_DATE > now();
+		  and LIMIT_DATE > now()
 	</select>
 	<select id="chkIdCnt" resultType="int">
 		SELECT COUNT(*)
