@@ -5,11 +5,45 @@ let dayDate;
 let nowYear = (date.getFullYear()).toString();
 let nowMonth = (date.getMonth()+1).toString();
 let nowDay = (date.getDate()).toString();
-let nowDate = nowYear + nowMonth + nowDay;
+let preemptionCnt = 0;
+
+function cancelPreemption(){
+	const params={
+		"id" : memberId
+	}
+	preemptionCnt = 0;
+	$.ajax({
+		type:'post'
+		,url:'/reservation/cancelPreemption'
+		,data:params
+		,dataType:'json'
+		,success:function(result){
+			if(result.code=="0000"){
+				console.log("cancelPreemption");
+			}else if(result.code=="1111"){
+				alert(result.message);
+			}else{
+				alert('오류입니다.');
+			}
+		}
+		,error : function(request, status, error) {
+			alert('통신오류가 발생하였습니다.');
+		}
+	});//ajax 끝
+}
+window.onbeforeunload = function () {
+	if(preemptionCnt = 1){
+		cancelPreemption();
+	}
+};
 $(document).ready(function() {
 		build();//달력만듬
 	$('.popup-close').on('click', function(){
 		$('.popup').css("display", "none");
+		if(memberId != ''){
+			cancelPreemption();
+		}
+
 	}); //팝업 취소 버튼
 	$(".head-month").text(nowMonth+ "-" + nowYear);
 	$('.head-day').text(nowDay);
@@ -161,6 +195,7 @@ $(document).ready(function() {
 		}); //ajax 끝
 	} //goDbDay 끝
 	function getDbReservation(date){
+		console.log(date);
 		$('.registerList').empty();
 		$('.sort').attr('src', "/images/sortimage.png");
 		dayDate = date;
@@ -245,15 +280,50 @@ $(document).ready(function() {
 		const bCosName = bTr.children('.bCosName').text();
 		const bPrice = bTr.children('.bChargeView').text();
 		const bkTime = bTr.children('.bkTime').text();
-
 		$('.popup').css("display", "flex");
-		$('#pDay').text(bDay);
-		$('#pCHT').text( bCosName + "/ " + bRoundf +"/ " +bkTime);
-		$('#pPerson').text(bPerson);
-		$('#pCos').text(bCos);
-		$('#pPrice').text(bPrice);
-		$('#pTime').text(bTime);
-		$('#pListDay').text(bListDay);
+
+		if(memberId == ''){
+			console.log(bCos);
+			$('#pDay').text(bDay);
+			$('#pCHT').text( bCosName + "/ " + bRoundf +"/ " +bkTime);
+			$('#pPerson').text(bPerson);
+			$('#pCos').text(bCos);
+			$('#pPrice').text(bPrice);
+			$('#pTime').text(bTime);
+			$('#pListDay').text(bListDay);
+
+		}else if(memberId != ''){
+			preemptionCnt = 1;
+			const params ={
+				"id" : memberId
+				,"day": bDay
+				,"cos": bCos
+				,"time": bTime
+			}
+			$.ajax({
+				type:'post'
+				,url:'/reservation/preemptionReservation'
+				,data:params
+				,dataType:'json'
+				,success:function(result){
+					if(result.code == "0000"){
+						$('#pDay').text(bDay);
+						$('#pCHT').text( bCosName + "/ " + bRoundf +"/ " +bkTime);
+						$('#pPerson').text(bPerson);
+						$('#pCos').text(bCos);
+						$('#pPrice').text(bPrice);
+						$('#pTime').text(bTime);
+						$('#pListDay').text(bListDay);
+					}else if(result.code= "1111"){
+						alert('현재 예약이 불가능한 상품입니다.');
+						location.href = "calendar";
+					}
+				}
+				,error:function(request, status, error){
+					alert('통신에러가 발생했습니다.');
+				}
+			});//ajax 끝
+		}
 
 	}); // 동적 버튼(팝업생성버튼)
 	$(document).ready(function(){
@@ -421,20 +491,20 @@ $(document).ready(function() {
 		$('#table1 th').each(function (column) {
 			$(this).click(function() {
 				let sortNum;
-				if ($(this).is('.asc')) {		// 현재 오름차순인 경우(asc)
+				if ($(this).is('.asc')) {	// 현재 오름차순인 경우
 					$(this).removeClass('asc');
-					$(this).addClass('desc');	// 내림차순으로 변경(desc)
-					$(this).children().attr('src', "/images/ascimage.png");	// 이미지 src 수정
+					$(this).addClass('desc');	// 내림차순으로 변경
+					$(this).children().attr('src', "/images/ascimage.png");
 					sortNum = -1;
 				} else {	// 현재 오름차순 아닌 경우
-					$(this).addClass('asc');	// 오름차순으로 변경
+					$(this).addClass('asc');// 오름차순으로 변경
 					$(this).removeClass('desc');
 					sortNum = 1;
-					$(this).children().attr('src', "/images/descimage.png");	// 이미지 src 수정
+					$(this).children().attr('src', "/images/descimage.png")
 				}
 				$(this).siblings().removeClass('asc');
 				$(this).siblings().removeClass('desc');
-				const rec = $('#table1').find('tbody>tr').get();
+				const rec = $('#table1').find('tbody>tr').get(); //get = 선택한것을 array로 가져옴
 				console.log(rec);
 				rec.sort(function (a, b) {
 					const tdCol1 = $(a).children('td').eq(column).text().toUpperCase();

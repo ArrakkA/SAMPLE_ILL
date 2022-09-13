@@ -9,6 +9,7 @@
 <script type="text/javascript" src="/cal.js"></script>
 <script>
 	let reservationNumber = '${rNum}';
+	let memberId = '${sessionScope.SessionUser.MS_ID}';
 </script>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>

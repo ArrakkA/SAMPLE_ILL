@@ -13,7 +13,7 @@
 			WHERE  BK_DAY = #{dateId}
 			  AND  BK_YN = 'N'
 			  AND  CO_DIV = '100'
-			  AND  VIEW_ID = NULL
+			  AND  VIEW_ID is NULL
                OR  VIEW_ID = #{id}
 	</select>
 	<select id="makeCalendar" resultType="hashmap">
@@ -106,9 +106,10 @@ left outer join(select CO_DIV
 		   AND BK_DAY = #{day}
 		   AND BK_COS = #{cos}
 		   AND BK_TIME = #{time}
+		   AND VIEW_ID is NULL
 	</update>
 	<!-- 일단 이렇게 했는데 중복되는 걸 지워주는 걸 찾아야함-->
-	<update id="overlapReservaion">
+	<update id="overlapReservation">
 		UPDATE BK_HISTORY SET
 			   VIEW_ID = NULL
 		      ,LIMIT_DATE = now()
@@ -125,10 +126,8 @@ left outer join(select CO_DIV
 			  ,BK_PERSON
 			  ,BK_CHARGE
 		 FROM  BK_HISTORY
-		WHERE  BK_DAY = #{dateId}
-		  AND  BK_YN = 'N'
+		WHERE  BK_YN = 'N'
 		  AND  CO_DIV = '100'
 		  AND  VIEW_ID = #{id}
-		  AND  LIMIT_DATE > now()
 	</select>
 </mapper>

@@ -69,7 +69,6 @@ public class MemberController {
 					autoLogin.put("id", member.get("MS_ID"));
 					//세션정보 DB 저장
 					memberService.autoLogin(autoLogin);
-					logger.debug("오토로그인 성공");
 				}else{
 
 				}

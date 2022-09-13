@@ -23,7 +23,7 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/sample/**" />
+			<mapping path="/**" />
 			<exclude-mapping path="/sample/login"/>
 			<exclude-mapping path="/sample/join"/>
 			<exclude-mapping path="/sample/calendar"/>

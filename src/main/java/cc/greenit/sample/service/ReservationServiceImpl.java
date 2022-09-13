@@ -21,9 +21,9 @@ public class ReservationServiceImpl implements ReservationService {
 		
 	}
 	@Override
-	public List<HashMap<String, Object>> reservationList(String dateId) {
+	public List<HashMap<String, Object>> reservationList(HashMap<String,Object> params) {
 		
-		return reservationDAO.reservationList(dateId);
+		return reservationDAO.reservationList(params);
 		
 	}
 	@Override
@@ -52,5 +52,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int chkReservationCnt(HashMap<String, Object> params) {
 		return reservationDAO.chkReservationCnt(params);
+	}
+	@Override
+	public int preemptionReservation(HashMap<String, Object> params) {
+		return reservationDAO.preemptionReservation(params);
+	}
+	@Override
+	public int overlapReservation(HashMap<String, Object> params) {
+		return reservationDAO.overlapReservation(params);
+	}
+	@Override
+	public HashMap<String, Object> popupReservation(HashMap<String, Object> params) {
+		return reservationDAO.popupReservation(params);
 	}
 }
