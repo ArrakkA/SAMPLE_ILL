@@ -116,5 +116,35 @@
 		       MS_BLANK = 'Y'
 		 WHERE MS_NUM = #{num}
 	</update>
-
+	<!-- 자동로그인 확인-->
+	<update id="autoLogin" parameterType="hashmap">
+		UPDATE MS_MAININFO SET
+			   session_id=#{sessionId}
+			  ,limit_date=#{limitDate}
+	     WHERE MS_ID = #{id}
+	</update>
+	<select id="checkUserSessionKey" resultType="hashmap">
+		SELECT MS_NUM
+			 ,MS_NAME
+			 ,MS_ID
+			 ,MS_FIRST_PHONE1
+			 ,CAST(AES_DECRYPT(UNHEX(MS_MID_PHONE1), 'JBOG')as CHAR) as MS_MID_PHONE1
+			 ,MS_LAST_PHONE1
+			 ,MS_HOMEZIP
+			 ,MS_HOMEADDR1
+			 ,MS_HOMEADDR2
+			 ,CAST(AES_DECRYPT(UNHEX(MS_HOMETEL), 'JBOG')as CHAR) as MS_HOMETEL
+			 ,MS_BIRTH
+			 ,MS_SEX
+		FROM MS_MAININFO
+		WHERE SESSION_ID =#{sessionId}
+		  and LIMIT_DATE > now()
+	</select>
+	<select id="chkIdCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM MS_MAININFO
+		WHERE MS_ID = #{id}
+		  AND MS_PASSWORD  = SHA2(#{pw},256)
+		  AND MS_BLANK = 'N'
+	</select>
 </mapper>

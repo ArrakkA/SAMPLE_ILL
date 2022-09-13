@@ -26,7 +26,7 @@ $(document).ready(function(){
 			const pwTest = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
 			const smsChk = $('#smsChk').prop("checked");
 			let params = {};
-
+			console.log(smsChk);
 			if(smsChk){
 				params["smsChk"] = 'Y'
 			}else{

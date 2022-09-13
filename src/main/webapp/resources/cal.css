@@ -86,3 +86,7 @@ table
     object-fit: cover;
     align-content: center;
 }
+
+.nowOn{
+    background:#d195ff;
+}
