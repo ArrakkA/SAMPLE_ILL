@@ -5,13 +5,10 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<jsp:include page="./include/header.jsp" ></jsp:include>
+<script>
+    location.href="/sample/home";
+</script>
 </head>
 <body>
-<jsp:include page="./include/navbar.jsp" ></jsp:include>
-<div>변경이되긴하나요?</div>
-main content
-
 </body>
 </html>

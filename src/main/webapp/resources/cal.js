@@ -33,12 +33,12 @@ function cancelPreemption(){
 }
 window.onbeforeunload = function () {
 	if(preemptionCnt = 1){
-		cancelPreemption();
+		cancelPrｓeemption();
 	}
 };
 $(document).ready(function() {
 		build();//달력만듬
-	$('.popup-close').on('click', function(){
+	$('.popup-close').on('cｓlick', function(){
 		$('.popup').css("display", "none");
 		if(memberId != ''){
 			cancelPreemption();
