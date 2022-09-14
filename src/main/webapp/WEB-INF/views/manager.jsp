@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
 <script>
 $(document).ready(function(){
-
 	$('#btnSearch').on('click', function(e){
-		
 		console.log('click btnSearch')
-		
 		e.preventDefault();
-		var url="${pageContext.request.contextPath}/manager/getRegisterList";
+		var url="${pageContext.request.contextPath}/list/getRegisterList";
 		url = url + "?searchType=" + $('#searchType').val();
 		url = url + "&keyword=" +$('#keyword').val();
 		location.href = url;
@@ -65,7 +59,6 @@ $(document).ready(function(){
 		var paramArray = new Array();
 		
 		infoTr.each(function(i,row){
-			
 			var dcriTd = $(row).children('.discrimination');
 			var tdNum= dcriTd.children('.numBox').val();
 			var tdType = dcriTd.children('.registerType').val();
@@ -87,10 +80,9 @@ $(document).ready(function(){
 			
 		});//each문 돌리기
 				
-		$.ajax({ 
-			
+		$.ajax({
 			  type:'post',
-			  url:'${pageContext.request.contextPath}/manager/managedata', 
+			  url:'${pageContext.request.contextPath}/list/manage-data',
 			  contentType: 'application/json',
 			  data: JSON.stringify(paramArray),
 			  
@@ -110,11 +102,9 @@ $(document).ready(function(){
 function fn_prev(page, range, rangeSize, searchType, keyword){
 	
 	console.log('fn_prev')
-	
 	var page = ((range-2)* rangeSize) + 1;
 	var range = range-1;
-	
-	var url = "${pageContext.request.contextPath}/manager/getRegisterList";
+	var url = "${pageContext.request.contextPath}/list/getRegisterList";
 	url= url + "?page=" +page;
 	url= url + "&range=" +range;
 	url= url + "&searchType="+ searchType;
@@ -123,25 +113,21 @@ function fn_prev(page, range, rangeSize, searchType, keyword){
 }//페이지 전버튼
 
 function fn_pagination(page, range, rangeSize, searchType, keyword){
-	
 	console.log('fn_pagination')
 	
-	var url = "${pageContext.request.contextPath}/manager/getRegisterList";
+	var url = "${pageContext.request.contextPath}/list/getRegisterList";
 	url= url + "?page=" +page;
 	url= url + "&range=" +range;
 	url = url + "&searchType=" + searchType;
 	url = url + "&keyword=" + keyword;
 	location.href = url;
 }//페이지 표시
-
 function fn_next(page, range, rangeSize, searchType, keyword){
 
 	console.log('fn_next')
-	
 	var page = parseInt((range * rangeSize)) + 1;
 	var range = parseInt(range) + 1;
-	
-	var url = "${pageContext.request.contextPath}/manager/getRegisterList";
+	var url = "${pageContext.request.contextPath}/list/getRegisterList";
 	url= url + "?page=" + page;
 	url= url + "&range=" + range;
 	url= url + "&searchType="+ searchType;
@@ -150,10 +136,9 @@ function fn_next(page, range, rangeSize, searchType, keyword){
 	
 }//페이지 다음버튼
 </script>
-
 </head>
 <body>
-<jsp:include page="./include/navbar.jsp" ></jsp:include>
+<jsp:include page="./include/listNav.jsp" ></jsp:include>
 	<div class="container">
 			<div class="table-responsive" style="padding-top: 10px">
 				<h2>회원 목록 조회</h2>

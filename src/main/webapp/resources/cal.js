@@ -6,7 +6,6 @@ let nowYear = (date.getFullYear()).toString();
 let nowMonth = (date.getMonth()+1).toString();
 let nowDay = (date.getDate()).toString();
 let preemptionCnt = 0;
-
 function cancelPreemption(){
 	const params={
 		"id" : memberId
@@ -33,12 +32,12 @@ function cancelPreemption(){
 }
 window.onbeforeunload = function () {
 	if(preemptionCnt = 1){
-		cancelPrｓeemption();
+		cancelPreemption();
 	}
 };
 $(document).ready(function() {
 		build();//달력만듬
-	$('.popup-close').on('cｓlick', function(){
+	$('.popup-close').on('click', function(){
 		$('.popup').css("display", "none");
 		if(memberId != ''){
 			cancelPreemption();
