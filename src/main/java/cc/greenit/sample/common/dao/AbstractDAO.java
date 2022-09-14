@@ -11,15 +11,15 @@ public class AbstractDAO {
 	@Inject
 	private SqlSession sqlSession;
      
-    public Object insert(String queryId, Object params){
+    public int insert(String queryId, Object params){
         return sqlSession.insert(queryId, params);
     }
      
-    public Object update(String queryId, Object params){
+    public int update(String queryId, Object params){
         return sqlSession.update(queryId, params);
     }
      
-    public Object delete(String queryId, Object params){
+    public int delete(String queryId, Object params){
         return sqlSession.delete(queryId, params);
     }
      

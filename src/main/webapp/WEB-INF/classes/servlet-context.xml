@@ -20,18 +20,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
-	<interceptors>
-		<interceptor>
-			<mapping path="/**" />
-			<exclude-mapping path="/sample/login"/>
-			<exclude-mapping path="/sample/join"/>
-			<exclude-mapping path="/sample/calendar"/>
-			<beans:ref bean="AuthenticationInterceptor"/>
-		</interceptor>
-	</interceptors>
-	<beans:bean id="AuthenticationInterceptor"
-				class="cc.greenit.sample.interceptor.AuthenticationInterceptor">
-	</beans:bean>
+	
 	<context:component-scan base-package="cc.greenit.sample" />
+	
 </beans:beans>

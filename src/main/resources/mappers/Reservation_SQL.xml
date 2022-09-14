@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+	<select id="reservationTable"  resultType="hashmap">
+			SELECT CO_DIV
+				  ,BK_DAY
+				  ,BK_COS
+				  ,BK_TIME
+				  ,BK_ROUNDF
+				  ,BK_PERSON
+				  ,BK_CHARGE
+			 FROM  BK_HISTORY
+			WHERE  BK_DAY = #{dateId}
+			  AND  BK_YN = 'N'
+			  AND  CO_DIV = '100'
+			  AND  VIEW_ID is NULL
+               OR  VIEW_ID = #{id}
+	</select>
+	<select id="makeCalendar" resultType="hashmap">
+		SELECT  A.CO_DIV
+			   ,A.CL_SOLAR
+			   ,A.CL_DAYDIV
+			   ,A.CL_BUSINESS
+		       ,A.CL_BK_START
+		       ,A.CL_BK_START_TIME
+			   ,IFNULL(B.ReservationCnt, 0) as ReservationCnt
+			   ,DATE_FORMAT(now(), '%Y%m%d') as NOW_DAY
+			   ,DATE_FORMAT(now(), '%H%i') as NOW_TIME
+		  FROM  CL_DAYINFO as A
+left outer join(select CO_DIV
+					  ,BK_DAY
+				      ,count(bh.BK_TIME) as ReservationCnt
+				  from bk_history bh
+				 where BK_DAY like CONCAT(#{YMId},'%')
+				   and BK_YN = 'N'
+				 group by BK_DAY) as B
+			on 	A.CO_DIV = B.CO_DIV
+		   and  A.CL_SOLAR = B.BK_DAY
+		 WHERE  A.CO_DIV ='100'
+		   AND  A.CL_SOLAR LIKE CONCAT(#{YMId},'%')
+	</select>
+	<select id="makeReservNum" resultType="String">
+	SELECT LPAD(IFNULL(MAX(BK_RSVNO) +1, 1),12, '0') FROM BK_HISTORY
+	</select>
+	<!-- 예약 버튼 -->
+	<update id="setReservation" parameterType="hashmap">
+			UPDATE BK_HISTORY SET				  
+				   BK_RSVNO = #{rNum}
+				  ,BK_NAME = #{MS_NAME}
+				  ,BK_MSNUM = #{MS_NUM}
+				  ,BK_FIRST_PHONE1 = #{MS_FIRST_PHONE1}
+				  ,BK_MID_PHONE1 = hex(aes_encrypt(#{MS_MID_PHONE1}, 'JBOG'))
+				  ,BK_LAST_PHONE1 = #{MS_LAST_PHONE1}
+				  ,BK_YN = 'Y'
+				  ,UPDATE_STAFF = DATE_FORMAT(now(), "%Y%m%d")
+				  ,UPDATE_DATETIME = now()
+				  ,UPDATE_IP = #{ip}
+			 WHERE CO_DIV = '100'
+			   AND BK_DAY = #{day}
+			   AND BK_COS = #{cos}
+			   AND BK_TIME = #{time}
+			   AND BK_YN = 'N'
+	</update>
+	<select id="getMemberReservation" resultType="hashmap">
+			SELECT  CO_DIV
+				   ,BK_RSVNO
+				   ,BK_DAY 
+				   ,BK_COS 
+				   ,BK_TIME 
+				   ,BK_ROUNDF
+				   ,BK_PERSON
+				   ,BK_CHARGE
+				   ,DATE_FORMAT(now(), "%Y%m%d") as NOW_DAY
+			  FROM  BK_HISTORY
+			 WHERE  CO_DIV = '100'
+			   AND  BK_MSNUM = #{MS_NUM}
+	</select>
+	<update id="cancelReservation" parameterType="hashmap">
+			UPDATE BK_HISTORY SET
+				   BK_NAME = NULL
+				  ,BK_MSNUM = NULL
+				  ,BK_FIRST_PHONE1 = NULL
+				  ,BK_MID_PHONE1 = NULL
+				  ,BK_LAST_PHONE1 = NULL
+				  ,BK_RSVNO = NULL
+				  ,BK_YN = 'N'
+				  ,UPDATE_DATETIME = now()
+				  ,UPDATE_IP = #{ip}
+		     WHERE CO_DIV = '100'
+			   AND BK_RSVNO = #{rNum}
+	</update>
+	<select id="chkReservationCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM BK_HISTORY
+		 WHERE CO_DIV = '100'
+		   AND BK_DAY = #{day}
+		   AND BK_COS = #{cos}
+		   AND BK_TIME = #{time}
+		   AND BK_YN = 'N'
+	</select>
+	<update id="preemptionReservation">
+		UPDATE BK_HISTORY SET
+		       VIEW_ID = #{id}
+		      ,LIMIT_DATE = #{limitDate}
+		 WHERE CO_DIV = '100'
+		   AND BK_DAY = #{day}
+		   AND BK_COS = #{cos}
+		   AND BK_TIME = #{time}
+		   AND VIEW_ID is NULL
+	</update>
+	<!-- 일단 이렇게 했는데 중복되는 걸 지워주는 걸 찾아야함-->
+	<update id="overlapReservation">
+		UPDATE BK_HISTORY SET
+			   VIEW_ID = NULL
+		      ,LIMIT_DATE = now()
+		WHERE CO_DIV = '100'
+		  AND VIEW_ID = #{id}
+	</update>
+	<!--이미 있으면 지우고 가져와야함-->
+	<select id="popupReservation" resultType="hashmap">
+	   SELECT  CO_DIV
+			  ,BK_DAY
+			  ,BK_COS
+			  ,BK_TIME
+			  ,BK_ROUNDF
+			  ,BK_PERSON
+			  ,BK_CHARGE
+		 FROM  BK_HISTORY
+		WHERE  BK_YN = 'N'
+		  AND  CO_DIV = '100'
+		  AND  VIEW_ID = #{id}
+	</select>
+</mapper>

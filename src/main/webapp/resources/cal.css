@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+table
+    {
+    	margin-top : 30px;
+        border:1px solid #BDBDBD;
+        text-align:center;
+        width:30%;
+    }
+.gray{
+    color:#808080
+}
+.red.gray{
+    color:#808080
+}
+.blue.gray{
+    color:#808080
+}
+.blue{
+
+	color:blue
+}
+.red{
+	
+	color:red
+}
+.popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
+  display: none;
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  background:rgba(0,0,0,0.5);
+}
+.popup-inner {  /* 열렸을 때 팝업창 크기와 색상을 지정합니다. */
+  position:absolute;
+  width: 50%;
+  height: 50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  padding : 10px;
+  background:#fff;
+}
+.hiddenKey{
+	display:none;
+}
+.leftSeat{
+    font-size: 8px;
+}
+.leftSeat.redDay{
+    color:red;
+}
+.leftSeat.greenDay{
+    color:green;
+}
+.leftSeat.yellowDay{
+    color:orange;
+}
+.tablist{
+    width: 1200px;
+    height: 50px;
+    margin: 50px 30px 30px;
+    font-size: 0;
+    box-shadow: 5px 3px 13px 0px #ececec;
+}
+.tab{
+    display: inline-block;
+    width: 171px;
+    height: 50px;
+    color: #707070;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+}
+.menuOn{
+    color: #ffffff;
+    background: #ff6600;
+    font-weight:900;
+}
+.sort{
+    width: 15px;
+    height: 15px;
+    object-fit: cover;
+    align-content: center;
+}
+
+.nowOn{
+    background:#d195ff;
+}
