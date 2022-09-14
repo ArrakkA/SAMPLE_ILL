@@ -33,6 +33,8 @@ left outer join(select CO_DIV
 				  from bk_history bh
 				 where BK_DAY like CONCAT(#{YMId},'%')
 				   and BK_YN = 'N'
+				   AND VIEW_ID is NULL
+					OR VIEW_ID = #{id}
 				 group by BK_DAY) as B
 			on 	A.CO_DIV = B.CO_DIV
 		   and  A.CL_SOLAR = B.BK_DAY

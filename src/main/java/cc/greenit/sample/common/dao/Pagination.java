@@ -3,7 +3,7 @@ package cc.greenit.sample.common.dao;
 public class Pagination {
 	
 	
-	private int listSize = 30;
+	private int listSize = 5;
 	private int rangeSize = 10;
 	private int page;
 	private int range;
@@ -83,30 +83,19 @@ public class Pagination {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
-	
 	public void pageInfo(int page, int range, int listCnt) {
 		this.page = page;
 		this.range = range;
 		this.listCnt = listCnt;
-		
 		this.pageCnt = (int) Math.ceil((double)listCnt/listSize);
-		
 		this.startPage = (range-1)* rangeSize +1;
-		
-		this.endPage = (page-1)*listSize;
-		
+		this.endPage = range * rangeSize;
 		this.startList = (page - 1)* listSize;
-		
 		this.prev = range == 1? false:true;
-		
-		this.next = pageCnt> endPage ? true:false;
+		this.next = pageCnt > endPage ? true:false;
 		if(this.endPage > this.pageCnt) {
 			this.endPage = this.pageCnt;
 			this.next = false;
 		}
 	}
-
-	
-	
-	
 }

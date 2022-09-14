@@ -21,7 +21,7 @@ import cc.greenit.sample.service.MemberService;
 import cc.greenit.sample.vo.ManagerVO;
 
 @Controller
-@RequestMapping("/manager")
+@RequestMapping("/list")
 public class ManagerController {
 	private ManagerService managerService;
 	private MemberService memberService;
@@ -49,7 +49,7 @@ public class ManagerController {
 		return "manager";
 	}
 	@ResponseBody
-	@PostMapping(value="/managedata")
+	@PostMapping(value="/manage-data")
 	public HashMap<String, Object> managementManager(@RequestBody List<ManagerVO> paramList) {
 		int icnt = 0;
 		int ucnt = 0;

@@ -7,7 +7,6 @@
 <head>
 <jsp:include page="./include/header.jsp" ></jsp:include>
 </head>
-
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
 </body>
