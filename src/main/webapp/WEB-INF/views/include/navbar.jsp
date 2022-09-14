@@ -23,7 +23,6 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/navbar.css'/>">
-<div>
 <!-- 로딩바 -->
 <div id = "Progress_Loading" style="z-index: 9999">
     <img id="Progress_Img" src="<c:url value='/images/po.gif'/>"/>
@@ -37,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/sample/home">Home</a>
+                <a class="nav-link active" aria-current="page" href="/list/getRegisterList">ManagerList</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/sample/calendar">예약 화면</a>

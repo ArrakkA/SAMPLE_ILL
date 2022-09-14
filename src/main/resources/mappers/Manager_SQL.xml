@@ -5,9 +5,7 @@
 	<!-- 회원정보 리스트 -->
 	<select id="getRegisterList" resultType="cc.greenit.sample.vo.ManagerVO">
 		SELECT MS_NUM, MS_ID, MS_NAME, MS_SEX, MS_BIRTH
-		
 		FROM MS_MAININFO
-		
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
  			<if test="searchType =='name' and keyword != null and keyword != ''">
  				AND MS_NAME like CONCAT('%',#{keyword},'%')
@@ -24,16 +22,13 @@
  			<if test="searchType =='birth' and keyword != null and keyword != ''">
  				AND MS_BIRTH like CONCAT('%',#{keyword},'%')
  			</if>
- 			
  		</trim>
-
 		LIMIT #{startList},#{listSize}
 	</select>
 	<!-- 회원 수-->
 	<select id="getRegisterListCnt" resultType="int">
 		SELECT count(*) as listCnt
 		FROM MS_MAININFO
-		
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
  			<if test="searchType =='name' and keyword != null and keyword != ''">
  				AND MS_NAME like CONCAT('%',#{keyword},'%')

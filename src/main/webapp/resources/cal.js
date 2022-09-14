@@ -6,7 +6,6 @@ let nowYear = (date.getFullYear()).toString();
 let nowMonth = (date.getMonth()+1).toString();
 let nowDay = (date.getDate()).toString();
 let preemptionCnt = 0;
-
 function cancelPreemption(){
 	const params={
 		"id" : memberId
@@ -32,8 +31,9 @@ function cancelPreemption(){
 	});//ajax 끝
 }
 window.onbeforeunload = function () {
-	if(preemptionCnt = 1){
+	if(preemptionCnt == 1){
 		cancelPreemption();
+		alert('지워짐');
 	}
 };
 $(document).ready(function() {
@@ -378,6 +378,7 @@ $(document).ready(function() {
 					,"time":pTime
 					,"ip":pip
 					,"rNum":reservationNumber
+
 				}
 				console.log(params);
 				$.ajax({
