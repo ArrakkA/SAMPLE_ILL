@@ -7,6 +7,16 @@
   <link rel="stylesheet" href="<c:url value='/popup.css'/>">
 </head>
 <body>
+<div>
+  <div>
+    <table>
+      <tbody id="dates"></tbody>
+    </table>
+  </div>
+  <div>
+
+  </div>
+</div>
 <table id="table1">
   <colgroup>
     <col style="width:10%"/>
