@@ -37,34 +37,34 @@
 						<div class="pre-button d-flex align-items-center justify-content-center" onclick="beforem()"><i class="fa fa-chevron-left"></i></div>
 						<div class="next-button d-flex align-items-center justify-content-center" onclick="nextm()"><i class="fa fa-chevron-right"></i></div>
 					</div>
-			<table align="center" id="calendar">
-				<tr>
-					<td><span style="color: #B3B6B3; "><label  id="before"></label></span></td>
-					<td colspan="5" align="center" id="yearmonth"></td>
-					<td><span style="color: #B3B6B3; "><label  id="next"></label></span></td>
-				</tr>
-				<thead>
-				<tr>
-					<td><div style ="color: red">SUN</div></td>
-					<td> MON</td>
-					<td> TUE </td>
-					<td> WEN </td>
-					<td> THR </td>
-					<td> FRI </td>
-					<td><div style ="color: blue">SAT</div></td>
-				</tr>
-				</thead>
-				<tbody id="dates">
-				</tbody>
-			</table>
+				<table align="center" id="calendar">
+					<tr>
+						<td><span style="color: #B3B6B3; "><label  id="before"></label></span></td>
+						<td colspan="5" align="center" id="yearmonth"></td>
+						<td><span style="color: #B3B6B3; "><label  id="next"></label></span></td>
+					</tr>
+					<thead>
+					<tr>
+						<td><div style ="color: red">SUN</div></td>
+						<td> MON</td>
+						<td> TUE </td>
+						<td> WEN </td>
+						<td> THR </td>
+						<td> FRI </td>
+						<td><div style ="color: blue">SAT</div></td>
+					</tr>
+					</thead>
+					<tbody id="dates">
+					</tbody>
+				</table>
 		</div>
 	</div>
 </div>
     <!-- 예약정보 테이블 -->
     <div class="tablist">
-    	<a class="tab all"> 전체 코스 </a>
-    	<a class="tab cosA"> 동 코스 </a>
-    	<a class="tab cosB"> 서 코스 </a>
+    	<a class="tab" id="All"> 전체 코스 </a>
+    	<a class="tab" id="A"> 동 코스 </a>
+    	<a class="tab" id="B"> 서 코스 </a>
     </div>
     <table id="table1">
 		<colgroup>
@@ -90,11 +90,22 @@
 		<tbody class="registerList" id="registerList">
 		</tbody>
 	</table>
+</div>
+<!-- 사이드 바-->
+<c:if test="${ rNum == null }">
+	<div id="sidebar-menu1">
+		<div id="quickReservation">
+			<div id="quickReserve">
+				<p>빠른 예약 테이블</p>
+			</div>
+		</div>
+	</div>
+</c:if>
 	<!-- 팝업 입니다. -->
-<div class="popup">
+<div class="popup" id="reservePopup">
    	<div class="popup-inner">
     	<div class="popContent">
-    		<ul class="popuplist">
+    		<ul class="popup-list">
 	    		<li>
 	    			<span>예약자</span>-
 	    			<span id="pName">${sessionScope.SessionUser.MS_NAME}</span>
@@ -125,6 +136,7 @@
 	    			<span id="pCos"></span>
 	    		</li>
 				<div class="red"> * 예약취소/변경 가능 기간은 라운딩 5일전 17시 까지 입니다 * </div>
+				<div class="viewCnt blue"></div>
     		</ul>
     	</div>
      	<div class= "buttonBox">
@@ -137,9 +149,8 @@
 			</c:if>
      	</div>
    	</div>
+	</div>
 </div>
 </body>
-
-
 
 </html>

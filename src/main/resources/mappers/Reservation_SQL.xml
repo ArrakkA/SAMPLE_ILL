@@ -104,6 +104,7 @@ left outer join(select CO_DIV
 		UPDATE BK_HISTORY SET
 		       VIEW_ID = #{id}
 		      ,LIMIT_DATE = #{limitDate}
+		      ,VIEW_CNT = VIEW_CNT+1
 		 WHERE CO_DIV = '100'
 		   AND BK_DAY = #{day}
 		   AND BK_COS = #{cos}
@@ -127,6 +128,7 @@ left outer join(select CO_DIV
 			  ,BK_ROUNDF
 			  ,BK_PERSON
 			  ,BK_CHARGE
+	   		  ,VIEW_CNT
 		 FROM  BK_HISTORY
 		WHERE  BK_YN = 'N'
 		  AND  CO_DIV = '100'

@@ -1,8 +1,6 @@
 package cc.greenit.sample.common.dao;
 
 public class Pagination {
-	
-	
 	private int listSize = 5;
 	private int rangeSize = 10;
 	private int page;
