@@ -318,13 +318,6 @@ $(document).ready(function() {
 			}
 		}
 	}// cosSelect 끝
-	/** 팝업창 만드는 함수*/
-	function quickPopup(){
-		const url = "popup";
-		const name = "popup test";
-		const option = "width = 500, height = 500, top = 100, left = 200, location = no";
-		window.open(url, name, option);
-	}
 	$(document).on('click','.popBtn',function(){
 		const bTr = $(this).parent();
 		const bDay = bTr.children('.bDay').text();
@@ -496,10 +489,5 @@ $(document).ready(function() {
 				});
 			});
 		});// sort
-
-		$('#quickReservation').click(function(){
-			quickPopup();
-		});
-
 	})//ready
 	

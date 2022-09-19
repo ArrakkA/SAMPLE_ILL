@@ -20,7 +20,7 @@
 				</a>
 			</h3>
 		</div>
-
+		<!-- 회원 가입 div 입니다.-->
 		<div class="joinGrayBg col-xs- form">
 			<div id="container" class="main">
 				<div class="join_content">
@@ -96,6 +96,7 @@
 							<input type="text" id="home_tel" style="width:300px; margin-right: 5px;" maxlength="10" >
 						</li>
 					</ul>
+					<!-- 주소 api 사용  -->
 					<ul class="joinInfoBox">
 						<li class="infoList">
 							<span class="orangeRed">*</span>
@@ -154,6 +155,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

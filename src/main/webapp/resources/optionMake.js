@@ -1,3 +1,4 @@
+/** 옵션을 생성하는 함수*/
 function optionMake(){
     yearMake();
     monthMake();
