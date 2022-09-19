@@ -6,6 +6,7 @@ let nowYear = (date.getFullYear()).toString();
 let nowMonth = (date.getMonth()+1).toString();
 let nowDay = (date.getDate()).toString();
 let preemptionCnt = 0;
+/** 독점기능을 취소하는 함수*/
 function cancelPreemption(){
 	const params={
 		"id" : memberId
@@ -30,6 +31,7 @@ function cancelPreemption(){
 		}
 	});//ajax 끝
 }
+/**윈도우 이탈시 독점기능 제거 */
 window.onbeforeunload = function () {
 	if(preemptionCnt == 1){
 		cancelPreemption();
@@ -39,7 +41,7 @@ window.onbeforeunload = function () {
 $(document).ready(function() {
 		build();//달력만듬
 	$('.popup-close').on('click', function(){
-		$('.popup').css("display", "none");
+		$('#reservePopup').css("display", "none");
 		if(memberId != ''){
 			cancelPreemption();
 		}
@@ -48,36 +50,38 @@ $(document).ready(function() {
 	$(".head-month").text(nowMonth+ "-" + nowYear);
 	$('.head-day').text(nowDay);
 	});
+	/** 이전달로 넘어감 */
 	function beforem() //이전 달을 today에 값을 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() - 1);
 		build(); //만들기
 	}
-	function nextm()  //다음 달을 today에 저장
+	/** 다음달로 넘어감 */
+	function nextm()
 	{
 		today = new Date(today.getFullYear(), today.getMonth() + 1);
 		build(); //만들기
 	}
+	/** 달력을 만드는 함수*/
     function build()
     {
         const nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
         const lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
-        const tbcal = document.getElementById("dates");// 테이블 달력을 만들 테이블
+        const tbcalendar = document.getElementById("dates");// 테이블 달력을 만들 테이블
         const thisMonth = today.getMonth()+1;
         const yearId = today.getFullYear().toString();
         const monthId = thisMonth.toString();
+		let testId = ''
 		$('#dates').empty();
         if(thisMonth <10){
-     	   var testId = "0"+ monthId;  
+			testId = "0"+ monthId;
         }else{
-     	   var testId = monthId;   
+     	    testId = monthId;
         }// 달이 10이하일시 0 붙이기
-       
         const ymId = yearId + testId;
 		console.log(ymId);
-        
+
         $('#yearmonth').html(yearId + "년 "+ monthId + "월"); //년도와 월 출력
-        
         if(thisMonth == 12) //  눌렀을 때 월이 넘어가는 곳
         {
             $('#before').html((thisMonth -1) + "월");
@@ -94,49 +98,51 @@ $(document).ready(function() {
         	$('#next').html((thisMonth +1)+"월");
         }
         // 남은 테이블 줄 삭제
-        while (tbcal.rows.length > 2) 
+        while (tbcalendar.rows.length > 2) 
         {
-            tbcal.deleteRow(tbcal.rows.length - 1);
+            tbcalendar.deleteRow(tbcalendar.rows.length - 1);
         }
-        var row = null;
-        row = tbcal.insertRow();
-        var cnt = 0;
+        let row = null;
+        row = tbcalendar.insertRow();
+        let cnt = 0;
+		let cell;
         // 1일 시작칸 찾기
-        for (i = 0; i < nMonth.getDay(); i++) 
+        for (let i = 0; i < nMonth.getDay(); i++)
         {
             cell = row.insertCell();
             cnt = cnt + 1;
         }
         // 달력 출력
-        for (i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
-        { 
-        	if(i<10){
-        		j = "0"+i; //yyyymmdd찾기용도
-        	}else{
-        		j = i;
-        	}
-        	const tdDay =  "<div class='registerDay' onclick ='getDbReservation("+ ymId + j +")' id='"+ymId + j +"'>" + i + "</div>";
-            cell = row.insertCell();
-            cell.innerHTML = tdDay;
-            cnt = cnt + 1;
+		for (let i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
+		{
+			let j;
+			if (i < 10) {
+				j = "0" + i; //yyyy-mm-dd 찾기용도
+			} else {
+				j = i;
+			}
+			const tdDay = "<div class='registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
+			cell = row.insertCell();
+			cell.innerHTML = tdDay;
+			cnt = cnt + 1;
 
-            if (cnt % 7 == 1) {//일요일 계산
-            	const sunDay = "<div class='registerDay' onclick ='getDbReservation("+ ymId + j +")' id='" +ymId + j +"'>" + i +"</div>";
-                cell.innerHTML = sunDay;//일요일에 색
-            }
-            if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
-            	 const satDay = "<div class=' registerDay' onclick ='getDbReservation("+ ymId + j +")' id='"+ymId + j +"'>" + i+ "</div>";
-                cell.innerHTML = satDay;
-                row = calendar.insertRow();// 줄 추가
-            }
-            if(today.getFullYear() == date.getFullYear() && today.getMonth()==date.getMonth() && i==date.getDate()) 
-            {
-                cell.bgColor = "#BCF1B1";
+			if (cnt % 7 == 1) {//일요일 계산
+				const sunDay = "<div class='registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
+				cell.innerHTML = sunDay;//일요일에 색
+			}
+			if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
+				const satDay = "<div class=' registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
+				cell.innerHTML = satDay;
+				row = calendar.insertRow();// 줄 추가
+			}
+			if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i == date.getDate()) {
+				cell.bgColor = "#BCF1B1";
 				//오늘날짜배경색
-            }
-        } //for 달력만들기
+			}
+		} //for 달력만들기
        goDbDate(ymId);
     }//달력 build() 끝
+	/** DB에 있는 달력을 가져오는 함수*/
 	function goDbDate(ymId){
         const params ={
 				"ymId":ymId
@@ -187,13 +193,13 @@ $(document).ready(function() {
 				  }else{
 					  alert(result.message);
 				  }
-
 			  }
 			  ,error : function(request, status, error){
 			      alert('통신오류가 발생하였습니다.');
 			  }
 		}); //ajax 끝
 	} //goDbDay 끝
+	/** 해당 날짜의 예약정보를 가져오는 함수*/
 	function getDbReservation(date){
 		console.log(date);
 		$('.registerList').empty();
@@ -228,6 +234,7 @@ $(document).ready(function() {
 			}
 		});//ajax 끝
 	}//goDbReservation
+	/** list 와 body에 맞춰서 테이블을 만들어주는 함수*/
 	function tableMade(list,tbody){
 		const tListDay = list.BK_DAY;
 		const tYear = tListDay.substr(0,4);
@@ -269,6 +276,55 @@ $(document).ready(function() {
 		const td11 = $("<td class= 'bTime hiddenKey'>" + list.BK_TIME + "</td>");
 		tbody.append(tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11));
 	} //table 중복때문에 만듬
+	/** 코스 tab 선택 기능*/
+	function cosSelect(cosName){
+		if(dayDate == null){
+			alert("날짜를 선택해주세요");
+			return;
+		}else{
+			$('.sort').attr('src', "/images/sortimage.png");
+			$('.tab').removeClass('menuOn');
+			$('#'+ cosName).addClass('menuOn');
+			const params ={
+				"dateId": dayDate
+			}
+			if(cosName == 'All'){
+				getDbReservation(dayDate);
+			}else{
+				$.ajax({
+					type:'post'
+					,url:'/reservation/getReservation'
+					,data:params
+					,dataType:'json'
+					,success:function(result){
+						if(result.code=="0000"){
+							const rows = result.data;
+							const tbody = $("#registerList");
+							tbody.empty();
+							for(let i=0; i<rows.length; i++){
+								const list = rows[i];
+								if(list.BK_COS == cosName) {
+									tableMade(list,tbody);
+								}
+							}//for 끝
+						}else{
+							alert(result.message);
+						}
+					}
+					,error : function(request, status, error) {
+						alert('통신오류가 발생하였습니다.');
+					}
+				});//ajax 끝
+			}
+		}
+	}// cosSelect 끝
+	/** 팝업창 만드는 함수*/
+	function quickPopup(){
+		const url = "popup";
+		const name = "popup test";
+		const option = "width = 500, height = 500, top = 100, left = 200, location = no";
+		window.open(url, name, option);
+	}
 	$(document).on('click','.popBtn',function(){
 		const bTr = $(this).parent();
 		const bDay = bTr.children('.bDay').text();
@@ -280,7 +336,7 @@ $(document).ready(function() {
 		const bCosName = bTr.children('.bCosName').text();
 		const bPrice = bTr.children('.bChargeView').text();
 		const bkTime = bTr.children('.bkTime').text();
-		$('.popup').css("display", "flex");
+		$('#reservePopup').css("display", "flex");
 
 		if(memberId == ''){
 			console.log(bCos);
@@ -314,6 +370,7 @@ $(document).ready(function() {
 						$('#pPrice').text(bPrice);
 						$('#pTime').text(bTime);
 						$('#pListDay').text(bListDay);
+						$('.viewCnt').text("현재 이 시간에 관심있는 사람은 "+ result.data.VIEW_CNT + "명입니다.");
 					}else if(result.code= "1111"){
 						alert('현재 예약이 불가능한 상품입니다.');
 						location.href = "calendar";
@@ -324,10 +381,10 @@ $(document).ready(function() {
 				}
 			});//ajax 끝
 		}
-
 	}); // 동적 버튼(팝업생성버튼)
 	$(document).ready(function(){
 		$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
+			/** 예약 버튼 */
 			 $('#bkBtn').on('click',function(){
 			 const pTr = $(this).parent().parent();
 			 const pDay = pTr.find('#pDay').text();
@@ -366,6 +423,7 @@ $(document).ready(function() {
 				 }
 			   });//ajax 끝
 			});//bkBtn
+			/** 변경 버튼 */
 			$('#changeBtn').click(function(){
 				const pTr = $(this).parent().parent();
 				const pDay = pTr.find('#pDay').text();
@@ -378,7 +436,6 @@ $(document).ready(function() {
 					,"time":pTime
 					,"ip":pip
 					,"rNum":reservationNumber
-
 				}
 				console.log(params);
 				$.ajax({
@@ -404,91 +461,13 @@ $(document).ready(function() {
 				});//ajax 끝
 			});//changeBtn
 		})//getJson
-		$('.cosA').click(function (){
-			if(dayDate == null){
-				alert("날짜를 선택해주세요");
-				return;
-			}else{
-				$('.sort').attr('src', "/images/sortimage.png");
-				$('.tab').removeClass('menuOn');
-				$('.cosA').addClass('menuOn');
-				const params ={
-					"dateId": dayDate
-				}
-				$.ajax({
-					type:'post'
-					,url:'/reservation/getReservation'
-					,data:params
-					,dataType:'json'
-					,success:function(result){
-						if(result.code=="0000"){
-							const rows = result.data;
-							const tbody = $("#registerList");
-							tbody.empty();
-							for(i=0; i<rows.length; i++){
-								const list = rows[i];
-								if(list.BK_COS == 'A') {
-									tableMade(list,tbody);
-								}
-							}//for 끝
-						}else{
-							alert(result.message);
-						}
-					}
-					,error : function(request, status, error) {
-						alert('통신오류가 발생하였습니다.');
-					}
-				});//ajax 끝
-			}
+		/** 코스 선택 tab */
+		$('#A, #B, #All').click(function(){
+			const idName = this.id;
+			cosSelect(idName);
 		})
-		$('.cosB').click(function(){
-			if(dayDate == null){
-				alert("날짜를 선택해주세요");
-				return;
-			}else{
-				$('.sort').attr('src', "/images/sortimage.png");
-				$('.tab').removeClass('menuOn');
-				$('.cosB').addClass('menuOn');
-				const params ={
-					"dateId": dayDate
-				}
-				$.ajax({
-					type:'post'
-					,url:'/reservation/getReservation'
-					,data:params
-					,dataType:'json'
-					,success:function(result){
-						if(result.code=="0000"){
-							const rows = result.data;
-							const tbody = $("#registerList");
-							tbody.empty();
-							for(i=0; i<rows.length; i++){
-								const list = rows[i];
-								if(list.BK_COS == 'B') {
-									tableMade(list,tbody);
-								}
-							}//for문 끝
-						}else{
-							alert(result.message);
-						}
-					}
-					,error : function(request, status, error) {
-						alert('통신오류가 발생하였습니다.');
-					}
-				});//ajax 끝
-			}
-		})
-		$('.all').click(function (){
-			if(dayDate == null){
-				alert("날짜를 선택해주세요");
-				return;
-			}else {
-				$('.sort').attr('src', "/images/sortimage.png");
-				$('.tab').removeClass('menuOn');
-				$('.all').addClass('menuOn');
-				getDbReservation(dayDate);
-			}
-		})
+
+		/** 테이블 칼럼별로 sort 기능 함수 */
 		$('#table1 th').each(function (column) {
 			$(this).click(function() {
 				let sortNum;
@@ -517,5 +496,10 @@ $(document).ready(function() {
 				});
 			});
 		});// sort
+
+		$('#quickReservation').click(function(){
+			quickPopup();
+		});
+
 	})//ready
 	

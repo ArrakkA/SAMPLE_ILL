@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 table
     {
     	margin-top : 30px;
@@ -17,11 +16,9 @@ table
     color:#808080
 }
 .blue{
-
 	color:blue
 }
 .red{
-	
 	color:red
 }
 .popup { /* 팝업이 열렸을 때, 팝업창 주변 전체를 어둡게 합니다 */
@@ -86,7 +83,33 @@ table
     object-fit: cover;
     align-content: center;
 }
-
 .nowOn{
     background:#d195ff;
+}
+#sidebar-menu1{
+    position: relative;
+}
+#quickReservation{
+    position: relative;
+}
+#quickReserve{
+    position: fixed;
+    top: 50%;
+    right: 0;
+    width: 130px;
+    height: 165px;
+    margin-top: 14px;
+    background-color: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    z-index: 600;
+    box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 30%);
+    padding: 35px 0 0 0;
+}
+.table1{
+    border-collapse: collapse;
+    border: 1px solid #444444;
+}
+tbody.registerList td{
+    border: 1px solid #444444;
 }

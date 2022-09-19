@@ -66,6 +66,10 @@ public class SampleController {
 	public String test2(Locale locale, Model model) {
 		return "test2";
 	}
+	@GetMapping(value = "/popup")
+	public String popup(Locale locale, Model model) {
+		return "popup";
+	}
 	@GetMapping(value = "/mypage")
 	@SuppressWarnings("unchecked")
 	public String mypage(Locale locale

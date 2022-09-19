@@ -26,7 +26,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         Object obj = session.getAttribute(Globals.SESSION_NAME);
-        logger.info("login ip is " + getClientIp(request));
+        logger.info("login ip is " + Globals.getClientIp(request));
 
         if(obj == null){
             HashMap<String, Object> params = new HashMap<>();
@@ -47,34 +47,5 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
-    }
-    public static String getClientIp(HttpServletRequest request) {
-        String clientIp = null;
-        boolean isIpInHeader = false;
-
-        List<String> headerList = new ArrayList<>();
-        headerList.add("X-Forwarded-For");
-        headerList.add("HTTP_CLIENT_IP");
-        headerList.add("HTTP_X_FORWARDED_FOR");
-        headerList.add("HTTP_X_FORWARDED");
-        headerList.add("HTTP_FORWARDED_FOR");
-        headerList.add("HTTP_FORWARDED");
-        headerList.add("Proxy-Client-IP");
-        headerList.add("WL-Proxy-Client-IP");
-        headerList.add("HTTP_VIA");
-        headerList.add("IPV6_ADR");
-
-        for (String header : headerList) {
-            clientIp = request.getHeader(header);
-            if (StringUtils.hasText(clientIp) && !clientIp.equals("unknown")) {
-                isIpInHeader = true;
-                break;
-            }
-        }
-        if (!isIpInHeader) {
-            clientIp = request.getRemoteAddr();
-        }
-
-        return clientIp;
     }
 }
