@@ -44,37 +44,42 @@ public class MemberController {
 										   ,@RequestParam HashMap<String, Object> params
 									       ){
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		String autoLoginChk = (String) params.get("autoLoginChk");
+		String autoLoginChk = Globals.getToString(params.get("autoLoginChk"));
 		try {
-			int chkIdCnt = memberService.chkIdCnt(params);
-			//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
-			if(chkIdCnt == 1){
-				//세션 생성
-				HashMap<String, Object> member = memberService.selectMember(params);
-				session.setAttribute(Globals.SESSION_NAME , member);
-				result.put("code","0000");
+			HashMap<String, Object> overlap = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 
-				if(autoLoginChk.equals("Y")){
-					//쿠키생성
-					Cookie cookie = new Cookie("loginCookie", session.getId());
-					cookie.setPath("/");
-					int amount = 60 * 60 * 24* 7;
-					cookie.setMaxAge(amount);
-					response.addCookie(cookie);
-					//DB에 들어갈 정보 생성
-					Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
-					HashMap<String, Object> autoLogin = new HashMap<String, Object>();
-					autoLogin.put("sessionId", session.getId());
-					autoLogin.put("limitDate", sessionLimit);
-					autoLogin.put("id", member.get("MS_ID"));
-					//세션정보 DB 저장
-					memberService.autoLogin(autoLogin);
-				}else{
+			if(overlap == null){
+				int chkIdCnt = memberService.chkIdCnt(params);
+				//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
+				if(chkIdCnt == 1){
+					//세션 생성
+					HashMap<String, Object> member = memberService.selectMember(params);
+					session.setAttribute(Globals.SESSION_NAME , member);
+					result.put("code","0000");
 
+					if(autoLoginChk.equals("Y")){
+						//쿠키생성
+						Cookie cookie = new Cookie("loginCookie", session.getId());
+						cookie.setPath("/");
+						int amount = 60 * 60 * 24* 7;
+						cookie.setMaxAge(amount);
+						response.addCookie(cookie);
+						//DB에 들어갈 정보 생성
+						Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+						HashMap<String, Object> autoLogin = new HashMap<String, Object>();
+						autoLogin.put("sessionId", session.getId());
+						autoLogin.put("limitDate", sessionLimit);
+						autoLogin.put("id", member.get("MS_ID"));
+						//세션정보 DB 저장
+						memberService.autoLogin(autoLogin);
+					}
+				}else if(chkIdCnt == 0) {
+					result.put("code", "1111");
+					//아이디 비번 틀림
 				}
-			} else if(chkIdCnt == 0) {
-				result.put("code", "1111");
-				//아이디 비번 틀림
+			}else{
+				result.put("code","2222");
+				//중복 로그인
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -165,12 +165,28 @@ public class ReservationController {
 	}
 	@ResponseBody
 	@PostMapping(value= "/preemptionReservation")
-	public ResponseResult preemptionReservation(@RequestParam HashMap<String, Object> params){
+	public ResponseResult preemptionReservation(@RequestParam HashMap<String, Object> params, HttpSession session){
 		ResponseResult result = new ResponseResult();
 		try{
+
+			HashMap<String, Object> member = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
+			String id = (String) member.get("MS_ID") ;
+			id = id != null ? id : "";
+			String overlap = (String) session.getAttribute(Globals.USER_OVERLAP);
+			overlap = overlap != null ? overlap : "";
+
+			int viewCnt;
+			if(overlap.equals(id)){
+				viewCnt = reservationService.selectViewCnt(params);
+			}else{
+				viewCnt = reservationService.selectViewCnt(params)+1;
+				session.setAttribute(Globals.USER_OVERLAP, id);
+			}
 			reservationService.overlapReservation(params);//기존 독점 삭제
 			Date limitDate = new Date(System.currentTimeMillis()+(1000* 60 * 5));// 시간 5분 제한
+			params.put("viewCnt", viewCnt);
 			params.put("limitDate",limitDate);
+			params.put("viewCnt", viewCnt);
 			int popCnt = reservationService.preemptionReservation(params); //새로운 독점 생성
 			if(popCnt == 0){
 				result.setCode("1111"); // 독점 내용이 없음 (선점당함)

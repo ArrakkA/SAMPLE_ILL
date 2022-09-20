@@ -34,7 +34,9 @@ $(document).ready(function(){
                     location.href="/sample/home";
                 } else if(data.code === '1111'){
                     alert('아이디 및 비밀번호가 일치하지 않습니다');
-                } else {
+                } else if(data.code === "2222"){
+                    alert('중복로그인입니다.');
+                }else{
                     alert('오류입니다.');
                 }
             },

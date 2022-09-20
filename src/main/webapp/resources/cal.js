@@ -397,9 +397,10 @@ $(document).ready(function() {
 				 ,dataType:'json'
 				 ,success:function(result){
 					 if(result.code == "0000"){
-						console.log(result.message)
+						console.log(result.message);
 						alert('예약이 성공했습니다.');
 						location.href = "home";
+
 					 }else if(result.code == "1111"){
 					    alert("이미 예약이 된 예약정보입니다.")
 					    location.href = "calendar";
@@ -430,7 +431,6 @@ $(document).ready(function() {
 					,"ip":pip
 					,"rNum":reservationNumber
 				}
-				console.log(params);
 				$.ajax({
 					type:'post'
 					,url:'/reservation/changeReservation'
@@ -438,9 +438,10 @@ $(document).ready(function() {
 					,dataType:'json'
 					,success:function(result){
 						if(result.code == "0000"){
-							console.log(result.message)
-							alert('예약이 성공했습니다.');
-							location.href = "sample/home";
+							console.log(result.message);
+							alert('변경에 성공했습니다.');
+							location.href = "/sample/home";
+
 						}else if(result.code == "1111"){
 							alert("이미 예약이 된 예약정보입니다.")
 							location.href = "/sample/mypage";
