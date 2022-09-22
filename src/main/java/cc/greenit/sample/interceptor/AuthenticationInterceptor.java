@@ -1,4 +1,5 @@
 package cc.greenit.sample.interceptor;
+import cc.greenit.sample.controller.MemberController;
 import cc.greenit.sample.global.Globals;
 import cc.greenit.sample.service.MemberService;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
 

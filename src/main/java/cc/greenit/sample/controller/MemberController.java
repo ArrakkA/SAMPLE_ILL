@@ -2,15 +2,18 @@ package cc.greenit.sample.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cc.greenit.sample.service.ReservationService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,17 +28,14 @@ import org.springframework.web.util.WebUtils;
 
 @Controller
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private MemberService memberService;
-	
-	@Autowired
-	public MemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
-	
-	//로그인
+	private static final Map<String, HttpSession> sessions = new ConcurrentHashMap<>();
+	private final MemberService memberService;
+
+	/** 로그인 */
 	@ResponseBody
 	@PostMapping(value = "/login")
 	public HashMap<String, Object> doLogin(HttpServletRequest request 
@@ -46,40 +46,40 @@ public class MemberController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		String autoLoginChk = Globals.getToString(params.get("autoLoginChk"));
 		try {
-			HashMap<String, Object> overlap = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
-
-			if(overlap == null){
-				int chkIdCnt = memberService.chkIdCnt(params);
-				//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
-				if(chkIdCnt == 1){
-					//세션 생성
-					HashMap<String, Object> member = memberService.selectMember(params);
-					session.setAttribute(Globals.SESSION_NAME , member);
-					result.put("code","0000");
-
-					if(autoLoginChk.equals("Y")){
-						//쿠키생성
-						Cookie cookie = new Cookie("loginCookie", session.getId());
-						cookie.setPath("/");
-						int amount = 60 * 60 * 24* 7;
-						cookie.setMaxAge(amount);
-						response.addCookie(cookie);
-						//DB에 들어갈 정보 생성
-						Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
-						HashMap<String, Object> autoLogin = new HashMap<String, Object>();
-						autoLogin.put("sessionId", session.getId());
-						autoLogin.put("limitDate", sessionLimit);
-						autoLogin.put("id", member.get("MS_ID"));
-						//세션정보 DB 저장
-						memberService.autoLogin(autoLogin);
-					}
-				}else if(chkIdCnt == 0) {
-					result.put("code", "1111");
-					//아이디 비번 틀림
+			int chkIdCnt = memberService.chkIdCnt(params);
+			//DB에 존재하지 않는 아이디,비번 일 경우 = null , 존재하면 패스
+			if(chkIdCnt == 1){
+				String chkId = Globals.getToString(params.get("id"));
+				//중복로그인이 존재하는지 확인
+				if(sessions.containsKey(chkId)){
+					sessions.get(chkId).invalidate();
+					sessions.remove(chkId);
 				}
-			}else{
-				result.put("code","2222");
-				//중복 로그인
+				//세션 생성
+				HashMap<String, Object> member = memberService.selectMember(params);
+				session.setAttribute(Globals.SESSION_NAME , member);
+				sessions.put( chkId , session);
+				result.put("code","0000");
+
+				if(autoLoginChk.equals("Y")){
+					//쿠키생성
+					Cookie cookie = new Cookie("loginCookie", session.getId());
+					cookie.setPath("/");
+					int amount = 60 * 60 * 24* 7;
+					cookie.setMaxAge(amount);
+					response.addCookie(cookie);
+					//DB에 들어갈 정보 생성
+					Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+					HashMap<String, Object> autoLogin = new HashMap<String, Object>();
+					autoLogin.put("sessionId", session.getId());
+					autoLogin.put("limitDate", sessionLimit);
+					autoLogin.put("id", member.get("MS_ID"));
+					//세션정보 DB 저장
+					memberService.autoLogin(autoLogin);
+				}
+			}else if(chkIdCnt == 0) {
+				result.put("code", "1111");
+				//아이디 비번 틀림
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -88,7 +88,7 @@ public class MemberController {
 		//코드 표시
 		return result;
 	}
-	//로그아웃
+	/** 로그아웃 */
 	@ResponseBody
 	@PostMapping(value = "/logout")
 	public HashMap<String,Object> dologout(HttpServletRequest request
@@ -100,23 +100,12 @@ public class MemberController {
 		try{
 			//세션 조회
 			HashMap<String, Object> obj = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
-			params.put("id", obj.get("id"));
+			params.put("id", obj.get("MS_ID"));
 			//세션이 존재시 세션 삭제
 			if(obj != null) {
 				session.removeAttribute(Globals.SESSION_NAME);
 				session.invalidate();
-				Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-				//쿠키정보 삭제
-				if(loginCookie != null){
-					loginCookie.setPath("/");
-					loginCookie.setMaxAge(0);
-					response.addCookie(loginCookie);
-
-					Date date = new Date(System.currentTimeMillis());
-					params.put("limitDate", date);
-					params.put("sessionId", session.getId());
-					memberService.autoLogin(params);
-				}
+				deleteCookie(request, response, session, params);
 				result.put("status", "session delete");
 				result.put("code", "0000");
 			}
@@ -127,7 +116,7 @@ public class MemberController {
 		//결과값
 		return result;
 	}
-	//회원가입
+	/** 회원가입 */
 	@ResponseBody
 	@PostMapping(value = "/join")
 	public HashMap<String, Object> doJoin(HttpServletRequest request
@@ -152,7 +141,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	//내정보 가져오기
+	/** 유저 정보 가져오기*/
 	@ResponseBody
 	@PostMapping(value = "/getMemberInfo")
 	public ResponseResult getMemberInfo(HttpServletRequest request,HttpSession session){
@@ -171,7 +160,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	
+	/** 아이디 중복체크*/
 	@ResponseBody
 	@PostMapping(value = "/chkIdOverlap")
 	public ResponseResult chkIdOverlap(HttpSession session, @RequestParam("memId")String memId){
@@ -193,7 +182,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	//회원정보 업데이트
+	/** 회원정보 업데이트*/
 	@ResponseBody
 	@PostMapping(value = "/update")
 	public ResponseResult doUpdate(HttpServletRequest request, HttpSession session, @RequestParam HashMap<String, Object> params){
@@ -210,7 +199,7 @@ public class MemberController {
 		}
 		return result; 
 	}
-	//회원 삭제
+	/** 회원 삭제*/
 	@ResponseBody
 	@PostMapping(value = "/deleteMember")
 	public ResponseResult deleteMember(HttpServletRequest request, HttpSession session, @RequestParam HashMap<String, Object> params){
@@ -235,10 +224,20 @@ public class MemberController {
 		}
 		return result; 
 	}
-	
-	
-	
-	
+	/** 자동로그인 쿠키를 지웁니다.*/
+	private void deleteCookie(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam HashMap<String, Object> params) {
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		if(loginCookie != null){
+			loginCookie.setPath("/");
+			loginCookie.setMaxAge(0);
+			response.addCookie(loginCookie);
+
+			Date date = new Date(System.currentTimeMillis());
+			params.put("limitDate", date);
+			params.put("sessionId", null);
+			memberService.autoLogin(params);
+		}
+	}
 	
 	
 	

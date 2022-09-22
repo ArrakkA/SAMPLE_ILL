@@ -99,7 +99,7 @@ $(document).ready(function(){
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
 			}
-			if(memSex == ''){
+			if(memSex == '0'){
 				alert("성별을 선택해주세요");
 				return;
 			}else{

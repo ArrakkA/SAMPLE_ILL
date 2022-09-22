@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Globals {
 	public static final String SESSION_NAME = "SessionUser";
-
 	public static final String USER_OVERLAP = "UserOverlap";
 
 	public static String getClientIp(HttpServletRequest request) {

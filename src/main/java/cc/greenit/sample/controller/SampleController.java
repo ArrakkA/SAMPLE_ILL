@@ -44,15 +44,19 @@ public class SampleController {
 			return "index";
 		}
 		return "home";
-		
 	}
 	@GetMapping(value ="/")
 	public String index(Locale locale, Model model) {
 		return "index";
 	}
 	@GetMapping(value = "/login")
-	public String login(Locale locale, Model model) {
-		return "login";
+	public String login(Locale locale, Model model, HttpSession session) {
+		Object obj = session.getAttribute(Globals.SESSION_NAME);
+		if(obj != null){
+			return "redirect:/sample/home";
+		}else {
+			return "login";
+		}
 	}
 	@GetMapping(value = "/join")
 	public String wellcome(Locale locale, Model model) {
