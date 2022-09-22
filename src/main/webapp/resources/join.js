@@ -1,10 +1,11 @@
 $(document).ready(function(){
 	let chkBtn = 0;
-
+	/** 수정 불가능한 곳은 수정 못하게 함*/
 	$('#addrsBtn').click(function (){
 		$('#mAddres1').attr("disabled", true);
 		$('#mZip').attr("disabled", true);
 	});
+	/** 회원 가입 버튼 등이 있는 함수*/
 	$.getJSON('http://api.ipify.org?format=jsonp&callback=?').then(function(data){
 		$('#saveBtn').on('click', function(){
 			const memId = $('#ms_id').val();
@@ -98,7 +99,7 @@ $(document).ready(function(){
 				params["hAddrs2"] = memAddrrs2;
 				params["hZip"] = memZip;
 			}
-			if(memSex == ''){
+			if(memSex == '0'){
 				alert("성별을 선택해주세요");
 				return;
 			}else{
@@ -136,9 +137,11 @@ $(document).ready(function(){
 			}
 		 });//jquery btn save
 	});//get json
+	/** 아이디 중복확인후 아이디가 바뀌면 다시 하도록 하는 함수*/
 	$('#ms_id').change(function (){
 		chkBtn = 0;
 	});
+	/** 아이디 중복확인 버튼 */
 	$('#chkIdBtn').click(function(){
 		const memId = $('#ms_id').val();
 		const params ={

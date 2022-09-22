@@ -52,4 +52,7 @@ public class ReservationDAO extends AbstractDAO{
 	public HashMap<String,Object> popupReservation(HashMap<String,Object> params){
 		return (HashMap<String, Object>) selectOne("reservation.popupReservation", params);
 	}
+	public int selectViewCnt(HashMap<String,Object> params){
+		return selectCnt("reservation.selectViewCnt", params);
+	}
 }

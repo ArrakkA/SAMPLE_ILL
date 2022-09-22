@@ -20,4 +20,5 @@ public interface ReservationService {
 	public int preemptionReservation(HashMap<String,Object> params);
 	public int overlapReservation(HashMap<String,Object> params);
 	public HashMap<String,Object> popupReservation(HashMap<String,Object> params);
+	public int selectViewCnt(HashMap<String,Object> params);
 }

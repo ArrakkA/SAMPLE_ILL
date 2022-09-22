@@ -93,13 +93,6 @@
 </div>
 <!-- 사이드 바-->
 <c:if test="${ rNum == null }">
-	<div id="sidebar-menu1">
-		<div id="quickReservation">
-			<div id="quickReserve">
-				<p>빠른 예약 테이블</p>
-			</div>
-		</div>
-	</div>
 </c:if>
 	<!-- 팝업 입니다. -->
 <div class="popup" id="reservePopup">

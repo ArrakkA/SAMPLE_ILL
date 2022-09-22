@@ -318,13 +318,6 @@ $(document).ready(function() {
 			}
 		}
 	}// cosSelect 끝
-	/** 팝업창 만드는 함수*/
-	function quickPopup(){
-		const url = "popup";
-		const name = "popup test";
-		const option = "width = 500, height = 500, top = 100, left = 200, location = no";
-		window.open(url, name, option);
-	}
 	$(document).on('click','.popBtn',function(){
 		const bTr = $(this).parent();
 		const bDay = bTr.children('.bDay').text();
@@ -404,9 +397,10 @@ $(document).ready(function() {
 				 ,dataType:'json'
 				 ,success:function(result){
 					 if(result.code == "0000"){
-						console.log(result.message)
+						console.log(result.message);
 						alert('예약이 성공했습니다.');
 						location.href = "home";
+
 					 }else if(result.code == "1111"){
 					    alert("이미 예약이 된 예약정보입니다.")
 					    location.href = "calendar";
@@ -437,7 +431,6 @@ $(document).ready(function() {
 					,"ip":pip
 					,"rNum":reservationNumber
 				}
-				console.log(params);
 				$.ajax({
 					type:'post'
 					,url:'/reservation/changeReservation'
@@ -445,9 +438,10 @@ $(document).ready(function() {
 					,dataType:'json'
 					,success:function(result){
 						if(result.code == "0000"){
-							console.log(result.message)
-							alert('예약이 성공했습니다.');
-							location.href = "sample/home";
+							console.log(result.message);
+							alert('변경에 성공했습니다.');
+							location.href = "/sample/home";
+
 						}else if(result.code == "1111"){
 							alert("이미 예약이 된 예약정보입니다.")
 							location.href = "/sample/mypage";
@@ -496,10 +490,5 @@ $(document).ready(function() {
 				});
 			});
 		});// sort
-
-		$('#quickReservation').click(function(){
-			quickPopup();
-		});
-
 	})//ready
 	

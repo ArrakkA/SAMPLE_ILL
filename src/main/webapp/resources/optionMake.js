@@ -1,3 +1,4 @@
+/** 옵션을 생성하는 함수*/
 function optionMake(){
     yearMake();
     monthMake();
@@ -15,7 +16,7 @@ function optionMake(){
         const lastDate = new Date(targetYear, targetMonth, 0);
         const lastDay = lastDate.getDate();
 
-        for(i=1; i<=lastDay; i++){
+        for(let i=1; i<=lastDay; i++){
             const op= $("<option>" + i + "</option>");
             (i < 10)? j ="0"+ i : j = i;
             op.attr('value', j);
@@ -27,7 +28,7 @@ function optionMake(){
         const year = today.getFullYear();
 
         $('#birth-year').empty();
-        for(i=year-100; i<=year; i++){
+        for(let i=year-100; i<=year; i++){
             const op= $("<option>" + i + "</option>");
             op.attr('value', i);
             $('#birth-year').append(op);
@@ -35,7 +36,7 @@ function optionMake(){
     }//year 만들기
     function monthMake(){
         $('#birth-month').empty();
-        for(i=1; i<=12; i++){
+        for(let i=1; i<=12; i++){
             const op= $("<option>" + i + "</option>");
             (i < 10)? j ="0"+ i : j = i;
             op.attr('value', j);

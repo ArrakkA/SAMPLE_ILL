@@ -11,9 +11,7 @@ import cc.greenit.sample.dao.ReservationDAO;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
-
 	ReservationDAO reservationDAO;
-	
 	@Autowired
 	public ReservationServiceImpl(ReservationDAO reservationDAO) {
 		
@@ -64,5 +62,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public HashMap<String, Object> popupReservation(HashMap<String, Object> params) {
 		return reservationDAO.popupReservation(params);
+	}
+	@Override
+	public int selectViewCnt(HashMap<String, Object> params) {
+		return reservationDAO.selectViewCnt(params);
 	}
 }

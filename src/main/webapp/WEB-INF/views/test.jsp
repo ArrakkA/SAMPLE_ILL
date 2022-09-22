@@ -62,11 +62,28 @@ $(document).ready(function(){
 		console.log(testPw);
 	})
 })
+
+function divText(i) {
+	const testDiv = $('.testDiv' + i).text();
+	const paramsArray = new Array();
+	paramsArray.push({
+		"testDiv": testDiv
+	});
+
+	return paramsArray;
+}
+
+function clickBtn(i){
+
+	let params = divText(i);
+	console.log(divText(i));
+	console.log(params);
+}
+$()
+
 function buttonClick(i){
 	console.log('buttonClick'+ i);
 }
-
-
 </script>
 
 
@@ -83,23 +100,17 @@ function buttonClick(i){
 <button class="testdiv2 test"> checkbox 버튼</button>
 <button class="testdiv3 test">3번버튼</button>
 
-
-
-
 <div>
 	<input type="checkbox" id="smsChk"> sms수신에 동의 하시겠습니까?
 </div>
 
+<div class ="page1 testDiv1">요네가신이됩니다.</div>
+<div class ="page2 testDiv2">네가신이됩니다.</div>
+<div class ="page3 testDiv3">요가신이됩니다.</div>
 
-<div class ="page1"> 
-	<div>요네가신이됩니다.</div>
-</div>
-<div class ="page2"> 
-	<div>네가신이됩니다.</div>
- </div>
-<div class ="page3"> 
-	<div>요가신이됩니다.</div>
-</div>
+<button class="testBtn1" onclick="clickBtn(1)"> testBtn1</button>
+<button class="testBtn2" onclick="clickBtn(2)"> testBtn2</button>
+<button class="testBtn3" onclick="clickBtn(3)"> testBtn3</button>
 <div>
 	<input type="text" class="testPw"id="testPw"> 제발좀 되봅시다 패스워드 규칙
 </div>
