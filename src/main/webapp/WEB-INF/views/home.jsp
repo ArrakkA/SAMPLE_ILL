@@ -9,6 +9,5 @@
 </head>
 <body>
 <jsp:include page="./include/navbar.jsp" ></jsp:include>
-<jsp:include page="./include/sidebarMenu.jsp" ></jsp:include>
 </body>
 </html>

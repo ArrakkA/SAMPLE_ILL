@@ -51,25 +51,26 @@ public class MemberController {
 			if(chkIdCnt == 1){
 				String chkId = Globals.getToString(params.get("id"));
 				//중복로그인이 존재하는지 확인
-				if(sessions.containsKey(chkId)){
-					sessions.get(chkId).invalidate();
-					sessions.remove(chkId);
+				HttpSession hs = sessions.get(chkId);
+				if(hs != null && sessions.containsKey(chkId)){
+				sessions.get(chkId).invalidate();
+				sessions.remove(chkId);
 				}
 				//세션 생성
 				HashMap<String, Object> member = memberService.selectMember(params);
-				session.setAttribute(Globals.SESSION_NAME , member);
-				sessions.put( chkId , session);
-				result.put("code","0000");
+				session.setAttribute(Globals.SESSION_NAME, member);
+				sessions.put(chkId, session);
+				result.put("code", "0000");
 
-				if(autoLoginChk.equals("Y")){
+				if (autoLoginChk.equals("Y")) {
 					//쿠키생성
 					Cookie cookie = new Cookie("loginCookie", session.getId());
 					cookie.setPath("/");
-					int amount = 60 * 60 * 24* 7;
+					int amount = 60 * 60 * 24 * 7;
 					cookie.setMaxAge(amount);
 					response.addCookie(cookie);
 					//DB에 들어갈 정보 생성
-					Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+					Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
 					HashMap<String, Object> autoLogin = new HashMap<String, Object>();
 					autoLogin.put("sessionId", session.getId());
 					autoLogin.put("limitDate", sessionLimit);
@@ -101,10 +102,12 @@ public class MemberController {
 			//세션 조회
 			HashMap<String, Object> obj = (HashMap<String, Object>) session.getAttribute(Globals.SESSION_NAME);
 			params.put("id", obj.get("MS_ID"));
+			String chkId = Globals.getToString(obj.get("MS_ID"));
 			//세션이 존재시 세션 삭제
 			if(obj != null) {
 				session.removeAttribute(Globals.SESSION_NAME);
 				session.invalidate();
+				sessions.remove(chkId);
 				deleteCookie(request, response, session, params);
 				result.put("status", "session delete");
 				result.put("code", "0000");
@@ -202,13 +205,12 @@ public class MemberController {
 	/** 회원 삭제*/
 	@ResponseBody
 	@PostMapping(value = "/deleteMember")
-	public ResponseResult deleteMember(HttpServletRequest request, HttpSession session, @RequestParam HashMap<String, Object> params){
+	public ResponseResult deleteMember(HttpSession session, @RequestParam HashMap<String, Object> params){
 		ResponseResult result = new ResponseResult();
 		try {
-			String chkPw = memberService.chkPassword(params);
-			String memPw = (String) params.get("pw");
+			int chkPwCnt = memberService.chkPassword(params);
 			
-			if(chkPw.equals(memPw)) {
+			if(chkPwCnt == 1) {
 				memberService.deleteMember(params);
 				session.invalidate();
 				result.setCode("0000");

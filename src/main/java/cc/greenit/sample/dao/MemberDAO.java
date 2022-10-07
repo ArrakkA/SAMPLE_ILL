@@ -31,8 +31,8 @@ public class MemberDAO extends AbstractDAO {
  		return (String) selectOne("member.chkIdOverlap", memId);
  	}
  	//비밀번호 확인
- 	public String chkPassword(HashMap<String, Object> params) {
- 		return (String) selectOne("member.chkPassword", params);
+ 	public int chkPassword(HashMap<String, Object> params) {
+		return selectCnt("member.chkPassword", params);
  	}
  	public int deleteMember(HashMap<String, Object> params) {
 		return update("member.deleteMember", params);

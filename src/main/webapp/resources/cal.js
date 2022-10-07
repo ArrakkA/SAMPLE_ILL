@@ -51,13 +51,13 @@ $(document).ready(function() {
 	$('.head-day').text(nowDay);
 	});
 	/** 이전달로 넘어감 */
-	function beforem() //이전 달을 today에 값을 저장
+	function beforeMonth() //이전 달을 today에 값을 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() - 1);
 		build(); //만들기
 	}
 	/** 다음달로 넘어감 */
-	function nextm()
+	function nextMonth()
 	{
 		today = new Date(today.getFullYear(), today.getMonth() + 1);
 		build(); //만들기

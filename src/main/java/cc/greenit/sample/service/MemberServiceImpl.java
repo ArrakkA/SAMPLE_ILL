@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.chkIdOverlap(memId);
 	}
 	@Override
-	public String chkPassword(HashMap<String, Object> params) {
+	public int chkPassword(HashMap<String, Object> params) {
 		return memberDAO.chkPassword(params);
 	}
 	@Override

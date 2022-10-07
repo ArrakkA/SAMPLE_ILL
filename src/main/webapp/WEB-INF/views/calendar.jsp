@@ -34,8 +34,8 @@
 				</div>
 				<div class="calendar-wrap">
 					<div class="w-100 button-wrap">
-						<div class="pre-button d-flex align-items-center justify-content-center" onclick="beforem()"><i class="fa fa-chevron-left"></i></div>
-						<div class="next-button d-flex align-items-center justify-content-center" onclick="nextm()"><i class="fa fa-chevron-right"></i></div>
+						<div class="pre-button d-flex align-items-center justify-content-center" onclick="beforeMonth()"><i class="fa fa-chevron-left"></i></div>
+						<div class="next-button d-flex align-items-center justify-content-center" onclick="nextMonth()"><i class="fa fa-chevron-right"></i></div>
 					</div>
 				<table align="center" id="calendar">
 					<tr>

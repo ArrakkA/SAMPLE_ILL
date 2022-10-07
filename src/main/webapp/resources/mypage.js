@@ -42,6 +42,7 @@ $(document).ready(function(){
 			, id: memId
 			, num: memNum
 		}
+		console.log(params);
 		$.ajax({
 			type: 'post'
 			, url: '/member/deleteMember'
