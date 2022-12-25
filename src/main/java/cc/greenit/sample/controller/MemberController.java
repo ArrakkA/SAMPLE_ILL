@@ -38,8 +38,7 @@ public class MemberController {
 	/** 로그인 */
 	@ResponseBody
 	@PostMapping(value = "/login")
-	public HashMap<String, Object> doLogin(HttpServletRequest request 
-										   ,HttpServletResponse response 
+	public HashMap<String, Object> doLogin(	HttpServletResponse response
 										   ,HttpSession session 
 										   ,@RequestParam HashMap<String, Object> params
 									       ){
@@ -92,10 +91,10 @@ public class MemberController {
 	/** 로그아웃 */
 	@ResponseBody
 	@PostMapping(value = "/logout")
-	public HashMap<String,Object> dologout(HttpServletRequest request
+	public HashMap<String,Object> doLogout(HttpServletRequest request
 						   ,HttpServletResponse response
 						   ,HttpSession session
-						   ,Model model) {
+						   ) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		try{

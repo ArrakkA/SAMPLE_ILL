@@ -1,11 +1,10 @@
 package cc.greenit.sample.interceptor;
-import cc.greenit.sample.controller.MemberController;
+
 import cc.greenit.sample.global.Globals;
 import cc.greenit.sample.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
@@ -14,9 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class AuthenticationInterceptor implements HandlerInterceptor {
