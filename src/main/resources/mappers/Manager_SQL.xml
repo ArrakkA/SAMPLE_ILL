@@ -62,7 +62,6 @@
 			   ,#{ms_name}
 			   ,#{ms_sex}
 			   ,#{ms_birth}
-		
 			)
 		
 	

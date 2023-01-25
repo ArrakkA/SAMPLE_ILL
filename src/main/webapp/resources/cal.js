@@ -26,7 +26,7 @@ function cancelPreemption(){
 				alert('오류입니다.');
 			}
 		}
-		,error : function(request, status, error) {
+		,error : function() {
 			alert('통신오류가 발생하였습니다.');
 		}
 	});//ajax 끝
@@ -71,7 +71,7 @@ $(document).ready(function() {
         const thisMonth = today.getMonth()+1;
         const yearId = today.getFullYear().toString();
         const monthId = thisMonth.toString();
-		let testId = ''
+		let testId;
 		$('#dates').empty();
         if(thisMonth <10){
 			testId = "0"+ monthId;
@@ -102,7 +102,7 @@ $(document).ready(function() {
         {
             tbcalendar.deleteRow(tbcalendar.rows.length - 1);
         }
-        let row = null;
+        let row;
         row = tbcalendar.insertRow();
         let cnt = 0;
 		let cell;
@@ -127,12 +127,10 @@ $(document).ready(function() {
 			cnt = cnt + 1;
 
 			if (cnt % 7 == 1) {//일요일 계산
-				const sunDay = "<div class='registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
-				cell.innerHTML = sunDay;//일요일에 색
+				cell.innerHTML = "<div class='registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";//일요일에 색
 			}
 			if (cnt % 7 == 0) {// 1주일이 7일 이므로 토요일 계산
-				const satDay = "<div class=' registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
-				cell.innerHTML = satDay;
+				cell.innerHTML = "<div class=' registerDay' onclick ='getDbReservation(" + ymId + j + ")' id='" + ymId + j + "'>" + i + "</div>";
 				row = calendar.insertRow();// 줄 추가
 			}
 			if (today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i == date.getDate()) {
@@ -153,7 +151,7 @@ $(document).ready(function() {
 			  ,data:params
 			  ,dataType: 'json'
 			  ,success: function(result){
-				  if(result.code == "0000") {
+				  if(result.code === "0000") {
 					  const rows = result.data;
 					  for(let i=0; i<rows.length; i++){
 						  const list = rows[i];
@@ -166,35 +164,36 @@ $(document).ready(function() {
 						  const bkStartTime = list.CL_BK_START_TIME;
 						  const bk = bkStart + bkStartTime;
 						  const nowBk = nowD + nowT;
+						  const $1 = $('[id='+ solar + ']');
 
 						  if(business == '2'){
-							  $('[id='+ solar + ']').addClass('blue');
+							  $1.addClass('blue');
 						  }else if(business == '3' || business == '4'){
-							  $('[id='+ solar + ']').addClass('red');
+							  $1.addClass('red');
 						  }
 						  if(solar < nowD || bk > nowBk){
-							  $('[id='+ solar + ']').prop("onclick", null).off('click');
-							  $('[id='+ solar + ']').addClass('gray');
+							  $1.prop("onclick", null).off('click');
+							  $1.addClass('gray');
 						  }
 						  if( solar >= nowD && bk < nowBk){
 							  if( cntNum >= 40) {
-								  $('[id=' + solar + ']').append("<div class='leftSeat greenDay'>"+ cntNum +"</div>")
+								  $1.append("<div class='leftSeat greenDay'>"+ cntNum +"</div>")
 							  } else if( cntNum < 40 && cntNum >= 20){
-								  $('[id=' + solar + ']').append("<div class='leftSeat yellowDay'>"+ cntNum +"</div>")
+								  $1.append("<div class='leftSeat yellowDay'>"+ cntNum +"</div>")
 							  }else if( cntNum < 20 && cntNum >0){
-								  $('[id=' + solar + ']').append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
+								  $1.append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
 							  }else if(cntNum == 0){
-								  $('[id='+ solar + ']').prop("onclick", null).off('click');
-								  $('[id=' + solar + ']').append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
-								  $('[id=' + solar + ']').css("color",'hsl(0,100%,50%,0.6)');
+								  $1.prop("onclick", null).off('click');
+								  $1.append("<div class='leftSeat redDay'>"+ cntNum +"</div>")
+								  $1.css("color",'hsl(0,100%,50%,0.6)');
 							  }
 						  }
-					   };
+					   }
 				  }else{
 					  alert(result.message);
 				  }
 			  }
-			  ,error : function(request, status, error){
+			  ,error : function(){
 			      alert('통신오류가 발생하였습니다.');
 			  }
 		}); //ajax 끝
@@ -229,7 +228,7 @@ $(document).ready(function() {
 					alert(result.message);
 				}
 			}
-			,error : function(request, status, error) {
+			,error : function() {
 					      alert('통신오류가 발생하였습니다.');
 			}
 		});//ajax 끝
@@ -280,7 +279,7 @@ $(document).ready(function() {
 	function cosSelect(cosName){
 		if(dayDate == null){
 			alert("날짜를 선택해주세요");
-			return;
+			
 		}else{
 			$('.sort').attr('src', "/images/sortimage.png");
 			$('.tab').removeClass('menuOn');

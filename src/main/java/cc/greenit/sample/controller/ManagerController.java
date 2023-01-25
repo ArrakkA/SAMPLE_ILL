@@ -51,26 +51,26 @@ public class ManagerController {
 	@ResponseBody
 	@PostMapping(value="/manage-data")
 	public HashMap<String, Object> managementManager(@RequestBody List<ManagerVO> paramList) {
-		int icnt = 0;
-		int ucnt = 0;
-		int dcnt = 0;
+		int inCnt = 0;
+		int upCnt = 0;
+		int deCnt = 0;
 		for(int i = 0; i< paramList.size(); i++) {
 			ManagerVO managerVO = paramList.get(i);
 			String type = managerVO.getMs_type();
 			if("u".equals(type)) {
-				if(managerService.updateManager(managerVO) > 0) ucnt++;
+				if(managerService.updateManager(managerVO) > 0) upCnt++;
 			}else if("i".equals(type)) {
 				String mNum = memberService.makeMemNum();
 				managerVO.setMs_num(mNum);
-				if(managerService.insertManager(managerVO) > 0)icnt++;
+				if(managerService.insertManager(managerVO) > 0)inCnt++;
 			}else if("d".equals(type)) {
-				if(managerService.deleteManager(managerVO) > 0) dcnt++;
+				if(managerService.deleteManager(managerVO) > 0) deCnt++;
 			}
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("insertCnt", icnt);
-		result.put("updateCnt", ucnt);
-		result.put("deleteCnt", dcnt);
+		result.put("insertCnt", inCnt);
+		result.put("updateCnt", upCnt);
+		result.put("deleteCnt", deCnt);
 		return result;
 		
 	}
